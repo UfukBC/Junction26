@@ -5,11 +5,17 @@ Every AI agent starts here. Read this file in full. Read everything else only wh
 
 ## Project
 
-> TODO (team): one paragraph covering what we're building, which challenge it's for, and the demo we're aiming for.
+A **chess reinforcement-learning environment (framework) for LLMs**. The LLM plays moves. Each move is scored by comparing it with Stockfish's best move:
 
-- Stack: TODO (record it as a decision in `docs/decisions/` once chosen)
-- Run backend: TODO
-- Run frontend: TODO
+1. Take position `P`. The LLM proposes move `m_llm`, and Stockfish finds its best move `m_sf`.
+2. Stockfish evaluates both resulting positions, `P + m_llm` and `P + m_sf`, from the mover's point of view.
+3. **Score = eval(P + m_sf) − eval(P + m_llm)**, the point gap between them. 0 means the LLM matched Stockfish's best; a larger gap means a worse move. This gap is the signal the RL environment exposes. See [D-0003](docs/decisions/D-0003-move-scoring-stockfish-eval-gap.md).
+
+Open questions (not decided yet): Stockfish depth or time limit per eval, how to handle mate scores, how to score illegal or unparseable LLM moves, how the gap maps to an RL reward, and which challenge/demo this targets.
+
+- Language: **Python** ([D-0002](docs/decisions/D-0002-python.md))
+- Engine: Stockfish
+- Run: TODO
 
 ## Repo map
 
@@ -76,5 +82,6 @@ If your tool has no skill support, open `.claude/skills/<name>/SKILL.md` and fol
 
 > TODO (team): fill in as you decide. Agents can propose conventions through the inbox.
 
+- Python. Package manager, formatter and test runner are TODO.
 - Hackathon pace: a working demo beats perfect code. Keep changes small and on-task.
 - Never commit secrets. Use `.env`, and document variable names through a reference (via the inbox).
