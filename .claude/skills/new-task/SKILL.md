@@ -7,9 +7,13 @@ argument-hint: [owner] <what needs doing>
 # New task: $ARGUMENTS
 
 ## 1. Pick the next ID (IDs are never reused)
-Take the highest `T-NNN` that appears in either of these places and add 1:
+Take the highest `T-NNN` that appears in any of these places and add 1:
 - file names under `docs/tasks/` in the working tree
-- git history: `git log --all --name-only --format= -- docs/tasks`, which also covers deleted tasks
+- git history of task files: `git log --all --name-only --format= -- docs/tasks`, which also covers deleted tasks
+- `T-NNN` mentioned anywhere in `docs/` (decisions and references cite their source task)
+- commit messages: `git log --all --format=%B`
+
+The last two catch tasks whose file was created and deleted without ever being committed.
 
 Zero-pad the number to 3 digits (`T-007`). If git isn't available, use the working tree only.
 

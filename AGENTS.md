@@ -11,18 +11,20 @@ A **chess reinforcement-learning environment (framework) for LLMs**. The LLM pla
 2. Stockfish evaluates both resulting positions, `P + m_llm` and `P + m_sf`, from the mover's point of view.
 3. **Score = eval(P + m_sf) − eval(P + m_llm)**, the point gap between them. 0 means the LLM matched Stockfish's best; a larger gap means a worse move. This gap is the signal the RL environment exposes. See [D-0003](docs/decisions/D-0003-move-scoring-stockfish-eval-gap.md).
 
-Open questions (not decided yet): Stockfish depth or time limit per eval, how to handle mate scores, how to score illegal or unparseable LLM moves, how the gap maps to an RL reward, and which challenge/demo this targets.
+Open questions (not decided yet): Stockfish depth or time limit per eval, how to handle mate scores, the final illegal-move penalty value (rule: [D-0004](docs/decisions/D-0004-illegal-move-penalty.md)), how the gap maps to an RL reward (placeholder −gap: [D-0006](docs/decisions/D-0006-scoring-safeguards.md)), whether to clamp negative gaps, and which challenge/demo this targets.
 
 - Language: **Python** ([D-0002](docs/decisions/D-0002-python.md))
 - Engine: Stockfish
-- Run: TODO
+- Setup: `python -m venv .venv`, then `.venv\Scripts\python -m pip install -e ".[dev]"`
+- Demo (on mocks): `.venv\Scripts\python -m chess_rl [seed] [episode_length]`
+- Tests: `.venv\Scripts\python -m pytest -q`
 
 ## Repo map
 
 | Path | What's there |
 |---|---|
-| `src/backend/` | Backend service |
-| `src/frontend/` | Frontend app |
+| `src/chess_rl/` | The framework: `interfaces.py` (pluggable protocols), `scoring.py` (D-0003 + illegal-move penalty), `env.py` (Gymnasium env), `runner.py`, `mocks.py`, `__main__.py` (demo) |
+| `tests/` | pytest suite |
 | `docs/references/` | Human-verified facts the code doesn't show: DB schema, external APIs, env/setup, gotchas |
 | `docs/decisions/` | Human-verified architectural decisions (`D-NNNN-*.md`) |
 | `docs/tasks/to-do/<Owner>/` | Open tasks per team member. `unassigned/` holds tasks with no owner yet |
@@ -82,6 +84,6 @@ If your tool has no skill support, open `.claude/skills/<name>/SKILL.md` and fol
 
 > TODO (team): fill in as you decide. Agents can propose conventions through the inbox.
 
-- Python. Package manager, formatter and test runner are TODO.
+- Python ≥ 3.10, pip + venv, pytest. Formatter/linter: TODO.
 - Hackathon pace: a working demo beats perfect code. Keep changes small and on-task.
 - Never commit secrets. Use `.env`, and document variable names through a reference (via the inbox).
