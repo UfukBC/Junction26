@@ -208,9 +208,9 @@ export function SpendingDetail({
             )}
           </div>
         )}
-        {selected && (
+        {selected && mode === "month" && (
           <button className="ai-card__back" type="button" onClick={() => setSelected(null)}>
-            {mode === "everyday" ? "Back to Everyday overview" : "Back to the month overview"}
+            Back to the month overview
           </button>
         )}
       </section>
