@@ -18,7 +18,6 @@ export interface HomeData {
     nextLevel: BonusLevel;
     currentLevel: BonusLevel;
   };
-  unreadMessages: number;
   accounts: Account[];
 }
 
@@ -29,7 +28,6 @@ export const homeData: HomeData = {
     nextLevel: { percent: 0.5, thresholdEur: 1500 },
     currentLevel: { percent: 0.25, thresholdEur: 1000 },
   },
-  unreadMessages: 2,
   accounts: [
     {
       id: "acc-1",

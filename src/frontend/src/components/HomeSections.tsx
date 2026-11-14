@@ -1,17 +1,7 @@
-import { ArrowLeftRight, Bookmark, Mail, MapPin, Plus } from "lucide-react";
+import { ArrowLeftRight, Bookmark, MapPin, Plus } from "lucide-react";
 import type { Account } from "../data/mock";
 import { formatEur } from "../format";
 import { AccountGlyph, CardGlyph } from "./icons";
-
-export function MessagesCard({ unread }: { unread: number }) {
-  return (
-    <button className="card messages">
-      <Mail className="messages__icon" size={30} strokeWidth={1.8} />
-      <span className="messages__label">New bank messages</span>
-      {unread > 0 && <span className="badge">{unread}</span>}
-    </button>
-  );
-}
 
 const ACTIONS = [
   { label: "New payment", Icon: Plus },
