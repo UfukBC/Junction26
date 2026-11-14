@@ -4,8 +4,9 @@ __pycache__/
 .pytest_cache/
 .env
 
-# Challenge dataset (S-Pankki, ~350 MB): never commit
-data/
+# Challenge dataset (S-Pankki, ~350 MB): never commit.
+# Anchored to the repo root so src/frontend/src/data/ is not ignored.
+/data/
 node_modules/
 dist/
 *.tsbuildinfo

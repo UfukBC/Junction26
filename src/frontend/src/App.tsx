@@ -4,6 +4,7 @@ import { BonusCarousel } from "./components/BonusCarousel";
 import { AccountsList, MessagesCard, QuickActions } from "./components/HomeSections";
 import { TabBar, type Tab } from "./components/TabBar";
 import { homeData } from "./data/mock";
+import { DataScreen } from "./screens/DataScreen";
 
 function HomeScreen() {
   return (
@@ -42,7 +43,7 @@ export default function App() {
       <main className="screen">
         {tab === "home" && <HomeScreen />}
         {tab === "etukortti" && <Placeholder title="S-Etukortti" />}
-        {tab === "bank" && <Placeholder title="Bank" />}
+        {tab === "bank" && <DataScreen />}
         {tab === "me" && <Placeholder title="Me" />}
       </main>
       <TabBar active={tab} onChange={setTab} />

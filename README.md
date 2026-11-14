@@ -4,7 +4,17 @@ Junction 2026 hackathon project. Team: Ufuk, Michal, Chamb.
 
 Challenge: **S-Pankki – Personal Economic Trainer**. An AI coach that lets people chat with their own banking data.
 
-> TODO: our idea, plus how to run it.
+The prototype is a mobile-first web app in `src/frontend/` (React + TypeScript + Vite). There is **no backend**: a slim SQLite database covering a few demo customers ships with the app and is queried in the browser with [sql.js](https://sql.js.org/).
+
+**Run it**
+
+```bash
+cd src/frontend
+npm install
+npm run dev        # http://localhost:5173
+```
+
+Open the **Bank** tab to switch between demo customers. Data pipeline, schema and the typed query API: [`src/frontend/DATA.md`](src/frontend/DATA.md).
 
 ### Data
 The challenge dataset is not in this repo. Download it once into `data/raw/` (gitignored):
@@ -16,6 +26,8 @@ curl -L -o data/raw/tx_junction_transactions.csv https://media.githubusercontent
 ```
 
 Details, schema and traps: `docs/references/dataset.md`.
+
+The browser DB for the demo customers is committed at `src/frontend/public/data/s_pankki-demo.db`. Regenerate it from `data/raw/` with `cd src/frontend && npm run build:data`; pipeline and schema are documented in `src/frontend/DATA.md`.
 
 ## How we work with AI agents
 

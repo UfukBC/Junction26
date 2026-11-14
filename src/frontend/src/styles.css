@@ -127,3 +127,74 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .tab--active { color: var(--text); }
 
 .placeholder { padding: 32px 21px; color: var(--text-muted); }
+
+/* ---------- data screen (Bank tab) ---------- */
+.data-screen { padding: 18px 18px 34px; }
+.data-eyebrow {
+  margin: 0; font-size: 11px; font-weight: 800; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--green-bright);
+}
+.data-title { margin: 4px 0 0; font-size: 24px; font-weight: 800; color: var(--green-text); letter-spacing: -0.4px; }
+.data-sub { margin: 6px 0 0; font-size: 13px; line-height: 1.45; color: var(--text-muted); }
+
+.data-users { display: flex; gap: 8px; overflow-x: auto; padding: 14px 0 4px; scrollbar-width: none; }
+.data-users::-webkit-scrollbar { display: none; }
+.data-user {
+  flex: 0 0 auto; display: flex; flex-direction: column; gap: 2px; text-align: left;
+  padding: 10px 14px; border-radius: 14px; background: var(--tint);
+  border: 1.5px solid transparent;
+}
+.data-user--active { background: #fff; border-color: var(--green-bright); box-shadow: 0 2px 10px rgba(1, 120, 66, 0.12); }
+.data-user__id { font-size: 14px; font-weight: 800; color: var(--green-text); }
+.data-user__meta { font-size: 11.5px; color: var(--text-muted); }
+
+.data-loading { margin-top: 32px; text-align: center; color: var(--text-muted); font-size: 14px; }
+
+.data-kpis { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 16px; }
+.data-kpi { display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border-radius: 14px; background: var(--tint); }
+.data-kpi__label { font-size: 12px; color: var(--text-muted); }
+.data-kpi__value { font-size: 18px; font-weight: 800; letter-spacing: -0.3px; font-variant-numeric: tabular-nums; }
+.data-kpi__value--pos { color: var(--green-text); }
+.data-kpi__value--neg { color: #c0372f; }
+
+.data-panel { margin-top: 24px; }
+.data-panel h2 { margin: 0; font-size: 17px; font-weight: 800; color: var(--green-text); }
+.data-panel__head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+.data-panel__head span { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
+
+.data-cats { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.data-cat__row { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; }
+.data-cat__name { font-weight: 600; }
+.data-cat__value { color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.data-cat__track { margin-top: 6px; height: 8px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.data-cat__bar { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--green-bright), var(--green)); }
+.data-cat__share { display: block; margin-top: 4px; font-size: 11px; color: var(--text-muted); }
+
+.data-txs { list-style: none; margin: 0; padding: 0; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04); }
+.data-tx { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 14px; border-top: 1px solid var(--line); }
+.data-tx:first-child { border-top: 0; }
+.data-tx__main { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.data-tx__cat { font-size: 14px; font-weight: 600; }
+.data-tx__meta { font-size: 11.5px; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.data-tx__amount { font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.data-tx__amount.is-pos { color: var(--green-text); }
+
+.data-mortgage { padding: 16px; border-radius: 16px; background: var(--tint); }
+.data-mortgage__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.data-mortgage__head p { margin: 4px 0 0; font-size: 12px; color: var(--text-muted); }
+.data-decision {
+  flex: none; padding: 6px 10px; border-radius: 999px; font-size: 11px; font-weight: 800;
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.data-decision--approved { background: rgba(0, 172, 73, 0.15); color: var(--green-text); }
+.data-decision--rejected { background: rgba(192, 55, 47, 0.12); color: #c0372f; }
+.data-decision--pending { background: var(--line); color: var(--text-muted); }
+.data-mortgage__figs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+.data-mortgage__figs div { display: flex; flex-direction: column; gap: 3px; padding: 10px; border-radius: 10px; background: #fff; }
+.data-mortgage__figs span { font-size: 11px; color: var(--text-muted); }
+.data-mortgage__figs strong { font-size: 13.5px; font-weight: 800; }
+.data-mortgage__reason { margin: 12px 0 0; font-size: 12.5px; color: #c0372f; }
+.data-events { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.data-events li { display: flex; justify-content: space-between; gap: 10px; font-size: 12.5px; }
+.data-events__type { font-weight: 600; text-transform: capitalize; }
+.data-events__time { color: var(--text-muted); font-variant-numeric: tabular-nums; }
