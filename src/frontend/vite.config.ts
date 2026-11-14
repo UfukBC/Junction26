@@ -306,6 +306,8 @@ export default defineConfig(({ mode }) => {
   const apiKey = process.env.VERDA_INFERENCE_KEY || env.VERDA_INFERENCE_KEY;
   const anthropicKey = process.env.ANTHROPIC_API_KEY || env.ANTHROPIC_API_KEY;
   return {
+    // GitHub Pages project sites live under /<repo>/; local dev and preview stay at the root.
+    base: process.env.GITHUB_PAGES ? "/Junction26/" : "/",
     // configureServer middlewares run before Vite's proxy, so the three local /api routes are not proxied.
     plugins: [react(), segmentAdvicePlugin(apiKey), savingsCheckPlugin(apiKey), deepAnalysisPlugin(apiKey, anthropicKey)],
     server: { port: 5173, proxy },
