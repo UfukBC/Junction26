@@ -12,7 +12,7 @@ There is **no backend and no Python**. A slim SQLite database is shipped as a st
 data/raw/*.csv            (gitignored, full challenge dataset)
         │  npm run build:data
         ▼
-src/frontend/public/data/s_pankki-demo.db   (committed, ~1.06 MB, 8 demo customers)
+src/frontend/public/data/s_pankki-demo.db   (committed, ~1.25 MB, 9 demo customers)
         │  fetch() + sql.js
         ▼
 src/frontend/src/data/database.ts           (typed query API)
@@ -32,7 +32,7 @@ The full dataset is **never** bundled: 3.6 M transactions (346 MB CSV, ~585 MB S
 | `src/frontend/src/data/benchmarks.ts` | Typed accessors for the benchmarks (`QUINTILES`, `getCategoryBenchmark`, …). |
 | `src/frontend/src/screens/DataScreen.tsx` | Bank tab: summary, categories, recent transactions, mortgage, customer switcher. |
 | `src/frontend/scripts/build-demo-db.mjs` | Node script that builds the slim DB from `data/raw/`. |
-| `src/frontend/public/data/s_pankki-demo.db` | Prebuilt demo database (8 customers). |
+| `src/frontend/public/data/s_pankki-demo.db` | Prebuilt demo database (9 customers). |
 | `src/frontend/public/sql-wasm.wasm` | sql.js WASM binary, copied from `node_modules/sql.js/dist/`. |
 | `data/raw/` | Raw challenge CSVs. Gitignored — download once (see root README). |
 
@@ -58,12 +58,13 @@ Defined in `src/frontend/scripts/build-demo-db.mjs` (`DEFAULT_CUSTOMERS`):
 | `CUST00382` | 42 | `C0070` | rejected (insufficient collateral) | **Salary sweep:** moves 60k € of 70k € income to another account, so recorded spending is only ~120 €/month. |
 | `CUST04415` | 54 | `C0016` | approved | Large loan (454k €). **Salary sweep:** moves 122k € of 155k € income out, recorded spending ~230 €/month. |
 | `CUST04457` | 54 | `C0004` | approved | Typical approved case, spends ~1,950 €/month. |
-| `CUST03953` | 20 | – | – | **Young adult:** the most typical spender aged 18–24 (closest to that group's median). Income ~1,880 €/month, spends ~97% of it. |
-| `CUST00614` | 42 | – | – | **High earner:** income ~6,350 €/month (97th percentile of all 5,100 customers), yet spends ~98% of it. |
-| `CUST00367` | 40 | – | – | **Often negative:** spends ~104% of income; 13% of months end with a negative balance (population average 0.6%). |
-| `CUST04506` | 24 | – | – | **Heavy restaurant spender:** 22.5% of spending goes to restaurants (median 7.8%); spends more than earned in 2025. |
+| `CUST03953` | 20 | – | – | **Young adult:** income ~1,880 €/month, spends ~97% of it. |
+| `CUST00614` | 42 | – | – | **High earner:** income ~6,350 €/month, spends ~98% of it. |
+| `CUST00367` | 40 | – | – | **Often negative:** spends ~104% of income; 13% of their months end with a negative balance. |
+| `CUST04506` | 24 | – | – | **Heavy restaurant spender:** 22.5% of their spending goes to restaurants; spends more than earned in 2025. |
+| `CUST03172` | 58 | – | – | **Late-evening big spender** (T-016): in Jul–Sep 2026, 6 of their 14 big purchases (6,741 €) were after 21:00 although only 9% of their purchases happen then. Picked by a one-off check of customers' *own* histories against the T-016 rule; it is the demo for the time-habit warning. None of the other 8 demo customers triggers the rule, which is the expected result. |
 
-The last four were picked for the dashboard (task T-010) from customers with all 24 months of data, no salary sweep and no mortgage, using DuckDB over the full dataset (one-off analysis, not part of the build). Salary-sweep customers (264 of 5,100) have a median recorded spend of 474 €/month vs 2,875 € for everyone else, because most of their money leaves to another account: their dashboards show only a fraction of their real spending.
+The last five were chosen once, while building the demo, to show different personal situations (young adult, high income, negative balances, restaurant-heavy spending, late-evening big purchases). The descriptions above use only each customer's own numbers. **Rule:** product features never use other S-Bank customers' data; for any comparison use only the public Statistics Finland benchmarks (see `BENCHMARKS.md`). Salary-sweep customers show only part of their real spending, because most of their money leaves to another account (see `docs/references/dataset.md`).
 
 
 Add or replace customers:
@@ -114,6 +115,7 @@ import {
   getMortgageLink, getMortgageEvents, getMortgageApplication,
   getCustomerDashboard,
   getYearSpending, listAvailableYears, getDataAsOf, yearRange, monthRange,
+  getPurchases, getSpendingByHourAndWeekday,
 } from "../data/database";
 ```
 
@@ -146,6 +148,23 @@ const lastMonth = await getTransactions("CUST04457", {
   limit: 50,
 });
 ```
+
+### Purchase timing (personal time habits, T-016)
+
+Both functions are about **one customer**; nothing compares customers. They count `transaction_type = 'purchase'` only (rows with a time of day).
+
+| Function | Returns |
+|---|---|
+| `getPurchases(id, range?)` | `Purchase[]` — `{ timestampIso, date, hour (0–23), weekday (0 = Sunday), amountEur (positive), category }`, oldest first |
+| `getSpendingByHourAndWeekday(id, range?)` | `TimeCell[]` — `{ hour, weekday, count, totalEur }` per cell that has purchases |
+
+`src/data/timeHabits.ts` turns a customer's purchases into a finding, as a **pure function** (no database, no other customers): `detectTimeHabits(purchases, options?)` returns the windows (`night` = from 21:00, `weekend`) where the customer's *big* purchases are over-represented compared with their own purchases overall; `describeHabit(finding)` gives rule-based wording (headline, detail, tip), with the cause offered only as a possibility.
+
+Rule (defaults in `DEFAULT_HABIT_OPTIONS`): big = at least 3x the customer's own median purchase and at least 100 EUR; at least 30 purchases and 5 big purchases in the period; at least 3 big purchases (and at least 40% of the big ones) inside the window; and the window's share of big purchases at least 2x its share of all purchases. The Home screen runs it on the 3 months ending at the month on screen (`components/TimeHabitCard.tsx`) and shows nothing when there is no habit.
+
+Tests: `npm test` (Vitest, `src/data/timeHabits.test.ts`).
+
+To view another demo customer on Home: add `?customer=CUST03172` to the URL (default `CUST04457`).
 
 ### Year view (dashboard)
 

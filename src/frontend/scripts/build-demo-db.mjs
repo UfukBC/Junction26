@@ -26,6 +26,8 @@ const DEFAULT_OUT = path.join(ROOT, "src/frontend/public/data/s_pankki-demo.db")
 const DEFAULT_CUSTOMERS = [
   "CUST04457", "CUST04415", "CUST00382", "CUST00296",
   "CUST03953", "CUST00614", "CUST00367", "CUST04506",
+  // T-016: a customer whose OWN purchase history shows a late-evening big-spending habit (found by a one-off check).
+  "CUST03172",
 ];
 
 const SCHEMA = `

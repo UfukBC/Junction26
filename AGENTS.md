@@ -9,17 +9,18 @@ Every AI agent starts here. Read this file in full. Read everything else only wh
 
 **Our idea** ([D-0006](docs/decisions/D-0006-product-dashboard-questionnaire.md)): a personal spending **dashboard** inside the S-mobiili-style app. The user sees their spending for a year, month by month, and a **pie chart** of expenses by category. A short **questionnaire** learns the user's financial goal, and the app shows **personalized insights** for financial literacy. **No chatbot. No backend.** Tasks: T-010 (dashboard data), T-011 (yearly dashboard), T-012 (pie chart), T-013 (questionnaire), T-014 (insights), all owned by Ufuk.
 
+- **Data rule:** features use only the signed-in user's own data. Never compute or show anything from other S-Bank customers' data (not legally allowed). For comparisons use only the public Statistics Finland benchmarks (`src/frontend/src/data/benchmarks.ts`, `src/frontend/BENCHMARKS.md`).
 - Data: download once into `data/raw/` (gitignored, [D-0003](docs/decisions/D-0003-dataset-location.md), superseded in part by [D-0007](docs/decisions/D-0007-browser-sqlite.md)); instructions and checksum in the dataset reference. Never commit raw data or put it in `docs/`; the only committed data is the small demo DB `src/frontend/public/data/s_pankki-demo.db` (D-0007).
 - Stack: mobile-first web app embeddable in S-mobiili ([D-0004](docs/decisions/D-0004-mobile-web-app.md)); frontend React + TypeScript + Vite ([D-0005](docs/decisions/D-0005-frontend-stack.md)). **No backend**: a slim SQLite DB ships with the frontend and is queried in-browser with sql.js — see [src/frontend/DATA.md](src/frontend/DATA.md).
 - Rebuild the demo DB (needs `data/raw/`): `cd src/frontend && npm run build:data`
-- Run frontend: `cd src/frontend && npm install && npm run dev` → <http://localhost:5173> (phone-sized; open in a phone or a narrow window). Build/type-check: `npm run build`.
+- Run frontend: `cd src/frontend && npm install && npm run dev` → <http://localhost:5173> (phone-sized; open in a phone or a narrow window). Build/type-check: `npm run build`. Tests: `npm test` (in `src/frontend`).
 
 ## Repo map
 
 | Path | What's there |
 |---|---|
 | `src/backend/` | Unused — there is no backend; the data layer lives in the frontend |
-| `src/frontend/` | Mobile web app (React + TypeScript + Vite). `src/App.tsx` = S-mobiili-style shell, `src/components/`, mock home data in `src/data/mock.ts`, Bank tab in `src/screens/DataScreen.tsx` |
+| `src/frontend/` | Mobile web app (React + TypeScript + Vite), one page per screen, no scrolling ([D-0012](docs/decisions/D-0012-home-donut-and-extended-view.md)). `src/App.tsx` = S-mobiili-style shell and tabs; Home in `src/screens/HomeScreen.tsx` (month arrows, donut card, goal card, time-habit banner); donut, card and extended view with the AI overview in `src/components/spending/`; time habits in `src/data/timeHabits.ts` + `components/TimeHabitCard.tsx`; questionnaire in `src/screens/QuestionnaireScreen.tsx`; Bank tab in `src/screens/DataScreen.tsx`; mock account data in `src/data/mock.ts` |
 | `src/frontend/src/data/database.ts` | Typed sql.js query API over the demo DB (the integration surface) |
 | `src/frontend/scripts/build-demo-db.mjs` | Builds `src/frontend/public/data/s_pankki-demo.db` from `data/raw/` |
 | `src/frontend/DATA.md` | Data pipeline, DB schema, query API, integration notes |

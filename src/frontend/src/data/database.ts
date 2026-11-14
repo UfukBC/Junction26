@@ -538,6 +538,70 @@ export async function getMonthStory(customerId: string, month: string): Promise<
   };
 }
 
+/* ----------------------------------------------------- purchase timing */
+// Added for T-016 (personal spending-time habits). Everything here is about ONE customer; nothing compares
+// customers. Only transaction_type = 'purchase' counts (card spending, which has a time of day).
+
+/** One purchase with its time of day, for a single customer. `amountEur` is positive. */
+export interface Purchase {
+  /** "2026-09-14T21:37:05" */
+  timestampIso: string;
+  date: string;
+  /** 0–23 */
+  hour: number;
+  /** 0 = Sunday … 6 = Saturday (same as JS Date.getDay) */
+  weekday: number;
+  amountEur: number;
+  category: string;
+}
+
+/** Spending of one customer in one (hour of day, weekday) cell. */
+export interface TimeCell {
+  hour: number;
+  weekday: number;
+  count: number;
+  totalEur: number;
+}
+
+/** A customer's purchases in a period, oldest first. */
+export async function getPurchases(customerId: string, range?: DateRange): Promise<Purchase[]> {
+  const db = await loadDatabase();
+  const { sql: rangeSql, params: rangeParams } = rangeClause(range);
+  return query<Purchase>(
+    db,
+    `SELECT
+       tx_ts_iso AS timestampIso,
+       tx_date AS date,
+       CAST(substr(tx_ts_iso, 12, 2) AS INTEGER) AS hour,
+       CAST(strftime('%w', tx_date) AS INTEGER) AS weekday,
+       -tx_amount_eur AS amountEur,
+       category
+     FROM transactions
+     WHERE customer_id = ? AND transaction_type = 'purchase' AND tx_ts_iso IS NOT NULL${rangeSql}
+     ORDER BY tx_ts_iso ASC, id ASC`,
+    [customerId, ...rangeParams],
+  );
+}
+
+/** One customer's purchase count and spending by hour of day and weekday (cells with no purchases are omitted). */
+export async function getSpendingByHourAndWeekday(customerId: string, range?: DateRange): Promise<TimeCell[]> {
+  const db = await loadDatabase();
+  const { sql: rangeSql, params: rangeParams } = rangeClause(range);
+  return query<TimeCell>(
+    db,
+    `SELECT
+       CAST(substr(tx_ts_iso, 12, 2) AS INTEGER) AS hour,
+       CAST(strftime('%w', tx_date) AS INTEGER) AS weekday,
+       COUNT(*) AS count,
+       -SUM(tx_amount_eur) AS totalEur
+     FROM transactions
+     WHERE customer_id = ? AND transaction_type = 'purchase' AND tx_ts_iso IS NOT NULL${rangeSql}
+     GROUP BY hour, weekday
+     ORDER BY weekday, hour`,
+    [customerId, ...rangeParams],
+  );
+}
+
 /* -------------------------------------------------------------- mortgages */
 
 export async function getMortgageLink(customerId: string): Promise<MortgageLink | null> {

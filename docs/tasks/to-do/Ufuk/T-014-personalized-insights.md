@@ -22,7 +22,7 @@ Turn the questionnaire answers (T-013) and the customer's real spending data fro
 - Insights are computed in the frontend from the demo DB. There is no server, so no live LLM calls from the browser (an API key there would leak).
 
 ## Acceptance criteria
-- [ ] 3–5 insight cards in the **AI overview** section of the spending analysis screen (`src/frontend/src/screens/SpendingAnalysis.tsx`, placeholder already there), for the month shown, each with: a headline in plain language, the number behind it from the user's data, why it matters (one sentence), and one concrete next step.
+- [ ] 3–5 insight cards in **the Home month view** (`src/frontend/src/screens/HomeScreen.tsx`, `src/frontend/src/components/MonthPie.tsx`, where Chamb's trainer notes already appear); the extended view opened from the chart (the AI overview section in `MonthPie`'s full variant) is the natural place; agree the placement with Chamb, for the month shown, each with: a headline in plain language, the number behind it from the user's data, why it matters (one sentence), and one concrete next step.
 - [ ] At least one insight ties directly to the user's goal (e.g. "To reach 5 000 € by June, set aside 420 €/month; your average leftover is 260 €").
 - [ ] At least one "what if" insight (e.g. "Cutting restaurants by 20% saves 61 €/month").
 - [ ] Every number in an insight is computed from the customer's data in `s_pankki-demo.db`.
