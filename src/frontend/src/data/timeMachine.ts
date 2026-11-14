@@ -189,6 +189,6 @@ export function describeTimeMachine(params: {
   return {
     headline: `Your current habits, projected`,
     summary: `Keeping today's spending, your balance reaches ${formatEurWhole(continueFinal)} in ${period}.`,
-    recommendation: `Drag the bar below to see what spending less on ${category} would save over ${period}.`,
+    recommendation: `Drag the bar to see what spending less on ${category} would save over ${period}.`,
   };
 }

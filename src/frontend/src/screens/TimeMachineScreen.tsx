@@ -1,11 +1,10 @@
-import { ArrowLeft, Info, TrendingUp } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { ArrowLeft, Info, TrendingDown, TrendingUp } from "lucide-react";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { TimeMachineChart } from "../components/TimeMachineChart";
 import {
   DEFAULT_HORIZON_MONTHS,
   MAX_HORIZON_MONTHS,
   MIN_HORIZON_MONTHS,
-  SCENARIO_LABELS,
   controllableCategories,
   describeTimeMachine,
   horizonLabel,
@@ -24,11 +23,28 @@ const PRESETS: { months: number; label: string }[] = [
   { months: 240, label: "20 yrs" },
 ];
 
-/** "−100 €/month on Restaurants" style preview of what the scenario changes. */
+/** "+663 €", "−120 €", "0 €" */
 function signedEur(value: number): string {
-  return `${value > 0 ? "+" : value < 0 ? "−" : ""}${formatEurWhole(Math.abs(value))}`;
+  const rounded = Math.round(value);
+  return `${rounded > 0 ? "+" : rounded < 0 ? "−" : ""}${formatEurWhole(Math.abs(rounded))}`;
 }
 
+/** "2026-09" → "September 2026" */
+function monthName(month: string): string {
+  const [year, index] = month.split("-").map(Number);
+  return new Date(Date.UTC(year, index - 1, 1)).toLocaleString("en-GB", { month: "long", year: "numeric", timeZone: "UTC" });
+}
+
+/** Filled part of a range input, for the custom track. */
+function fill(value: number, min: number, max: number): CSSProperties {
+  const pct = max > min ? ((value - min) / (max - min)) * 100 : 0;
+  return { ["--fill" as string]: `${Math.min(100, Math.max(0, pct))}%` };
+}
+
+/**
+ * Time machine: where the customer's balance goes on today's habits, and what changing one everyday category
+ * would add. The result (balance, difference, chart) leads; the controls follow. Only the customer's own data.
+ */
 export function TimeMachineScreen({ customerId, onClose }: { customerId: string; onClose: () => void }) {
   const [baseline, setBaseline] = useState<TimeMachineBaseline | null>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
@@ -44,15 +60,17 @@ export function TimeMachineScreen({ customerId, onClose }: { customerId: string;
       .then((next) => {
         if (!active) return;
         setBaseline(next);
-        setStatus(next.monthsUsed > 0 ? "ready" : "error");
-        if (next.monthsUsed === 0) setError("Not enough recent history to project from.");
-        else {
-          const trims = controllableCategories(next.categories);
-          if (trims[0]) {
-            setCutCategory(trims[0].category);
-            setSpendEur(trims[0].monthlyEur);
-          }
+        if (next.monthsUsed === 0) {
+          setError("Not enough recent history to project from yet.");
+          setStatus("error");
+          return;
         }
+        const first = controllableCategories(next.categories)[0];
+        if (first) {
+          setCutCategory(first.category);
+          setSpendEur(first.monthlyEur);
+        }
+        setStatus("ready");
       })
       .catch((cause: unknown) => {
         if (!active) return;
@@ -64,17 +82,18 @@ export function TimeMachineScreen({ customerId, onClose }: { customerId: string;
     };
   }, [customerId]);
 
-  const trimCategories = useMemo(
-    () => controllableCategories(baseline?.categories ?? []),
-    [baseline],
-  );
-  const selectedCategory = trimCategories.find((c) => c.category === cutCategory) ?? trimCategories[0] ?? null;
-  const currentSpend = selectedCategory?.monthlyEur ?? 0;
-  // The bar is centred on today's average: 0 on the left, twice the average on the right.
+  const categories = useMemo(() => controllableCategories(baseline?.categories ?? []), [baseline]);
+  const selected = categories.find((c) => c.category === cutCategory) ?? categories[0] ?? null;
+  const categoryName = selected?.category ?? "this category";
+  const currentSpend = selected?.monthlyEur ?? 0;
+  // The slider is centred on today's average: 0 on the left, twice the average on the right.
   const spendMax = Math.max(50, Math.round(currentSpend * 2));
   const effectiveSpend = Math.min(spendEur ?? currentSpend, spendMax);
   // Signed difference against today: positive means spending less (money saved), negative means spending more.
   const monthlyChange = currentSpend - effectiveSpend;
+  const saving = monthlyChange > 0.5;
+  const overspending = monthlyChange < -0.5;
+  const tone = saving ? " is-pos" : overspending ? " is-neg" : "";
 
   const scenarios = useMemo<ScenarioSet | null>(() => {
     if (!baseline || baseline.monthsUsed === 0) return null;
@@ -91,69 +110,90 @@ export function TimeMachineScreen({ customerId, onClose }: { customerId: string;
       scenarios,
       monthlyNetEur: baseline.monthlyNetEur,
       monthlyChangeEur: monthlyChange,
-      cutCategory: selectedCategory?.category ?? "everyday spending",
+      cutCategory: selected?.category ?? "everyday spending",
     });
-  }, [scenarios, baseline, horizon, monthlyChange, selectedCategory]);
+  }, [scenarios, baseline, horizon, monthlyChange, selected]);
 
   const saved = scenarios ? savedOverHorizon(scenarios) : 0;
-  const saving = monthlyChange > 0.5;
-  const overspending = monthlyChange < -0.5;
-  const saveLabel = saving ? "Save more" : overspending ? "Spend more" : "Same as now";
+  /** First month the plan's balance is below zero, or null if it never is within the horizon. */
+  const belowZeroMonth = scenarios?.save.points.find((point) => point.month > 0 && point.balanceEur < 0)?.month ?? null;
+  const period = horizonLabel(horizon);
 
   return (
-    <div className="home tmachine">
+    <div className="home tm">
       <header className="topbar topbar--month">
         <button className="icon-button" type="button" aria-label="Back to home" onClick={onClose}>
           <ArrowLeft size={26} strokeWidth={2} />
         </button>
-        <span className="tmachine__bar-title">Time machine</span>
+        <span className="tm__bar-title">Time machine</span>
         <span className="icon-button" aria-hidden="true" />
       </header>
 
-      <div className="tmachine__content">
-        <p className="tmachine__eyebrow">
-          <TrendingUp size={14} strokeWidth={2.4} /> Your future
-        </p>
-        <h1 className="tmachine__title">Where your savings go next</h1>
-        {baseline && status === "ready" ? (
-          <p className="tmachine__sub">
-            From your own last {baseline.monthsUsed} {baseline.monthsUsed === 1 ? "month" : "months"}
-            {baseline.lastMonth ? `, ending ${baseline.lastMonth}` : ""}. A projection, not a promise.
-          </p>
-        ) : null}
+      <div className="tm__body">
+        {status === "loading" && (
+          <div className="tm-skeleton" role="status" aria-label="Loading your projection">
+            <div className="tm-skeleton__hero" />
+            <div className="tm-skeleton__card" />
+          </div>
+        )}
 
-        {status === "loading" && <p className="data-loading">Loading your data…</p>}
         {status === "error" && (
-          <div className="placeholder">
+          <div className="tm-empty">
+            <TrendingUp size={28} strokeWidth={2} />
             <p>{error}</p>
           </div>
         )}
 
         {status === "ready" && baseline && scenarios && narrative && (
           <>
-            <section className="tmachine__stats" aria-label="Your starting point">
-              <div className="tmachine__stat">
-                <span>Balance today</span>
-                <strong>{formatEurWhole(baseline.startingBalanceEur)}</strong>
+            {/* The answer first: balance at the horizon, the difference the change makes, and the curve. */}
+            <section className="tm-hero" aria-label={`Projected balance in ${period}`}>
+              <p className="tm-hero__eyebrow">Your balance in {period}</p>
+              <p className="tm-hero__value">{formatEurWhole(scenarios.save.finalBalanceEur)}</p>
+              <div className="tm-hero__pills">
+                <p className={`tm-hero__delta${tone}`}>
+                  {saving ? (
+                    <TrendingUp size={14} strokeWidth={2.6} />
+                  ) : overspending ? (
+                    <TrendingDown size={14} strokeWidth={2.6} />
+                  ) : null}
+                  {saving
+                    ? `${signedEur(saved)} more than today's habits`
+                    : overspending
+                      ? `${formatEurWhole(Math.abs(saved))} less than today's habits`
+                      : "On today's habits"}
+                </p>
+                {belowZeroMonth !== null && (
+                  <p className="tm-hero__delta is-neg">
+                    <TrendingDown size={14} strokeWidth={2.6} />
+                    Below 0 € after {horizonLabel(belowZeroMonth)}
+                  </p>
+                )}
               </div>
-              <div className="tmachine__stat">
-                <span>Monthly surplus</span>
-                <strong className={baseline.monthlyNetEur < 0 ? "is-neg" : "is-pos"}>
-                  {signedEur(baseline.monthlyNetEur)}
-                </strong>
-              </div>
-              <div className="tmachine__stat">
-                <span>Spending / month</span>
-                <strong>{formatEurWhole(baseline.monthlySpendingEur)}</strong>
-              </div>
-            </section>
 
-            <section className="tmachine__panel" aria-label="Timeline">
-              <div className="tmachine__panel-head">
-                <h2>Time range</h2>
-                <span>{horizonLabel(horizon)}</span>
-              </div>
-              <div className="tmachine__presets" role="group" aria-label="Time range presets">
+              <TimeMachineChart scenarios={scenarios} months={horizon} />
+
+              <ul className="tm-hero__legend">
+                {saving || overspending ? (
+                  <>
+                    <li>
+                      <span className={`tm-key tm-key--plan${overspending ? " is-neg" : ""}`} />
+                      With change <strong>{formatEurWhole(scenarios.save.finalBalanceEur)}</strong>
+                    </li>
+                    <li>
+                      <span className="tm-key tm-key--habits" />
+                      Today's habits <strong>{formatEurWhole(scenarios.continue.finalBalanceEur)}</strong>
+                    </li>
+                  </>
+                ) : (
+                  <li>
+                    <span className="tm-key tm-key--plan" />
+                    Today's habits, projected
+                  </li>
+                )}
+              </ul>
+
+              <div className="tm-seg" role="group" aria-label="Time range">
                 {PRESETS.map((preset) => (
                   <button
                     key={preset.months}
@@ -166,31 +206,39 @@ export function TimeMachineScreen({ customerId, onClose }: { customerId: string;
                 ))}
               </div>
               <input
-                className="tmachine__range"
+                className="tm-slider tm-slider--light"
                 type="range"
                 min={MIN_HORIZON_MONTHS}
                 max={MAX_HORIZON_MONTHS}
                 step={1}
                 value={horizon}
+                style={fill(horizon, MIN_HORIZON_MONTHS, MAX_HORIZON_MONTHS)}
                 aria-label="Months into the future"
+                aria-valuetext={period}
                 onChange={(event) => setHorizon(Number(event.target.value))}
               />
-              <p className="tmachine__hint">
-                {horizon} {horizon === 1 ? "month" : "months"} from today
-              </p>
             </section>
 
-            <section className="tmachine__panel" aria-label="Monthly spending scenario">
-              <div className="tmachine__panel-head">
-                <h2>Spending · {selectedCategory?.category ?? "Category"}</h2>
-                <span>{formatEurWhole(effectiveSpend)}/mo</span>
+            {/* The what-if, right under the chart so both are on screen while dragging. */}
+            <section className="tm-card" aria-label="Change one habit">
+              <div className="tm-card__top">
+                <div className="tm-card__title">
+                  <h2>Change one habit</h2>
+                  <p>{categoryName} per month</p>
+                </div>
+                <p className="tm-readout" aria-live="polite">
+                  {formatEurWhole(effectiveSpend)}
+                  {(saving || overspending) && <s>{formatEurWhole(currentSpend)}</s>}
+                </p>
               </div>
-              <div className="tmachine__cats" role="group" aria-label="Category to adjust">
-                {trimCategories.map((category) => (
+
+              <div className="tm-chips" role="group" aria-label="Category to change">
+                {categories.map((category) => (
                   <button
                     key={category.category}
                     type="button"
-                    aria-pressed={cutCategory === category.category}
+                    aria-pressed={selected?.category === category.category}
+                    aria-label={`${category.category}, ${formatEurWhole(category.monthlyEur)} a month now`}
                     onClick={() => {
                       setCutCategory(category.category);
                       setSpendEur(category.monthlyEur);
@@ -200,86 +248,66 @@ export function TimeMachineScreen({ customerId, onClose }: { customerId: string;
                   </button>
                 ))}
               </div>
-              <input
-                className="tmachine__range"
-                type="range"
-                min={0}
-                max={spendMax}
-                step={1}
-                value={effectiveSpend}
-                aria-label={`Monthly spending on ${selectedCategory?.category ?? "this category"}`}
-                onChange={(event) => setSpendEur(Number(event.target.value))}
-              />
-              <div className="tmachine__scale">
+
+              <div className="tm-track">
+                <input
+                  className="tm-slider"
+                  type="range"
+                  min={0}
+                  max={spendMax}
+                  step={1}
+                  value={effectiveSpend}
+                  style={fill(effectiveSpend, 0, spendMax)}
+                  aria-label={`Monthly spending on ${categoryName}`}
+                  aria-valuetext={`${formatEurWhole(effectiveSpend)} per month`}
+                  onChange={(event) => setSpendEur(Number(event.target.value))}
+                />
+                <span className="tm-track__now" style={fill(currentSpend, 0, spendMax)} aria-hidden="true" />
+              </div>
+              <div className="tm-scale">
                 <span>0 €</span>
-                <span className="tmachine__now">{formatEurWhole(currentSpend)} now</span>
+                <button type="button" className="tm-scale__now" onClick={() => setSpendEur(currentSpend)}>
+                  Now {formatEurWhole(currentSpend)}
+                </button>
                 <span>{formatEurWhole(spendMax)}</span>
               </div>
-              <p
-                className={`tmachine__change${saving ? " is-pos" : overspending ? " is-neg" : ""}`}
-              >
-                {saving
-                  ? `${formatEurWhole(monthlyChange)} less each month`
-                  : overspending
-                    ? `${formatEurWhole(-monthlyChange)} more each month`
-                    : "Same as your average"}
-              </p>
-              <p className="tmachine__hint">
-                Drag left to spend less, right to spend more. What you spend less is saved every month.
+
+              <p className={`tm-result${tone}`}>
+                {saving ? (
+                  <>
+                    <strong>{formatEurWhole(monthlyChange)} less a month</strong> adds{" "}
+                    <strong>{signedEur(saved)}</strong> in {period}
+                  </>
+                ) : overspending ? (
+                  <>
+                    <strong>{formatEurWhole(-monthlyChange)} more a month</strong> costs{" "}
+                    <strong>{formatEurWhole(Math.abs(saved))}</strong> in {period}
+                  </>
+                ) : (
+                  <>Drag left to spend less and save more</>
+                )}
               </p>
             </section>
 
-            <section
-              className={`tmachine__saved${saving ? " is-pos" : overspending ? " is-neg" : ""}`}
-              aria-label="Amount saved over the chosen time range"
-            >
-              <p className="tmachine__saved-label">
-                {overspending ? `Extra spent over ${horizonLabel(horizon)}` : `Saved over ${horizonLabel(horizon)}`}
-              </p>
-              <p className="tmachine__saved-value">
-                {saving ? `+${formatEurWhole(saved)}` : overspending ? `−${formatEurWhole(Math.abs(saved))}` : "0 €"}
-              </p>
-              <p className="tmachine__saved-sub">
-                {saving
-                  ? `${formatEurWhole(monthlyChange)}/month less on ${(selectedCategory?.category ?? "this").toLowerCase()}`
-                  : overspending
-                    ? `${formatEurWhole(-monthlyChange)}/month more on ${(selectedCategory?.category ?? "this").toLowerCase()}`
-                    : "Drag the bar to see what saving would add"}
-              </p>
+            {/* Context, below the fold: where the projection starts and what it means. */}
+            <section className="tm-start" aria-label="Your starting point">
+              <div>
+                <span>Balance today</span>
+                <strong>{formatEurWhole(baseline.startingBalanceEur)}</strong>
+              </div>
+              <div>
+                <span>Left each month</span>
+                <strong className={baseline.monthlyNetEur < 0 ? "is-neg" : "is-pos"}>
+                  {signedEur(baseline.monthlyNetEur)}
+                </strong>
+              </div>
+              <div>
+                <span>Spent each month</span>
+                <strong>{formatEurWhole(baseline.monthlySpendingEur)}</strong>
+              </div>
             </section>
 
-            <section className="tmachine__panel tmachine__panel--chart" aria-label="Projected balance">
-              <TimeMachineChart scenarios={scenarios} months={horizon} />
-              <ul className="tmachine__legend">
-                {(["continue", "save"] as const).map((id) => {
-                  const final = scenarios[id].finalBalanceEur;
-                  const delta = final - scenarios.continue.finalBalanceEur;
-                  const color =
-                    id === "save"
-                      ? delta < 0
-                        ? "#c0372f"
-                        : "#017842"
-                      : final < 0
-                        ? "#c0372f"
-                        : "#8e948f";
-                  return (
-                    <li key={id}>
-                      <span className="tmachine__dot" style={{ background: color }} />
-                      <span className="tmachine__legend-name">{id === "save" ? saveLabel : SCENARIO_LABELS[id]}</span>
-                      <span className="tmachine__legend-value">{formatEurWhole(final)}</span>
-                      {id === "save" && delta !== 0 && (
-                        <span className={`tmachine__delta${delta < 0 ? " is-neg" : ""}`}>
-                          {delta > 0 ? "+" : "−"}
-                          {formatEurWhole(Math.abs(delta))}
-                        </span>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            </section>
-
-            <section className="ai-card tmachine__narrative" aria-label="What this means">
+            <section className="ai-card tm-story" aria-label="What this means">
               <div className="ai-card__head">
                 <span className="ai-card__kicker">What this means</span>
                 <span className="ai-card__tag">built-in projection</span>
@@ -291,9 +319,13 @@ export function TimeMachineScreen({ customerId, onClose }: { customerId: string;
               </p>
             </section>
 
-            <p className="tmachine__note">
-              <Info size={13} strokeWidth={2.2} /> Fixed monthly averages from your own accounts. Savings are money left
-              in your account; this is not financial advice.
+            <p className="tm-note">
+              <Info size={13} strokeWidth={2.2} />
+              <span>
+                Averages of your last {baseline.monthsUsed} {baseline.monthsUsed === 1 ? "month" : "months"}
+                {baseline.lastMonth ? ` up to ${monthName(baseline.lastMonth)}` : ""}, with no interest or inflation.
+                Savings are money left in your account. A projection, not a promise, and not financial advice.
+              </span>
             </p>
           </>
         )}
