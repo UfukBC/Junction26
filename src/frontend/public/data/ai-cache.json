@@ -1,0 +1,1154 @@
+{
+  "version": 1,
+  "generatedAt": "2026-11-14T21:00:03.627Z",
+  "customers": [
+    "CUST04457"
+  ],
+  "entries": {
+    "CUST04457|2024-10|Income": {
+      "summary": "Your October income was a salary of 3 151,86 €.",
+      "recommendation": "Income is not a spending category, so there is nothing to cut.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2024-10|Fixed": {
+      "summary": "Fixed costs are 1,332.23 € for housing and utilities in October 2024.",
+      "recommendation": "Nothing to cut; fixed housing and utilities look fine this month.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2024-10|Restaurants": {
+      "summary": "You spent 80.29 euros on restaurants in two payments this October.",
+      "recommendation": "As a fallback, cut one of the two restaurant visits; that would lower the 80.29 euro total.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2024-10|Transportation": {
+      "summary": "The 68,62 € payment at ABC Pasila on 14 October stands out against your other 6,25 € transport payment.",
+      "recommendation": "Call the 68,62 € ABC Pasila payment a one-off; set a 50 € cap and wait 24 hours before similar transport purchases.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2024-10|Groceries": {
+      "summary": "You made four grocery payments in October, the largest 82,56 € at K-Supermarket Kallio.",
+      "recommendation": "Reduce grocery trips from four to three as a fallback; one average shop is about 72 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2024-10|Health": {
+      "summary": "Health cost 28,01 € in 4 payments, with 19,44 € at Pihlajalinna Hakaniemi. Check if these visits were necessary or reimbursable.",
+      "recommendation": "Ask whether the Pihlajalinna Hakaniemi visits were necessary care or reimbursable before treating them as a leak.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2024-10|Month overview": {
+      "summary": "You made four grocery payments totalling 289,38 €, the biggest repeated everyday cost this month.",
+      "recommendation": "As a fallback, try one fewer grocery trip; four trips cost 289,38 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2024-10|Entertainment": {
+      "summary": "You spent 62,36 € on entertainment in two visits: HopLop Kamppi and Escape Room Töölö.",
+      "recommendation": "As a fallback, cut one entertainment payment; two visits cost 62,36 € this month.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2024-11|Income": {
+      "summary": "Your November salary was 3 126,61 €. Income is not a spending category, so there is nothing to cut.",
+      "recommendation": "Nothing to cut — income is not spending; your November salary was 3 126,61 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2024-11|Fixed": {
+      "summary": "Fixed spending is 1 298,65 € on housing and utilities.",
+      "recommendation": "Fixed costs look fine; housing and utilities are not reducible.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2024-10|Lifestyle": {
+      "summary": "Two lifestyle payments totaled €50.44 this month.",
+      "recommendation": "No single payment stands out; as a fallback, try one lifestyle payment next month instead of two.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2024-11|Left": {
+      "summary": "You have 851,24 € left in your account after November spending.",
+      "recommendation": "Nothing to cut here — this is your remaining balance, not a spending category you can reduce.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2024-11|Month overview": {
+      "summary": "Restaurants are your repeated leak: 10 payments totalling 514.80 €, including two visits to Ravintola Kolme Kruunua Kallio.",
+      "recommendation": "Replace restaurant visits with lunch from home; skipping the two visits to Ravintola Kolme Kruunua Kallio saves 145.18 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2024-11|Transportation": {
+      "summary": "Your 75,03 € HSL bus payment on 23 November stands out in transport.",
+      "recommendation": "Nothing to cut — the 75,03 € HSL bus ticket is a commuter ticket, so transport looks fine.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2024-11|Entertainment": {
+      "summary": "Entertainment hit 259,62 €, 316 % above usual, including Kino Regina Kallio and Karaoke Kamppi.",
+      "recommendation": "Treat this as a one-off. Wait 24 hours before booking outings and cap entertainment at your usual monthly level.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2024-10|Left": {
+      "summary": "You made four grocery payments totalling 289,38 € in October, with the largest at K-Supermarket Kallio.",
+      "recommendation": "Switch the 82,56 € K-Supermarket Kallio grocery trip to a cheaper store like S-Market Kamppi, saving 11,83 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2024-12|Fixed": {
+      "summary": "Your fixed costs are 1 383,45 € for housing and utilities this month.",
+      "recommendation": "Fixed costs such as housing and utilities look fine; there is nothing to cut here.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2024-11|Restaurants": {
+      "summary": "You visited Ravintola Kolme Kruunua Kallio twice for 145,18 €, your top restaurant repeat this month.",
+      "recommendation": "Switch those two Ravintola Kolme Kruunua Kallio visits to lunch from home and save 145,18 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2024-12|Income": {
+      "summary": "You spent 656,59 € at Normal Punavuori on 14 December, far above your other December payments.",
+      "recommendation": "Treat the 656,59 € Normal Punavuori purchase as a one-off; set a 24-hour wait and a 200 € cap for lifestyle buys.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2024-12|Month overview": {
+      "summary": "A 656,59 € lifestyle purchase at Normal Punavuori on 14 December stands far above all other December spending.",
+      "recommendation": "The 656,59 € Normal Punavuori purchase on 14 December is a one-off; use a 24-hour wait and a 100 € cap for future lifestyle buys.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2024-12|Lifestyle": {
+      "summary": "One 656,59 € purchase at Normal Punavuori on 14 December stands far above your usual Lifestyle spending.",
+      "recommendation": "Call the 656,59 € Normal Punavuori buy a one-off; wait 24 hours and cap similar buys at 100 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2024-12|Left": {
+      "summary": "The 656,59 € Normal Punavuori purchase on 14 December is far above your other December spending and drove the month over your usual level.",
+      "recommendation": "Treat that 656,59 € Normal Punavuori buy as a one-off; use a 24-hour wait and a 100 € cap for lifestyle purchases.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2024-12|Health": {
+      "summary": "Your biggest health cost was 205,51 € at Apteekki Kamppi on 3 December.",
+      "recommendation": "Check whether the Apteekki Kamppi payment was necessary or reimbursable; do not cut health care.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-01|Fixed": {
+      "summary": "Fixed housing and utilities cost 1 233,58 € this month and look steady.",
+      "recommendation": "Fixed housing and utilities look fine; no cut is recommended for this category.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-01|Income": {
+      "summary": "Your January salary was 2 990,44 €. Income is not a spending category.",
+      "recommendation": "Nothing to cut: income cannot be reduced.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-01|Month overview": {
+      "summary": "Your clearest repeated habit is five Bolt Eira rides costing 117.25 €, usually on Thursday mornings.",
+      "recommendation": "Switch those five Bolt Eira trips to the bus or train and save most of the 117.25 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2024-12|Restaurants": {
+      "summary": "Ten restaurant payments totalled 417,35 €, 40 % above your usual month.",
+      "recommendation": "Fallback: cut the number of restaurant payments; swapping some for lunch from home would reduce the 417,35 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2024-12|Groceries": {
+      "summary": "Your 104,43 € K-Supermarket Punavuori shop on 29 December is a one-off spike, not part of your usual grocery pattern.",
+      "recommendation": "Treat it as a one-off and wait 24 hours before any large grocery trip.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-01|Transportation": {
+      "summary": "You took five Bolt rides in Eira for 117,25 € this month.",
+      "recommendation": "Switch those five Bolt Eira rides to the bus or train and save most of the 117,25 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-01|Restaurants": {
+      "summary": "You spent 63,39 € at Ravintola Kolme Kruunua Kamppi on 8 January, more than half of your restaurant spending.",
+      "recommendation": "Treat the 63,39 € dinner as a one-off and use a 24-hour wait with a 30 € cap for future restaurant splurges.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-01|Health": {
+      "summary": "You had one health payment of 19,47 € in January.",
+      "recommendation": "Check whether this 19,47 € health cost was necessary or reimbursable.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-01|Lifestyle": {
+      "summary": "Your lifestyle spending is 77% below usual, with three payments totalling 80,83 €.",
+      "recommendation": "Fallback: reduce the number of lifestyle payments from three to two or fewer next month.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-02|Fixed": {
+      "summary": "Your February fixed costs were 1 309,37 € for housing and utilities.",
+      "recommendation": "Housing and utilities look fine; there is nothing to cut in Fixed this month.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-01|Left": {
+      "summary": "Five Bolt Eira rides cost 117,25 € this month, mostly Thursday mornings.",
+      "recommendation": "Switch those 5 Bolt Eira rides (117,25 €) to bus or train; you'd save most of that 117,25 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-02|Income": {
+      "summary": "Your February income was 2 936,87 €. It is salary, not spending, so there is nothing to reduce.",
+      "recommendation": "Nothing to cut: income is money coming in, not a cost you can lower.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-02|Month overview": {
+      "summary": "Your biggest February payment was 176,37 € at Attendo Kallio on 16 February.",
+      "recommendation": "Check whether the 176,37 € Attendo Kallio cost was necessary or reimbursable.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-01|Entertainment": {
+      "summary": "You made 7 entertainment payments totalling 89,37 €, with HopLop Kamppi the largest named visit at 20,25 €.",
+      "recommendation": "Fallback: cut one entertainment payment, such as skipping HopLop Kamppi, to save 20,25 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-02|Health": {
+      "summary": "Your largest health payment was 176,37 € at Attendo Kallio on 16 February.",
+      "recommendation": "Do not cut care; check whether the 176,37 € Attendo Kallio charge was necessary or reimbursable.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-02|Left": {
+      "summary": "You have 834,09 € left in your account after February costs.",
+      "recommendation": "Nothing to cut — this is remaining money, not spending.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-01|Groceries": {
+      "summary": "Your grocery spending was front-loaded: 220,19 € at three shops in the first week of January.",
+      "recommendation": "Fallback: combine grocery trips into fewer visits to spread spending across the month.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-02|Groceries": {
+      "summary": "Your largest grocery payment was 84,58 € at K-Market Töölö on 2 February.",
+      "recommendation": "As a fallback, try fewer grocery trips to cut the four payments and the 265,29 € total.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-02|Restaurants": {
+      "summary": "The largest restaurant payment was 64,68 € at Ravintola Kolme Kruunua on 8 February, over half of your restaurant total.",
+      "recommendation": "Treat the 64,68 € Kolme Kruunua dinner as a one-off and use a 24-hour wait with a 30 € cap for future restaurant splurges.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-03|Income": {
+      "summary": "Your March income was 3 024,97 € in salary.",
+      "recommendation": "Income is salary only, so there is nothing to cut.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-02|Transportation": {
+      "summary": "Your three transport payments total 67,53 € this February.",
+      "recommendation": "Nothing to cut in transport this month; the three payments look routine.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-03|Fixed": {
+      "summary": "Fixed spending is 1 462,38 € for housing and utilities this month.",
+      "recommendation": "Housing and utilities look fine; there is nothing to cut.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-02|Lifestyle": {
+      "summary": "Lifestyle is 77 % below your usual month, with two payments totalling 61,58 €.",
+      "recommendation": "Fallback: reduce the two lifestyle payments to one next month.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-02|Entertainment": {
+      "summary": "February entertainment totalled 47,34 € in two payments, including HopLop Kamppi at 21,07 €.",
+      "recommendation": "Nothing to cut; only two entertainment payments were made in February.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-03|Left": {
+      "summary": "You have 317,87 € left in your account on 31 March 2025.",
+      "recommendation": "Nothing to cut — 317,87 € is the money left after income, fixed costs and everyday spending.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-03|Travel": {
+      "summary": "Your biggest Travel payment was 405,02 € to Aurinkomatkat Tukholma on 7 March, followed by 293,04 € to VR Helsinki.",
+      "recommendation": "Treat the 405,02 € Aurinkomatkat Tukholma trip as a one-off; use a 24-hour wait and a cap under 405,02 € for leisure travel.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-03|Month overview": {
+      "summary": "A 711,30 € travel burst on 7 March dominates your month: 405,02 € to Aurinkomatkat Tukholma and 293,04 € to VR Helsinki.",
+      "recommendation": "Treat the 405,02 € Aurinkomatkat Tukholma trip as a one-off; wait 24 hours before booking similar leisure travel.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-03|Groceries": {
+      "summary": "Your largest grocery trip was 86,25 € at K-Market Töölö on 2 March; four trips totalled 262,11 €.",
+      "recommendation": "As a fallback, cut the four grocery trips to fewer trips to reduce impulse buys.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-03|Health": {
+      "summary": "You spent 37.26 € on health in 4 payments, well below your usual March level.",
+      "recommendation": "Check whether these health costs were necessary care or reimbursable before treating them as a leak.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-03|Lifestyle": {
+      "summary": "Lifestyle spending is 64,36 € in two payments, 70 % below your usual month.",
+      "recommendation": "Nothing to cut this month; Lifestyle is already well below its usual level.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-03|Restaurants": {
+      "summary": "You made 9 restaurant payments totaling 59,26 € in March.",
+      "recommendation": "Fallback: cut the number of restaurant payments; fewer outings would reduce the 59,26 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-04|Income": {
+      "summary": "Your April salary was 2 804,46 €.",
+      "recommendation": "Income is not a spending category, so there is nothing to cut.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-03|Entertainment": {
+      "summary": "Your March entertainment came from two one-off visits: HopLop Kamppi and Escape Room Töölö, 49,08 € total.",
+      "recommendation": "Fallback: reduce entertainment to one payment next month; dropping the 21,88 € HopLop Kamppi visit saves 21,88 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-04|Fixed": {
+      "summary": "Fixed spending was 1 458,64 € on housing and utilities in April 2025.",
+      "recommendation": "Nothing to cut — housing and utilities are necessary fixed costs.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-03|Transportation": {
+      "summary": "Your two transport payments total 47,99 € this month.",
+      "recommendation": "Your transport spending looks fine; nothing to cut here.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-03|Home & Tech": {
+      "summary": "One 13,36 € Home & Tech payment in March; no repeat habit or earlier month to compare.",
+      "recommendation": "Nothing to cut — one small payment has no repeat habit or cheaper swap to name.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-04|Lifestyle": {
+      "summary": "Lifestyle is 67,14 € in 2 payments, already below your usual level.",
+      "recommendation": "Nothing to cut; no specific place or repeated habit stands out in Lifestyle.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-04|Restaurants": {
+      "summary": "Twelve restaurant payments totalled 72,33 € in April, many small amounts in one category.",
+      "recommendation": "Fallback: reduce the number of restaurant payments; four fewer meals saves about 24 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-04|Entertainment": {
+      "summary": "Your largest entertainment payment is HopLop Kamppi at 22,70 €, with three named places visited once each.",
+      "recommendation": "Fallback: cut the number of entertainment payments this month; no cheaper alternative is visible in your places.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-04|Home & Tech": {
+      "summary": "Your one Home & Tech payment of 24,38 € was 82 % above your usual month.",
+      "recommendation": "Treat the 24,38 € purchase as a one-off; use a 24-hour wait and set a cap for future electronics or furnishings.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-04|Left": {
+      "summary": "You visited restaurants 12 times in April, spending 72,33 € in many small payments.",
+      "recommendation": "Switch restaurant lunches to lunch from home; this saves most of the 72,33 € spent on 12 visits.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-04|Month overview": {
+      "summary": "Your clearest repeated leak is restaurants: 12 payments totalling 72,33 € in April.",
+      "recommendation": "As a fallback, reduce the 12 restaurant payments totalling 72,33 €; eating at home would cut that discretionary amount.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-04|Health": {
+      "summary": "You spent 44,37 € on health in April, mostly two visits to Hammaslääkäri Hakaniemi.",
+      "recommendation": "Check whether these care costs were necessary or reimbursable before treating them as spending to cut.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-05|Income": {
+      "summary": "Your May salary was 3 102,99 €. This slice contains no spending to cut.",
+      "recommendation": "Income is not reducible; there is nothing to cut here.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-05|Fixed": {
+      "summary": "Fixed costs are 1 234,64 € for housing and utilities.",
+      "recommendation": "Fixed costs such as housing and utilities look fine; there is nothing to cut here.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-04|Transportation": {
+      "summary": "Your largest transport payment was 45,30 € at ABC Pasila on 14 April, most of your 49,22 € transport total.",
+      "recommendation": "Treat the 45,30 € ABC Pasila payment on 14 April as a one-off; set a 24-hour wait and a 40 € cap for similar large transport purchases.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-05|Month overview": {
+      "summary": "You spent 232,41 € on four S-Market Kamppi visits around 16:00, making it your main grocery habit this month.",
+      "recommendation": "Switch your four S-Market Kamppi trips to Halpahalli Kamppi and save about 51 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-06|Month overview": {
+      "summary": "Your biggest June payment was 561,23 € at Ginatricot Töölö on 14 June, far above your other spending.",
+      "recommendation": "Treat the 561,23 € Ginatricot Töölö purchase as a one-off; use a 24-hour wait and a 100 € cap for future Lifestyle buys.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-06|Income": {
+      "summary": "Your June salary was 3 118,59 €. Income is not reducible spending.",
+      "recommendation": "Nothing to cut: salary income of 3 118,59 € is not spending.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-04|Groceries": {
+      "summary": "Your largest grocery payment was 87,92 € at K-Market Töölö on 2 April.",
+      "recommendation": "Fallback: combine grocery trips to cut the number of payments.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-06|Fixed": {
+      "summary": "Your fixed housing and utilities cost 1 322,19 € this month.",
+      "recommendation": "Fixed costs look fine; there is nothing to cut in housing and utilities.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-06|Left": {
+      "summary": "You spent 561,23 € at Ginatricot Töölö on 14 June, far above your other June spending.",
+      "recommendation": "That 561,23 € clothing purchase is a one-off; wait 24 hours and cap future clothing buys at 100 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-05|Groceries": {
+      "summary": "Your biggest grocery payment was 113,83 € at R-kioski Kallio on 8 May, a convenience-store price for a full shop.",
+      "recommendation": "Switch the 113,83 € R-kioski Kallio shop to Halpahalli Kallio's 80,91 € average visit, saving about 32,92 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-06|Lifestyle": {
+      "summary": "A 561,23 € clothing purchase at Ginatricot Töölö on 14 June stands far above your other lifestyle spending.",
+      "recommendation": "That 561,23 € Ginatricot Töölö buy is a one-off; wait 24 hours and cap future clothing purchases at 100 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-06|Restaurants": {
+      "summary": "You made 12 restaurant payments totalling 99,95 € this month, including two visits to KFC Kallio for 8,69 €.",
+      "recommendation": "Cut the number of restaurant payments as a fallback; KFC Kallio visits total 8,69 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-06|Home & Tech": {
+      "summary": "A single 42,25 € Home & Tech payment in June, far above your usual month.",
+      "recommendation": "Treat the 42,25 € buy as a one-off; wait 24 hours and cap similar buys at 30 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-06|Health": {
+      "summary": "Your June health spending was a single 25.22 € payment, far below your usual month.",
+      "recommendation": "Check whether the 25.22 € health cost was necessary care or reimbursable; do not reduce needed care.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-07|Income": {
+      "summary": "Your July income was 3 591,12 € in salary. No spending to cut in this slice.",
+      "recommendation": "Income is not a spending category, so there is nothing to cut here.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-06|Transportation": {
+      "summary": "Your 47,52 € ABC Pasila payment on 14 June dominates your 51,66 € transport total and is far above your other transport payment.",
+      "recommendation": "Treat the 47,52 € ABC Pasila payment as a one-off; cap similar transport spends at 50 € and wait 24 hours before repeating.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-06|Entertainment": {
+      "summary": "Two one-off entertainment visits, HopLop Kamppi and Escape Room Töölö, totaled 54,31 €, well below your usual month.",
+      "recommendation": "As a fallback, skip one of the two entertainment outings next month to lower the 54,31 € total.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-07|Fixed": {
+      "summary": "Your fixed costs are 1 339,50 € for housing and utilities in July.",
+      "recommendation": "Fixed costs cover housing and utilities, so there is nothing to cut here.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-07|Left": {
+      "summary": "You have 1 142,34 € left in the account after July's fixed and everyday spending.",
+      "recommendation": "Nothing to cut — this is your remaining balance, not spending.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-07|Lifestyle": {
+      "summary": "One Intersport Kallio purchase of 104,07 € on 27 July is your only lifestyle spend this month.",
+      "recommendation": "Treat the 104,07 € sports buy as a one-off; use a 24-hour wait and a 50 € cap for future similar purchases.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-06|Groceries": {
+      "summary": "You made three grocery payments totalling 122,45 € in June.",
+      "recommendation": "Fallback: combine grocery trips to reduce the number of payments and avoid repeat small visits.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-05|Left": {
+      "summary": "A repeated habit: S-Market Kamppi, four visits, 232,41 €, around 16:00.",
+      "recommendation": "Switch two S-Market Kamppi visits to Halpahalli Kamppi; 90,67 € there versus 116,21 € at S-Market saves about 25,54 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-08|Income": {
+      "summary": "Your August salary was 3 410,71 €. Income cannot be cut.",
+      "recommendation": "Income is salary received, not spending, so there is nothing to reduce here.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-08|Fixed": {
+      "summary": "Your fixed costs are 1 349,27 € for housing and utilities this month.",
+      "recommendation": "Housing and utilities are fixed costs, so there is nothing to cut in this category.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-07|Month overview": {
+      "summary": "The 7 July travel spend of 574,47 € at VR Helsinki and Aurinkomatkat Tukholma is far above the rest of the month.",
+      "recommendation": "That one-off travel burst cannot be undone; set a 300 € monthly cap for leisure travel.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-07|Travel": {
+      "summary": "Two large travel payments on 7 July: VR Helsinki €322.73 and Aurinkomatkat Tukholma €251.74.",
+      "recommendation": "Treat Aurinkomatkat Tukholma as a one-off; set a €250 cap and 24-hour wait for future travel bookings.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-07|Groceries": {
+      "summary": "Your largest grocery payment was 109,27 € at Alepa Kallio on 8 July.",
+      "recommendation": "Treat the 109,27 € Alepa Kallio shop as a one-off; wait 24 hours before grocery shops over 100 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-08|Travel": {
+      "summary": "Your only travel payment was 572,69 € on 2025-08-20, a large one-off for holidays and accommodation.",
+      "recommendation": "Treat the 572,69 € trip as a one-off; use a 24-hour wait and a cap below 572,69 € on future travel.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-09|Income": {
+      "summary": "Your September salary was 3 140,68 €.",
+      "recommendation": "Income is not a spending category, so there is nothing to cut.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-09|Fixed": {
+      "summary": "Your fixed costs were 1 345,30 € for housing and utilities this September.",
+      "recommendation": "Housing and utilities look fine; there is nothing to cut in this fixed category.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-09|Month overview": {
+      "summary": "The 279,17 € Clas Ohlson Kallio purchase on 15 September stands out as your largest one-off spend.",
+      "recommendation": "Treat the 279,17 € Clas Ohlson purchase as a one-off; use a 24-hour wait and a 100 € cap for future tech buys.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-08|Restaurants": {
+      "summary": "Your largest restaurant payment was 379,22 € at Ravintola Manala Kamppi on 8 August, fitting the month's pattern of big bills.",
+      "recommendation": "Treat that dinner as a one-off; wait 24 hours and cap restaurant bills at 100 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-09|Left": {
+      "summary": "You have 232,19 € remaining after September's fixed and everyday spending.",
+      "recommendation": "This is your leftover balance, not a spending category, so there is nothing to cut.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-08|Month overview": {
+      "summary": "The 572,69 € travel payment on 20 August is your largest single outlay and stands apart from your restaurant spending.",
+      "recommendation": "Treat that 572,69 € travel charge as a one-off and cap future travel purchases at 200 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-09|Restaurants": {
+      "summary": "Your largest restaurant payment was 95,37 € at Ravintola Manala Kamppi on 14 September.",
+      "recommendation": "Treat the 95,37 € Manala visit as a one-off; set a 24-hour wait and a 60 € cap for future restaurant splurges.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-10|Income": {
+      "summary": "Your October income was 2 702,27 € salary. Income cannot be cut.",
+      "recommendation": "Nothing to cut — salary income is fixed and not a spending category.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-09|Lifestyle": {
+      "summary": "Your only Lifestyle payment was a 155,33 € one-off at Uniqlo Töölö on 2 September.",
+      "recommendation": "Treat the 155,33 € Uniqlo Töölö purchase as a one-off; wait 24 hours and cap clothing at 100 € monthly.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-10|Fixed": {
+      "summary": "Fixed spending is 1,404.57 € for housing and utilities this month.",
+      "recommendation": "Housing and utilities are fixed costs, so there is nothing to cut in this category.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-10|Month overview": {
+      "summary": "Your largest October payment was 204,71 € at Ginatricot Töölö on 12 October, far above your other spending.",
+      "recommendation": "Treat the 204,71 € Ginatricot Töölö purchase as a one-off; wait 24 hours and cap future clothing spending at 100 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-08|Left": {
+      "summary": "You visited restaurants ten times in August, spending 2 553,95 €, mostly in Kamppi.",
+      "recommendation": "Replace restaurant meals with lunch from home; skipping one 379,22 € Ravintola Manala Kamppi visit saves 379,22 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-09|Home & Tech": {
+      "summary": "Your 279,17 € Clas Ohlson Kallio purchase on 15 September is a one-off far above your usual Home & Tech spending.",
+      "recommendation": "Treat the 279,17 € Clas Ohlson Kallio purchase as a one-off; wait 24 hours and cap similar buys below 279,17 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-09|Transportation": {
+      "summary": "Your September transport spending includes a standout 89.87 € payment at Teboil Vallila on 26 September.",
+      "recommendation": "Treat that 89.87 € Teboil Vallila payment as a one-off; use a 24-hour wait and a 60 € cap for similar large payments.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-10|Lifestyle": {
+      "summary": "A 204,71 € clothing purchase at Ginatricot Töölö on 12 October stands out in your Lifestyle spending.",
+      "recommendation": "Treat the 12 October Ginatricot Töölö purchase as a one-off; wait 24 hours before similar buys and cap them at 100 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-10|Transportation": {
+      "summary": "Your largest transport payment was 51,98 € at ABC Pasila on 14 Oct, well above the other two.",
+      "recommendation": "Treat the 51,98 € ABC Pasila payment on 14 Oct as a one-off; cap similar transport payments at 50 € and wait 24 hours.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-10|Groceries": {
+      "summary": "Your largest grocery payment was 52,94 € at K-Market Töölö on 2 October, with 48,55 € at S-Market Kamppi two days later.",
+      "recommendation": "Fallback: try one fewer grocery trip this month to keep the total from rising.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-10|Health": {
+      "summary": "One health payment of 29.83 € this month.",
+      "recommendation": "Check whether the 29.83 € health cost was necessary or reimbursable before treating it as spending to cut.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-10|Left": {
+      "summary": "Your standout October payment is 204,71 € at Ginatricot Töölö on 12 October, far above your other spending.",
+      "recommendation": "That 204,71 € Ginatricot Töölö buy is a one-off; wait 24 hours and cap clothing at 50 € next time.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-11|Income": {
+      "summary": "Your November income was a single salary payment of 3 365,09 €.",
+      "recommendation": "Income is not spending, so there is nothing to cut in this category.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-11|Fixed": {
+      "summary": "Fixed spending is only housing and utilities and looks normal for November.",
+      "recommendation": "Fixed covers housing and utilities, so there is nothing to cut this month.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-10|Entertainment": {
+      "summary": "You spent 61,29 € on entertainment in two payments, including a 27,60 € visit to HopLop Kamppi.",
+      "recommendation": "As a fallback, cut one of the two entertainment payments to save about 31 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-10|Restaurants": {
+      "summary": "12 restaurant payments this month include repeat visits to Ravintola Graniitti Kamppi and Ravintola Kaarti.",
+      "recommendation": "Swap two Ravintola Graniitti Kamppi visits for lunch from home and save 10,83 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-11|Month overview": {
+      "summary": "You spent 132.65 € on five Bolt rides from Eira, mostly on Sunday mornings.",
+      "recommendation": "Switch those five Bolt Eira rides to the bus or train and save most of the 132.65 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-11|Lifestyle": {
+      "summary": "You spent 47,97 € at Ginatricot Töölö on 18 November, your largest lifestyle payment this month.",
+      "recommendation": "That 47,97 € clothing buy is a one-off; wait 24 hours and cap future clothing buys at 47,97 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-11|Entertainment": {
+      "summary": "Your largest entertainment payment was 28,42 € at HopLop Kamppi, well above your other November entertainment visits.",
+      "recommendation": "Treat the HopLop Kamppi visit as a one-off; use a 24-hour wait and a 20 € cap for similar outings.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-11|Left": {
+      "summary": "You used Bolt from Eira five times for 132,65 €, mostly on Sunday mornings.",
+      "recommendation": "Switch the five Bolt Eira rides to the bus or train and save nearly 132,65 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-11|Home & Tech": {
+      "summary": "One Home & Tech payment of 32,58 € in November, far below your usual month.",
+      "recommendation": "No repeat habit or shop is shown for this single payment, so there is nothing specific to cut.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-11|Health": {
+      "summary": "You made one health payment of 30,98 €.",
+      "recommendation": "Check whether this health cost was necessary or reimbursable.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-11|Groceries": {
+      "summary": "Groceries are 144,72 € at K-Market Töölö and S-Market Kamppi, below your usual level.",
+      "recommendation": "Fallback: reduce the three grocery trips to fewer planned visits to avoid impulse buys.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-11|Restaurants": {
+      "summary": "You paid 56,99 € for restaurants in two payments this November, far below your usual month.",
+      "recommendation": "As a fallback, cut the number of restaurant payments; two payments totalled 56,99 € this month.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-11|Transportation": {
+      "summary": "Five Bolt Eira rides cost 132,65 € in November, your repeated transport leak.",
+      "recommendation": "Switch the five Bolt Eira rides to the bus or train and save most of the 132,65 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-12|Fixed": {
+      "summary": "Your fixed spending is 1,347.67 € for housing and utilities and looks steady this month.",
+      "recommendation": "Fixed costs like housing and utilities are not something to cut this month.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-12|Income": {
+      "summary": "A 650,30 € clothing purchase at Ginatricot Töölö on 14 December stands far above your other December spending.",
+      "recommendation": "Treat the 650,30 € Ginatricot buy as a one-off; use a 24-hour wait and a 100 € cap for future clothing.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-11|Travel": {
+      "summary": "Your November travel was a single 11.30 € payment.",
+      "recommendation": "Nothing to cut: your only travel cost this month is one 11.30 € payment.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-12|Left": {
+      "summary": "A 650,30 € clothing purchase at Ginatricot Töölö on 14 December is far above your other December spending.",
+      "recommendation": "Treat the 650,30 € Ginatricot Töölö purchase as a one-off; use a 24-hour wait and a 100 € cap for future clothing.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-12|Month overview": {
+      "summary": "Your biggest December payment was 650,30 € at Ginatricot Töölö on 14 December, far above your other spending.",
+      "recommendation": "Treat the 650,30 € Ginatricot Töölö purchase as a one-off; use a 24-hour wait and a 100 € cap for future clothing buys.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-12|Lifestyle": {
+      "summary": "A 650,30 € clothing purchase at Ginatricot Töölö on 14 December is a one-off Lifestyle splurge far above your norm.",
+      "recommendation": "Treat the 650,30 € buy as a one-off; use a 24-hour wait and a 100 € cap for future clothing.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-12|Health": {
+      "summary": "You made one health payment of 32,13 € this month.",
+      "recommendation": "Check whether the 32,13 € health cost was necessary or reimbursable before treating it as spending to cut.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-01|Income": {
+      "summary": "Your January salary was 3 101,09 €. This slice contains no spending to cut.",
+      "recommendation": "Income is not reducible spending, so there is nothing to cut in this slice.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-12|Entertainment": {
+      "summary": "You spent 64,78 € on two entertainment outings: HopLop Kamppi and Escape Room Töölö.",
+      "recommendation": "Fallback: cut one entertainment outing; skipping Escape Room Töölö saves 35,55 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-12|Restaurants": {
+      "summary": "You spent 58,66 € on restaurants in two payments this month.",
+      "recommendation": "As a fallback, replace one restaurant visit with a lunch from home and save about 29 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-01|Fixed": {
+      "summary": "Fixed costs of 1 461,28 € cover housing and utilities and look fine this month.",
+      "recommendation": "Nothing to cut — housing and utilities are necessary fixed costs.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-01|Month overview": {
+      "summary": "Your biggest January payment was 241,69 € at Attendo Kallio on 16 January, far above other spending.",
+      "recommendation": "Check whether the 241,69 € Attendo Kallio visit on 16 January was necessary or reimbursable before treating it as a leak.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-12|Transportation": {
+      "summary": "Your largest transport payment was 54,20 € at ABC Pasila on 14 December, over half of the category.",
+      "recommendation": "Treat the 54,20 € ABC Pasila payment as a one-off and cap similar transport stops at 50 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-01|Health": {
+      "summary": "Your largest health payment was 241,69 € at Attendo Kallio on 16 January, far above your usual month.",
+      "recommendation": "Check whether the 241,69 € Attendo Kallio visit was necessary care or reimbursable before calling it a leak.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-01|Left": {
+      "summary": "The standout is a 241,69 € health payment at Attendo Kallio on 16 Jan, far above other January spending.",
+      "recommendation": "Check whether the 241,69 € Attendo Kallio charge on 16 Jan was necessary care or reimbursable.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2025-12|Groceries": {
+      "summary": "Groceries are 68 % below your usual month at 149,16 €.",
+      "recommendation": "Nothing to cut; your grocery spending is already well below its usual level.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-01|Restaurants": {
+      "summary": "Restaurant spending was 97.41 euros across 12 payments.",
+      "recommendation": "Cutting restaurant visits is a fallback; aim for fewer than 12 payments next month.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-01|Lifestyle": {
+      "summary": "Lifestyle cost 111,26 € in three payments this month.",
+      "recommendation": "Fallback: try making fewer lifestyle payments to bring the 111,26 € total down.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-01|Entertainment": {
+      "summary": "Entertainment is 19 % below its usual month, with one-off visits to HopLop Kamppi and Escape Room Töölö.",
+      "recommendation": "Fallback: reduce the number of entertainment payments this month.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-02|Income": {
+      "summary": "Your February income was 3 002,99 €.",
+      "recommendation": "There is nothing to cut in income; it is not a spending category.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-01|Groceries": {
+      "summary": "Your largest grocery payment was 57,95 € at K-Market Töölö on 2 January.",
+      "recommendation": "Switch your K-Market Töölö trip to S-Market Kamppi; on these amounts that saves about 4,95 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-02|Fixed": {
+      "summary": "Fixed spending is 1 330,41 € for housing and utilities.",
+      "recommendation": "Nothing to cut here: housing and utilities are necessary fixed costs.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-01|Home & Tech": {
+      "summary": "Home & Tech had one 21.75 € payment, well below your usual month.",
+      "recommendation": "Nothing to cut in Home & Tech; the single 21.75 € payment is already far below your usual month.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-02|Left": {
+      "summary": "You have 349,03 € left after income, fixed costs and everyday spending.",
+      "recommendation": "Nothing to cut here — this is money left in your account, not a spending category.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-01|Transportation": {
+      "summary": "The 55,32 € payment at ABC Pasila on 14 January makes up nearly all of your 60,24 € transport spending.",
+      "recommendation": "Treat the 55,32 € ABC Pasila payment as a one-off; wait 24 hours before similar large transport payments and cap them at 40 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-02|Transportation": {
+      "summary": "Transportation cost 88 € in 3 payments this month, well below your usual level.",
+      "recommendation": "No specific swap is visible; the category already looks fine and does not need a cut.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-02|Lifestyle": {
+      "summary": "Your biggest Lifestyle payment was 144,63 € at Uniqlo Kamppi on 9 February, most of the category's 239,61 €.",
+      "recommendation": "Treat the 144,63 € Uniqlo Kamppi purchase as a one-off. Use a 24-hour wait and a 100 € cap for future clothing purchases.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-02|Groceries": {
+      "summary": "Groceries were 158,07 € in three payments, well below your usual month.",
+      "recommendation": "No clear cut is needed; your grocery spending is already below your usual level.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-02|Month overview": {
+      "summary": "Two travel payments on 7 February, 374.68 € to VR Helsinki and 298.50 € to Aurinkomatkat Tukholma, stand far above the rest of your month.",
+      "recommendation": "Treat the 7 February travel bookings as a one-off; wait 24 hours and cap future leisure travel at 300 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-02|Entertainment": {
+      "summary": "You paid 68,26 € for two entertainment visits: HopLop Kamppi and Escape Room Töölö.",
+      "recommendation": "Cutting the number of entertainment payments is a fallback; skipping one outing would save 30,86 € or 37,40 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-02|Health": {
+      "summary": "You made one health payment of 34,43 € this month, well below your usual health spending.",
+      "recommendation": "Check whether the 34,43 € health cost was necessary care or reimbursable before treating it as spending to cut.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-03|Fixed": {
+      "summary": "Your March fixed costs are 1 361,01 € for housing and utilities.",
+      "recommendation": "Fixed costs look fine; housing and utilities are not reducible.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-03|Income": {
+      "summary": "Your March income was 2 891,49 €. This slice contains no spending to cut.",
+      "recommendation": "Income cannot be reduced, so there is nothing to cut in this category.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-03|Month overview": {
+      "summary": "You paid for restaurants 15 times in March, totalling 297,42 € — the clearest repeated everyday leak.",
+      "recommendation": "Switch the two Ravintola Kolme Kruunua Kamppi restaurant visits to food from home, saving about 91,05 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-03|Restaurants": {
+      "summary": "Your two visits to Ravintola Kolme Kruunua Kamppi cost 91,05 €, the highest restaurant total this month.",
+      "recommendation": "Bring lunch from home instead of those two Ravintola Kolme Kruunua Kamppi visits and save 91,05 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-02|Restaurants": {
+      "summary": "Two restaurant payments totalled 62,00 € this month.",
+      "recommendation": "Fallback: reduce restaurant payments from two to one next month.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-02|Travel": {
+      "summary": "Your February travel spiked with a 298,50 € Aurinkomatkat trip to Stockholm on 7 February.",
+      "recommendation": "Treat that Stockholm trip as a one-off and use a 24-hour wait with a 250 € cap for future holidays.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-03|Entertainment": {
+      "summary": "Entertainment cost 70,01 € in two payments, 12 % below your usual month.",
+      "recommendation": "As a fallback, cut the two entertainment payments to one next month.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-03|Health": {
+      "summary": "One health payment of 35,58 € this month. Check whether it was necessary or reimbursable.",
+      "recommendation": "Check if the 35,58 € health payment was necessary or reimbursable before treating it as a leak.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-03|Left": {
+      "summary": "You made 15 restaurant visits for 297,42 €, repeatedly at Ravintola Kolme Kruunua Kamppi.",
+      "recommendation": "Replace two lunches at Ravintola Kolme Kruunua Kamppi with lunch from home, saving 91,05 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-03|Groceries": {
+      "summary": "You visited K-Market Töölö twice for 175,77 €, more than half your grocery spending.",
+      "recommendation": "Cutting K-Market Töölö trips from two to one is a fallback cut for groceries.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-03|Lifestyle": {
+      "summary": "Lifestyle is 57 % below your usual month, with two payments totalling 97,76 €.",
+      "recommendation": "Fallback: reduce the two lifestyle payments to one, since no specific place or swap is visible.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-04|Fixed": {
+      "summary": "Fixed costs were 1 280,55 € in April, covering housing and utilities.",
+      "recommendation": "Housing and utilities are fixed costs, so there is nothing to cut this month.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-04|Income": {
+      "summary": "Your April income is a single salary of 3 074,31 €. There is nothing to cut in this category.",
+      "recommendation": "Income is salary only and cannot be reduced; nothing to cut here.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-03|Transportation": {
+      "summary": "Your 57,54 € ABC Pasila payment on 14 March is far above your other transport payment this month.",
+      "recommendation": "Treat it as a one-off; next time wait 24 hours and cap similar transport purchases at 57,54 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-04|Month overview": {
+      "summary": "Restaurants are the repeated leak: 12 payments totalling 102,17 € in April.",
+      "recommendation": "Fallback: cut the number of restaurant visits; 12 payments cost 102,17 € this month.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-04|Lifestyle": {
+      "summary": "Your largest lifestyle payment was 56,32 € at Ginatricot Töölö on 18 April.",
+      "recommendation": "Treat the Ginatricot buy as a one-off; wait 24 hours and cap clothing at 50 € next time.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-04|Restaurants": {
+      "summary": "You made 12 restaurant payments totalling 102,17 € this April, many small amounts adding up.",
+      "recommendation": "Cutting the number of restaurant payments is a fallback and could save part of the 102,17 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-04|Health": {
+      "summary": "One health payment of 36,73 € this April, below your usual level.",
+      "recommendation": "Check whether the 36,73 € health cost was necessary or reimbursable.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-04|Home & Tech": {
+      "summary": "One 26,70 € Home & Tech payment this month, well below your usual level.",
+      "recommendation": "Nothing to cut: the single payment is already far below your usual Home & Tech month.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-04|Groceries": {
+      "summary": "Your largest grocery payment was 62,96 € at K-Market Töölö.",
+      "recommendation": "Combine your K-Market Töölö and S-Market Kamppi trips as a fallback to reduce payments.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-05|Income": {
+      "summary": "Income of 3 092,84 € is not a spending category, so there is nothing to cut.",
+      "recommendation": "Nothing to cut: income cannot be reduced like everyday spending.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-04|Transportation": {
+      "summary": "Your largest transport payment was 58,66 € at ABC Pasila on 14 April.",
+      "recommendation": "Treat the 58,66 € ABC Pasila payment as a one-off; wait 24 hours before similar transport purchases.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-05|Fixed": {
+      "summary": "Your fixed spending is 1 374,24 € for housing and utilities.",
+      "recommendation": "This category looks fine; housing and utilities are not something to cut.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-05|Month overview": {
+      "summary": "Your biggest May payment was 724,52 € at Jula Töölö on 14 May, far above all other spending.",
+      "recommendation": "Treat the Jula Töölö purchase as a one-off; use a 24-hour wait and a 300 € cap for similar buys.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-04|Entertainment": {
+      "summary": "Entertainment cost 87,58 € in 7 payments. HopLop Kamppi at 32,50 € is the largest single outing.",
+      "recommendation": "Treat the 32,50 € HopLop Kamppi visit as a one-off; cap similar outings at 20 € and wait 24 hours.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-05|Home & Tech": {
+      "summary": "You spent 724,52 € at Jula Töölö on 14 May, over ten times your usual Home & Tech month.",
+      "recommendation": "This was a one-off. For future Home & Tech buys, wait 24 hours and cap each at 300 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-04|Left": {
+      "summary": "You made 12 restaurant payments totalling 102,17 € in April, the clearest repeated everyday leak.",
+      "recommendation": "Fallback: cut the number of restaurant payments; halving them saves about 51 € from the 102,17 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-05|Lifestyle": {
+      "summary": "Your largest lifestyle payment was 162,67 € at Partioaitta Kallio on 3 May, far above the other two.",
+      "recommendation": "Treat the Partioaitta Kallio buy as a one-off; use a 24-hour wait and a 100 € cap for clothing.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-05|Left": {
+      "summary": "A 724,52 € Jula Töölö purchase on 14 May stands far above your other May spending.",
+      "recommendation": "Treat that Jula Töölö buy as a one-off; use a 24-hour wait and a 200 € cap for similar purchases.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-05|Transportation": {
+      "summary": "Transportation was steady at 133.84 € in 4 payments, the same as your usual month.",
+      "recommendation": "No cut is needed; your transport spending looks routine and matches your normal pattern.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-05|Groceries": {
+      "summary": "Your largest grocery payment was 83,13 € at Reinon Liha Kamppi on 1 May.",
+      "recommendation": "That 83,13 € shop is a one-off; set a 24-hour wait and a 60 € cap for big grocery trips.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-05|Health": {
+      "summary": "Your May health spending was a single payment of 37,88 €.",
+      "recommendation": "Check whether the 37,88 € health cost was necessary or reimbursable.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-06|Fixed": {
+      "summary": "Fixed spending is 1 469,37 € for housing and utilities in June.",
+      "recommendation": "Fixed costs look fine; there is nothing to cut in housing and utilities.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-05|Restaurants": {
+      "summary": "You made 12 restaurant payments worth 230,41 € in May, with Hesburger Töölö appearing twice for 25,16 €.",
+      "recommendation": "Reduce restaurant payments as a fallback; skipping two Hesburger Töölö visits saves 25,16 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-06|Income": {
+      "summary": "Your June salary was 3 528,16 €. Income is not spending, so there is nothing to cut.",
+      "recommendation": "Nothing to reduce: income is not a spending category.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-05|Entertainment": {
+      "summary": "Your two entertainment payments were 40,19 € at Escape Room Töölö and 33,31 € at HopLop Kamppi.",
+      "recommendation": "Treat the 40,19 € Escape Room visit as a one-off; use a 24-hour wait and set a 50 € cap for future entertainment.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-06|Lifestyle": {
+      "summary": "Your only Lifestyle payment was 179,88 € at Intersport Kallio on 21 June.",
+      "recommendation": "Treat the 179,88 € Intersport Kallio purchase as a one-off; wait 24 hours and cap future sports buys at 100 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-06|Restaurants": {
+      "summary": "Ten restaurant payments totaled 178,78 € in June.",
+      "recommendation": "Replace Ravintola Nokka Kamppi (17,29 €) and Ravintola Manala Kamppi (13,49 €) with lunch from home to save 30,78 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-06|Month overview": {
+      "summary": "June was shaped by a 938,20 € travel burst on 7–15 June, including a 404,37 € VR Helsinki ticket and a 325,22 € Aurinkomatkat Tukholma trip.",
+      "recommendation": "Treat the 938,20 € June travel burst as a one-off and cap future leisure trips at 600 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-06|Transportation": {
+      "summary": "Transport shows one payment of 58,07 € this month.",
+      "recommendation": "Transport looks fine; nothing to cut from a single 58,07 € payment.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-06|Left": {
+      "summary": "You have 651,11 € left in the account after June's fixed and everyday costs.",
+      "recommendation": "Nothing to cut. This is simply the remaining balance, not a spending category.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-07|Fixed": {
+      "summary": "Fixed spending is 1 397,28 € for housing and utilities this month.",
+      "recommendation": "This category looks fine; there is nothing to cut in housing and utilities.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-07|Income": {
+      "summary": "Your selected slice is July salary income of 2 715,18 €.",
+      "recommendation": "Income is not a spending category, so there is nothing to cut here.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-06|Groceries": {
+      "summary": "One grocery visit at K-Market Töölö for 52,75 €; no repeated habit.",
+      "recommendation": "Nothing to cut: one grocery visit at K-Market Töölö, 52,75 €, and no repeat pattern.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-07|Lifestyle": {
+      "summary": "Your 123,63 € Uniqlo Hakaniemi purchase on 17 July dominates your 232,52 € lifestyle month.",
+      "recommendation": "Treat the Uniqlo buy as a one-off; wait 24 hours and cap future clothing purchases at 50 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-07|Left": {
+      "summary": "You have 390,25 € left after fixed costs and everyday spending in July 2026.",
+      "recommendation": "Nothing to cut — this is simply the balance left after fixed costs and everyday spending.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-07|Month overview": {
+      "summary": "July's everyday spending is dominated by 15 restaurant payments worth 330,02 €, including repeated visits to Ravintola Kolme Kruunua Kamppi.",
+      "recommendation": "Bring lunch from home instead of the two Ravintola Kolme Kruunua Kamppi visits to save 102,19 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-07|Restaurants": {
+      "summary": "You made 15 restaurant payments and returned to Ravintola Kolme Kruunua Kamppi twice for 102,19 €.",
+      "recommendation": "Replace two visits to Ravintola Kolme Kruunua Kamppi with Hesburger Punavuori and save 24,27 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-07|Groceries": {
+      "summary": "You made three grocery payments in July, with the largest at K-Market Töölö and S-Market Kamppi.",
+      "recommendation": "Fallback: reduce grocery payments from three to two per month to avoid extra trips.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-08|Income": {
+      "summary": "Your August salary was 3 004,19 €. This category is income, not spending.",
+      "recommendation": "Income is not reducible, so there is nothing to cut here.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-07|Health": {
+      "summary": "You made one health payment of 40,18 € this month, well below your usual health spending.",
+      "recommendation": "Check whether this 40,18 € health cost was necessary care or reimbursable before treating it as spending to cut.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-08|Fixed": {
+      "summary": "Your fixed costs are 1 337,25 € for housing and utilities in August.",
+      "recommendation": "Housing and utilities look fine; there is nothing to cut in this category.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-07|Entertainment": {
+      "summary": "Entertainment is 76,99 €, 19 % above your usual month, including a 34,95 € HopLop Kamppi visit.",
+      "recommendation": "Fallback: reduce the number of entertainment payments next month; one fewer 34,95 € HopLop Kamppi visit would save 34,95 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-08|Month overview": {
+      "summary": "Your repeated Bolt Eira rides—five times, 126,70 €, Sunday mornings—stand out this month.",
+      "recommendation": "Swap the five Bolt Eira rides for bus or train trips and save nearly the full 126,70 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-08|Left": {
+      "summary": "Your remaining balance is 903,42 € after fixed and everyday spending. There are no transactions to cut in this slice.",
+      "recommendation": "Nothing to cut — this is money left over, not a spending category you can reduce.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-07|Transportation": {
+      "summary": "Your 62,00 € ABC Pasila payment on 14 July stands out from the rest of this month's transport spending.",
+      "recommendation": "Treat the 62,00 € ABC Pasila payment as a one-off; set a €50 cap and wait 24 hours before similar large transport stops.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-06|Travel": {
+      "summary": "Your travel spike on 7 June was a 404,37 € VR Helsinki ticket plus a 325,22 € Aurinkomatkat booking, far above usual.",
+      "recommendation": "The VR Helsinki train ticket looks fine; treat the Aurinkomatkat booking as a one-off with a 24-hour wait and 325,22 € cap.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-08|Health": {
+      "summary": "Health costs jumped to 288,20 € this month, led by a 108,87 € Terveystalo Kallio visit on 1 August.",
+      "recommendation": "Check whether the 108,87 € Terveystalo Kallio visit on 1 August was necessary or reimbursable.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-08|Groceries": {
+      "summary": "Groceries came to 119,10 € in two payments, the largest 63,83 € at Kalaherkku Hakaniemi.",
+      "recommendation": "Fallback: cut the number of grocery payments; combining the two visits into one can reduce repeat spending.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-09|Income": {
+      "summary": "Your September salary is 2 909,10 €.",
+      "recommendation": "Income is not a spending category, so there is nothing to cut.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-08|Transportation": {
+      "summary": "Five Bolt rides in Eira cost 126,70 € this August, making transport much higher than usual.",
+      "recommendation": "Switch the 5 Bolt Eira rides to bus or train and save the 126,70 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-09|Fixed": {
+      "summary": "Your fixed costs of 1 364,10 € cover housing and utilities and look fine.",
+      "recommendation": "Nothing to cut here: fixed costs cover housing and utilities and should stay as they are.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-08|Entertainment": {
+      "summary": "Your Entertainment spending this month is 87,46 € across 5 payments, topped by a 31,66 € HopLop Kallio visit.",
+      "recommendation": "Treat the 31,66 € HopLop Kallio visit as a one-off; use a 24-hour wait and a 30 € cap for future entertainment.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-09|Month overview": {
+      "summary": "You spent 118,99 € on five Thursday lunches at Ravintola Kaarti, your clearest repeated everyday expense.",
+      "recommendation": "Switch Ravintola Kaarti lunches to lunch from home and save the 118,99 € you spent there.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-09|Groceries": {
+      "summary": "Your biggest grocery payment was 71,31 € at K-Market Töölö on 2 September; four payments totalled 224,88 €.",
+      "recommendation": "Fallback: make one fewer grocery trip this month; four September payments totalled 224,88 €, so fewer visits can reduce the total.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-09|Lifestyle": {
+      "summary": "Your biggest lifestyle cost was a 64,67 € clothing purchase at Ginatricot Töölö on 18 September.",
+      "recommendation": "Treat the 64,67 € Ginatricot Töölö purchase as a one-off and wait 24 hours before any future clothing purchase.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-09|Travel": {
+      "summary": "You made one travel payment of 10,39 € this month, far below your usual level.",
+      "recommendation": "No travel cut is needed; the single 10,39 € payment is already well below your usual month.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-09|Health": {
+      "summary": "This month's health spending was a single payment of 42,48 €.",
+      "recommendation": "Check whether the 42,48 € health payment was necessary care or reimbursable.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-09|Restaurants": {
+      "summary": "All five restaurant payments this month were at Ravintola Kaarti, totalling 118,99 €.",
+      "recommendation": "Swap Ravintola Kaarti for lunch from home; replacing all five visits would save 118,99 €.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-09|Entertainment": {
+      "summary": "Your largest entertainment payment was 43,90 € at Escape Room Töölö, with a second outing at HopLop Kamppi.",
+      "recommendation": "Treat the 43,90 € Escape Room Töölö visit as a one-off; set a 24-hour wait and a 40 € cap for similar outings.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-09|Transportation": {
+      "summary": "Your largest transport payment was 64,22 € at ABC Pasila on 14 September.",
+      "recommendation": "Refuel at a cheaper station than ABC Pasila to cut that 64,22 € cost.",
+      "source": "nemotron-3.5-super-vl"
+    },
+    "CUST04457|2026-09|Left": {
+      "summary": "Five Thursday visits to Ravintola Kaarti cost 118,99 € this month — your clearest repeat everyday expense.",
+      "recommendation": "Replace the 5 Thursday lunches at Ravintola Kaarti (118,99 €) with lunch from home; that saves up to 118,99 €.",
+      "source": "nemotron-3.5-super-vl"
+    }
+  }
+}

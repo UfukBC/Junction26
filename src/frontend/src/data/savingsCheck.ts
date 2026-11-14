@@ -1,3 +1,5 @@
+import { isStaticBuild } from "./segmentAdvice";
+
 /** Facts the model is allowed to use. The browser never calls the model directly. */
 export interface SavingsCheckRequest {
   goalLabel: string;
@@ -22,6 +24,8 @@ export interface SavingsCheckResult {
 
 /** Nemotron via the dev server, or null when the call fails. */
 export async function fetchSavingsCheck(body: SavingsCheckRequest): Promise<SavingsCheckResult | null> {
+  // Static hosting has no model endpoint. The built-in plan (already on the page) is the answer then.
+  if (isStaticBuild()) return null;
   try {
     const response = await fetch("/api/savings-check", {
       method: "POST",

@@ -6,7 +6,7 @@ import { AccountGlyph, CardGlyph } from "./icons";
 export function SavingPrompt({ onPress }: { onPress: () => void }) {
   return (
     <button className="saving-prompt" type="button" onClick={onPress}>
-      <span>What do you save for?</span>
+      <span>What are you saving for?</span>
       <ChevronRight size={18} strokeWidth={2.2} />
     </button>
   );
@@ -25,7 +25,7 @@ export function QuickActions() {
       {ACTIONS.map(({ label, Icon }) => (
         <button key={label} className="action">
           <span className="action__circle">
-            <Icon size={28} strokeWidth={2} />
+            <Icon size={22} strokeWidth={2} />
           </span>
           <span className="action__label">{label}</span>
         </button>

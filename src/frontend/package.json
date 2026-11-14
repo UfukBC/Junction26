@@ -9,7 +9,12 @@
     "preview": "vite preview --host",
     "test": "vitest run",
     "build:data": "node scripts/build-demo-db.mjs",
-    "build:benchmarks": "node scripts/build-benchmarks.mjs"
+    "build:benchmarks": "node scripts/build-benchmarks.mjs",
+    "build:ai-cache": "vite-node scripts/precache-advice.ts",
+    "build:ai-deep-cache": "vite-node scripts/precache-advice.ts --deep-only",
+    "build:static": "npm run build:ai-cache && npm run build:ai-deep-cache && npm run build",
+    "serve:static": "vite preview --host --port 4173",
+    "static": "npm run build:static && npm run serve:static"
   },
   "dependencies": {
     "lucide-react": "^0.460.0",

@@ -90,7 +90,7 @@ export function SpendingDetail({
     deepOverviews.add(overviewKey);
     setDeepCount(deepOverviews.size);
   };
-  const deep = useDeepAnalysis(deepOn, target, advice.brief);
+  const deep = useDeepAnalysis(deepOn, target, advice.brief, overviewKey);
 
   /** Data-driven comparison blocks; shown with the normal and the deep answer alike. */
   const comparisons = (

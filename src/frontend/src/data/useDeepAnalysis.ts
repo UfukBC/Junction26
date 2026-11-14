@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import type { AgentId, AgentInfo, DeepEvent, DeepResult, Stage, Turn } from "../server/deepAnalysis";
 import type { NewsItem } from "../server/news";
+import { isStaticBuild } from "./segmentAdvice";
+import { cachedDeepResult } from "./deepCache";
 
 export type { AgentInfo, DeepResult, Turn } from "../server/deepAnalysis";
 export type { NewsItem } from "../server/news";
@@ -16,6 +18,9 @@ export interface DeepState {
 }
 
 const IDLE: DeepState = { status: "idle", agents: [], news: [], turns: [], stage: null, result: null };
+
+/** A stored answer still shows the analysing bar briefly, so the demo feels like the agents are working. */
+const CACHED_LOADING_MS = 1200;
 
 /** Finished runs for this page session, so switching Month ↔ Everyday back and forth does not re-run them. */
 const finished = new Map<string, DeepState>();
@@ -41,12 +46,35 @@ function apply(state: DeepState, event: DeepEvent): DeepState {
  * Runs the two-agent deep analysis on the same brief the normal advice uses.
  * The server streams one JSON event per line; the state updates as each agent finishes a step.
  */
-export function useDeepAnalysis(enabled: boolean, segment: string, brief: string | undefined): DeepState {
+export function useDeepAnalysis(
+  enabled: boolean,
+  segment: string,
+  brief: string | undefined,
+  cacheKey: string,
+): DeepState {
   const [state, setState] = useState<DeepState>(IDLE);
 
   useEffect(() => {
     if (!enabled || !brief) {
       setState(IDLE);
+      return;
+    }
+    // The static build ships its deep answers; show one instead of calling the agents.
+    const precached = cachedDeepResult(cacheKey);
+    if (precached) {
+      let active = true;
+      setState({ ...IDLE, status: "running" });
+      const timer = setTimeout(() => {
+        if (active) setState({ ...IDLE, status: "done", result: precached });
+      }, CACHED_LOADING_MS);
+      return () => {
+        active = false;
+        clearTimeout(timer);
+      };
+    }
+    // A static build has no agents to talk to; the card falls back to the precached overview.
+    if (isStaticBuild()) {
+      setState({ ...IDLE, status: "failed" });
       return;
     }
     const key = `${segment}\n${brief}`;
@@ -96,7 +124,7 @@ export function useDeepAnalysis(enabled: boolean, segment: string, brief: string
       setState(current);
     });
     return () => controller.abort();
-  }, [enabled, segment, brief]);
+  }, [enabled, segment, brief, cacheKey]);
 
   return state;
 }

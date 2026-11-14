@@ -98,10 +98,64 @@ function writeCache(request: AdviceRequest, advice: SegmentAdvice): void {
   }
 }
 
+/* ---------------------------------------------------- precached (static) */
+
+/** Shape of `public/data/ai-cache.json`, written by `scripts/precache-advice.ts`. */
+interface StaticAdviceFile {
+  entries?: Record<string, { summary?: unknown; recommendation?: unknown; source?: unknown }>;
+}
+
+const staticAdvice = new Map<string, SegmentAdvice>();
+let staticLoaded = false;
+
+function staticUrl(): string {
+  return `${import.meta.env.BASE_URL}data/ai-cache.json`;
+}
+
+/**
+ * Load the answered prompts that ship with the static build. The file is optional: when it is missing
+ * (plain `npm run dev`) the app keeps calling the dev-server routes exactly as before.
+ */
+export async function primeStaticAdvice(): Promise<void> {
+  if (staticLoaded) return;
+  staticLoaded = true;
+  try {
+    const response = await fetch(staticUrl());
+    if (!response.ok) return;
+    const data = (await response.json()) as StaticAdviceFile;
+    for (const [key, value] of Object.entries(data.entries ?? {})) {
+      if (typeof value?.summary === "string" && typeof value?.recommendation === "string") {
+        staticAdvice.set(key, {
+          summary: value.summary,
+          recommendation: value.recommendation,
+          source: value.source === "nemotron-3.5-super-vl" ? "nemotron-3.5-super-vl" : undefined,
+        });
+      }
+    }
+  } catch {
+    // No static cache (or an unreadable one): fall through to the dev API.
+  }
+}
+
+/** True once the static cache has entries, meaning this page needs no backend for its AI text. */
+export function isStaticBuild(): boolean {
+  return staticAdvice.size > 0;
+}
+
+function staticAdviceFor(
+  request: Pick<AdviceRequest, "customerId" | "monthKey" | "segment">,
+): SegmentAdvice | null {
+  return staticAdvice.get(cacheKey(request)) ?? null;
+}
+
+/* ------------------------------------------------------------- lookups */
+
 /** Cached overview for a segment, regardless of the data it was built from (first paint). */
 export function cachedAdvice(
   request: Pick<AdviceRequest, "customerId" | "monthKey" | "segment">,
 ): SegmentAdvice | null {
+  const precached = staticAdviceFor(request);
+  if (precached) return precached;
   const entry = readCache(request);
   return entry ? { summary: entry.summary, recommendation: entry.recommendation } : null;
 }
@@ -111,6 +165,9 @@ export function cachedAdviceFor(
   request: Pick<AdviceRequest, "customerId" | "monthKey" | "segment">,
   brief: string,
 ): SegmentAdvice | null {
+  // The precache is generated from the same data that ships with the build, so its key is enough.
+  const precached = staticAdviceFor(request);
+  if (precached) return precached;
   const entry = readCache(request);
   return entry && entry.briefHash === briefHash(brief)
     ? { summary: entry.summary, recommendation: entry.recommendation }

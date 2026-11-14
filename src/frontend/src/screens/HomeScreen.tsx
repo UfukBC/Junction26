@@ -310,11 +310,11 @@ export function HomeScreen({ customerId }: { customerId: string }) {
     <div className="home">
       <header className="topbar topbar--month">
         <button className="icon-button" aria-label="Log out">
-          <LogOut size={28} strokeWidth={1.8} />
+          <LogOut size={24} strokeWidth={1.8} />
         </button>
         {status === "error" ? <span /> : switcher}
         <button className="icon-button icon-button--dot" aria-label="Chat">
-          <MessageSquare size={28} strokeWidth={1.8} />
+          <MessageSquare size={24} strokeWidth={1.8} />
         </button>
       </header>
 
