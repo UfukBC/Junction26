@@ -9,12 +9,45 @@ import {
 } from "../../data/benchmarkComparison";
 import { usePeerBenchmark } from "../../data/usePeerBenchmark";
 import { OVERVIEW, amountOf, useAdvice } from "../../data/useAdvice";
+import { horizonLabel, projectScenario } from "../../data/timeMachine";
 import { formatEur, formatEurWhole } from "../../format";
 import { Donut } from "./Donut";
 import { LegendRow } from "./LegendRow";
 import { SLICE_COLORS, categoryParts, monthParts, pct, spentEur } from "./model";
 
 type Mode = "month" | "everyday";
+
+/** AI tips look this far ahead when turning a monthly saving into a total. */
+const PROJECTION_MONTHS = 60;
+
+/** What a modest monthly saving from the current selection would add over the projection horizon. */
+function savingsProjection(
+  mode: Mode,
+  selected: string | null,
+  selectedPart: { name: string; valueEur: number } | null,
+  story: MonthStory,
+): { text: string; monthlyEur: number; savedEur: number } | null {
+  let monthlyEur: number;
+  let text: string;
+  if (mode === "everyday" && selectedPart && selectedPart.valueEur > 0) {
+    monthlyEur = selectedPart.valueEur * 0.2;
+    text = `Spending 20 % less on ${selectedPart.name}`;
+  } else if (mode === "month" && !selected) {
+    const left = amountOf(story, "Left");
+    if (left <= 0) return null;
+    monthlyEur = left / 2;
+    text = `Saving half of the ${formatEurWhole(left)} left this month`;
+  } else {
+    return null;
+  }
+  const savedEur = projectScenario({
+    startingBalanceEur: 0,
+    monthlyNetEur: 0,
+    months: PROJECTION_MONTHS,
+    monthlyExtraEur: monthlyEur,
+  }).finalBalanceEur;
+  return { text, monthlyEur, savedEur };
+}
 
 /**
  * Extended view: a large donut (month, or the categories inside Everyday) and the full list.
@@ -25,11 +58,13 @@ export function SpendingDetail({
   story,
   monthTitle,
   initialSegment,
+  onOpenTimeMachine,
 }: {
   customerId: string;
   story: MonthStory;
   monthTitle: string;
   initialSegment: string | null;
+  onOpenTimeMachine?: () => void;
 }) {
   const [mode, setMode] = useState<Mode>(initialSegment === "Everyday" ? "everyday" : "month");
   const [selected, setSelected] = useState<string | null>(initialSegment === "Everyday" ? null : initialSegment);
@@ -51,6 +86,8 @@ export function SpendingDetail({
     selectedPart && mode === "everyday" && baseline
       ? baselineComparison(baseline, selectedPart.name)
       : null;
+
+  const projection = savingsProjection(mode, selected, selectedPart, story);
 
   const switchMode = (next: Mode) => {
     if (next === mode) return;
@@ -153,6 +190,19 @@ export function SpendingDetail({
               </>
             )}
           </>
+        )}
+        {projection && (
+          <div className="ai-card__projection">
+            <p className="ai-card__text">
+              {projection.text} (~{formatEurWhole(projection.monthlyEur)}/month) would add{" "}
+              <strong>{formatEurWhole(projection.savedEur)}</strong> over {horizonLabel(PROJECTION_MONTHS)}.
+            </p>
+            {onOpenTimeMachine && (
+              <button className="ai-card__back" type="button" onClick={onOpenTimeMachine}>
+                Project it over time →
+              </button>
+            )}
+          </div>
         )}
         {selected && (
           <button className="ai-card__back" type="button" onClick={() => setSelected(null)}>

@@ -654,3 +654,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .tmachine__narrative { margin-top: 10px; }
 .tmachine__note { display: flex; gap: 6px; align-items: flex-start; margin: 10px 2px 0; font-size: 11px; line-height: 1.4; color: var(--text-muted); }
 .tmachine__note svg { flex: none; margin-top: 2px; }
+
+/* projection line inside the AI tips card */
+.ai-card__projection { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(1, 120, 66, 0.15); }
+.ai-card__projection strong { color: var(--green-text); }

@@ -36,6 +36,7 @@ angle the challenge asks for.
 - [x] The spending bar is centred on the user's current average: drag left to spend less, right to spend more.
 - [x] Category is selectable from the user's own controllable categories; the signed monthly change updates the projection.
 - [x] The extra amount saved over the chosen range is shown as a large, prominent signed number.
+- [x] The AI tips card in the spending extended view projects a modest saving and links into the Time machine.
 - [x] Plain-language summary + a "not financial advice" note.
 - [x] `npm test` and `npm run build` pass.
 
@@ -48,3 +49,8 @@ angle the challenge asks for.
 ## Progress
 - 2026-11-14: Built the pure projection engine + tests (8 tests), DB baseline loader, SVG chart, full screen,
   Home entry card and styles. Verified `npm test` (17 tests) and `npm run build`.
+- 2026-11-14: Rebased onto main (AI advice, monthly savings check, peer benchmarks) and resolved the HomeScreen,
+  styles and inbox merges. Added a projection line to the AI tips card in the spending extended view: it turns a
+  modest saving from the current selection into a 5-year total and opens the Time machine. Verified both dev-server
+  AI endpoints (`/api/segment-advice`, `/api/savings-check`) against the DataCrunch Nemotron endpoint; key lives in
+  the gitignored `src/frontend/.env`.

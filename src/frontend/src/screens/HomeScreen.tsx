@@ -294,6 +294,10 @@ export function HomeScreen() {
               story={story}
               monthTitle={monthLabel(story.month)}
               initialSegment={analysis.segment}
+              onOpenTimeMachine={() => {
+                setAnalysis(null);
+                setTimeMachine(true);
+              }}
             />
           ) : (
             <p className="data-loading">Loading your data…</p>
