@@ -20,7 +20,7 @@ export interface DeepState {
 const IDLE: DeepState = { status: "idle", agents: [], news: [], turns: [], stage: null, result: null };
 
 /** A stored answer still shows the analysing bar briefly, so the demo feels like the agents are working. */
-const CACHED_LOADING_MS = 1200;
+const CACHED_LOADING_MS = 3000;
 
 /** Finished runs for this page session, so switching Month ↔ Everyday back and forth does not re-run them. */
 const finished = new Map<string, DeepState>();
