@@ -8,6 +8,7 @@ import { SpendingCard } from "../components/spending/SpendingCard";
 import { usePhoneHeight } from "../components/spending/usePhoneHeight";
 import { SpendingDetail } from "../components/spending/SpendingDetail";
 import { TimeHabitCard } from "../components/TimeHabitCard";
+import { TimeMachineCard } from "../components/TimeMachineCard";
 import { getMonthStory, getMonthlyFlow, listMonths, monthRange, type MonthStory } from "../data/database";
 import { fetchSavingsCheck, type SavingsCheckResult } from "../data/savingsCheck";
 import { homeData, type Account } from "../data/mock";
@@ -28,6 +29,7 @@ import {
 } from "../data/questionnaire";
 import { formatEurWhole } from "../format";
 import { QuestionnaireScreen } from "./QuestionnaireScreen";
+import { TimeMachineScreen } from "./TimeMachineScreen";
 
 // Demo customer. Add ?customer=CUST03172 to the URL to view another demo customer (e.g. one with a time-habit warning).
 const HOME_CUSTOMER = new URLSearchParams(window.location.search).get("customer") ?? "CUST04457";
@@ -70,6 +72,7 @@ export function HomeScreen() {
   const stacked = phoneHeight >= (hasHabit ? 940 : 840);
   const [analysis, setAnalysis] = useState<{ segment: string | null } | null>(null);
   const [questionnaire, setQuestionnaire] = useState(false);
+  const [timeMachine, setTimeMachine] = useState(false);
   const [answers, setAnswers] = useState<QuestionnaireAnswers | null>(null);
   const [sweeps, setSweeps] = useState<MonthlySaveDecision[]>([]);
   const [latestFlow, setLatestFlow] = useState<{ month: string; incomeEur: number; spendingEur: number } | null>(null);
@@ -257,6 +260,10 @@ export function HomeScreen() {
     );
   }
 
+  if (timeMachine) {
+    return <TimeMachineScreen customerId={HOME_CUSTOMER} onClose={() => setTimeMachine(false)} />;
+  }
+
   const switcher = (
     <MonthSwitcher
       label={story ? monthLabel(story.month) : "Loading"}
@@ -336,6 +343,7 @@ export function HomeScreen() {
             setSweeps([]);
           }}
         />
+        <TimeMachineCard onOpen={() => setTimeMachine(true)} />
         <QuickActions />
         <AccountsList accounts={accounts} />
       </div>

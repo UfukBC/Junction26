@@ -562,3 +562,95 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 @media (prefers-reduced-motion: reduce) {
   .analysing__bar { animation: none; width: 100%; opacity: 0.7; }
 }
+/* ---------- time machine ---------- */
+.time-card {
+  width: 100%; display: flex; align-items: center; gap: 10px; margin-top: 8px;
+  padding: 10px 13px; border-radius: 14px; background: #fff; text-align: left;
+  border: 1.5px solid rgba(0, 172, 73, 0.28);
+}
+.time-card:active { background: #f3faf5; }
+.time-card__icon {
+  flex: none; width: 34px; height: 34px; border-radius: 50%;
+  display: grid; place-items: center; background: var(--tint); color: var(--green-text);
+}
+.time-card__text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.time-card__title { font-size: 14.5px; font-weight: 800; color: var(--green-text); }
+.time-card__sub {
+  font-size: 11.5px; color: var(--text-muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.time-card > svg { flex: none; color: var(--green-text); }
+
+.tmachine { min-height: 100%; }
+.tmachine__bar-title { text-align: center; font-size: 16px; font-weight: 800; color: var(--text); }
+.tmachine__content { padding: 2px 16px 28px; }
+.tmachine__eyebrow {
+  display: flex; align-items: center; gap: 6px; margin: 6px 0 0;
+  font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green-bright);
+}
+.tmachine__title {
+  margin: 6px 0 0; font-size: 24px; line-height: 1.15; font-weight: 800;
+  letter-spacing: -0.4px; color: var(--green-text);
+}
+.tmachine__sub { margin: 6px 0 0; font-size: 12.5px; line-height: 1.45; color: var(--text-muted); }
+
+.tmachine__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+.tmachine__stat { display: flex; flex-direction: column; gap: 3px; padding: 10px; border-radius: 12px; background: var(--tint); }
+.tmachine__stat span { font-size: 10.5px; color: var(--text-muted); }
+.tmachine__stat strong { font-size: 13.5px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.is-pos { color: var(--green-text); }
+.is-neg { color: #c0372f; }
+
+.tmachine__panel { margin-top: 10px; padding: 12px 14px; border-radius: 16px; border: 1px solid var(--line); background: #fff; }
+.tmachine__panel--chart { padding: 10px 10px 8px; }
+.tmachine__panel-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.tmachine__panel-head h2 { margin: 0; font-size: 14.5px; font-weight: 800; color: var(--green-text); }
+.tmachine__panel-head span { font-size: 12.5px; font-weight: 700; color: var(--text-muted); white-space: nowrap; }
+.tmachine__panel-head--spaced { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+
+.tmachine__presets, .tmachine__cats { display: flex; gap: 6px; margin-top: 10px; overflow-x: auto; scrollbar-width: none; }
+.tmachine__presets::-webkit-scrollbar, .tmachine__cats::-webkit-scrollbar { display: none; }
+.tmachine__presets button, .tmachine__cats button {
+  flex: 0 0 auto; padding: 6px 12px; border-radius: 999px; background: var(--tint);
+  color: var(--green-text); font-size: 12.5px; font-weight: 700; border: 1.5px solid transparent;
+}
+.tmachine__presets button[aria-pressed="true"], .tmachine__cats button[aria-pressed="true"] { background: var(--green); color: #fff; }
+
+.tmachine__range { width: 100%; margin: 12px 0 0; accent-color: var(--green); }
+.tmachine__hint { margin: 6px 0 0; font-size: 11.5px; line-height: 1.4; color: var(--text-muted); }
+.tmachine__scale { display: flex; justify-content: space-between; margin-top: 2px; font-size: 10.5px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.tmachine__now { font-weight: 800; color: var(--green-text); }
+.tmachine__change { margin: 6px 0 0; font-size: 13.5px; font-weight: 800; color: var(--text-muted); }
+.tmachine__change.is-pos { color: var(--green-text); }
+.tmachine__change.is-neg { color: #c0372f; }
+
+.tmachine__saved { margin-top: 10px; padding: 16px 14px 14px; border-radius: 18px; background: var(--tint); text-align: center; }
+.tmachine__saved.is-pos { background: #e3f5e9; }
+.tmachine__saved.is-neg { background: rgba(192, 55, 47, 0.08); }
+.tmachine__saved-label { margin: 0; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+.tmachine__saved-value {
+  margin: 4px 0 0; font-size: 34px; line-height: 1.05; font-weight: 800; letter-spacing: -1px;
+  color: var(--green-text); font-variant-numeric: tabular-nums;
+}
+.tmachine__saved.is-neg .tmachine__saved-value { color: #c0372f; }
+.tmachine__saved-sub { margin: 4px 0 0; font-size: 12.5px; color: var(--text-muted); }
+
+.tmachine-chart { display: block; width: 100%; height: auto; }
+.tmachine-chart__tick { font-size: 9.5px; fill: var(--text-muted); font-variant-numeric: tabular-nums; }
+.tmachine-chart__axis { font-size: 9.5px; fill: var(--text-muted); font-weight: 700; }
+.tmachine-chart__year { font-size: 8.5px; fill: #b3bcb6; font-variant-numeric: tabular-nums; }
+
+.tmachine__legend { list-style: none; margin: 8px 2px 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.tmachine__legend li { display: grid; grid-template-columns: 10px 1fr auto auto; align-items: center; gap: 8px; }
+.tmachine__dot { width: 10px; height: 10px; border-radius: 50%; }
+.tmachine__legend-name { font-size: 13px; font-weight: 600; }
+.tmachine__legend-value { font-size: 13px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.tmachine__delta {
+  font-size: 11px; font-weight: 800; color: var(--green-text);
+  background: var(--tint); padding: 2px 6px; border-radius: 999px; font-variant-numeric: tabular-nums;
+}
+.tmachine__delta.is-neg { color: #c0372f; background: rgba(192, 55, 47, 0.08); }
+
+.tmachine__narrative { margin-top: 10px; }
+.tmachine__note { display: flex; gap: 6px; align-items: flex-start; margin: 10px 2px 0; font-size: 11px; line-height: 1.4; color: var(--text-muted); }
+.tmachine__note svg { flex: none; margin-top: 2px; }

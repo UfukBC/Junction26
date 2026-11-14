@@ -42,4 +42,27 @@ The mapping table in `src/frontend/BENCHMARKS.md` has overlaps and unsupported s
 - Travel: `098` + `112` (`073.3` does not exist in `benchmarks.json` as it is level 3, and `073` is in Transportation).
 Fixed bills (Housing and Utilities) are not compared because survey housing includes imputed rent.
 
+---
+
+### I-20261114-time-machine-model
+
+- [ ] Approved
+- **Type:** decision
+- **Target:** new decision (D-0013)
+- **Task:** T-018
+- **Author:** AI
+- **Evidence:** `src/frontend/src/data/timeMachine.ts`, `src/frontend/src/data/timeMachineData.ts`, `src/frontend/src/screens/TimeMachineScreen.tsx`
+
+Time machine projections use a deliberately simple, explainable model and only the customer's own data.
+
+- **Baseline:** averages over the customer's last ≤6 months that have data (income and spending from
+  `getMonthlyFlow`, category averages from `getSpendingByCategory`), starting from the latest balance in
+  `getTransactionSummary`. "Spending" keeps the existing rule (Salary Sweep / Invest Deposit are not spending).
+- **Monthly step:** the balance changes by the month's net (income − spending) plus a signed category adjustment.
+  No investment return and no inflation adjustment — the screen is about keeping money in the account.
+- **Two scenarios:** *continue as now* (reference line) and *save more* (the user moves a bar for one category,
+  centred on their current average; left = spend less and save the difference, right = spend more). The extra saved
+  over the horizon is shown as a large, signed number.
+- **Wording:** rule-based, using the customer's numbers; states that this is not financial advice and never suggests
+  cutting fixed costs or necessary care. No other customers are used (D-0011).
 
