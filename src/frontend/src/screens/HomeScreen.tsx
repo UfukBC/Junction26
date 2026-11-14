@@ -1,15 +1,32 @@
 import { ArrowLeft, LogOut, MessageSquare } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { GoalCard } from "../components/GoalCard";
 import { AccountsList, QuickActions } from "../components/HomeSections";
 import { MonthSwitcher } from "../components/MonthSwitcher";
+import { MonthlySavePrompt } from "../components/MonthlySavePrompt";
 import { SpendingCard } from "../components/spending/SpendingCard";
 import { usePhoneHeight } from "../components/spending/usePhoneHeight";
 import { SpendingDetail } from "../components/spending/SpendingDetail";
 import { TimeHabitCard } from "../components/TimeHabitCard";
-import { getMonthStory, listMonths, monthRange, type MonthStory } from "../data/database";
-import { homeData } from "../data/mock";
-import { clearAnswers, loadAnswers, type QuestionnaireAnswers } from "../data/questionnaire";
+import { getMonthStory, getMonthlyFlow, listMonths, monthRange, type MonthStory } from "../data/database";
+import { fetchSavingsCheck, type SavingsCheckResult } from "../data/savingsCheck";
+import { homeData, type Account } from "../data/mock";
+import {
+  clearAnswers,
+  clearSweeps,
+  goalLabel,
+  loadAnswers,
+  loadSweeps,
+  monthlySaveCheckIsDue,
+  monthsUntil,
+  realisticMonthlySave,
+  savedBalanceEur,
+  savingsAccountName,
+  saveSweep,
+  type MonthlySaveDecision,
+  type QuestionnaireAnswers,
+} from "../data/questionnaire";
+import { formatEurWhole } from "../format";
 import { QuestionnaireScreen } from "./QuestionnaireScreen";
 
 // Demo customer. Add ?customer=CUST03172 to the URL to view another demo customer (e.g. one with a time-habit warning).
@@ -54,12 +71,63 @@ export function HomeScreen() {
   const [analysis, setAnalysis] = useState<{ segment: string | null } | null>(null);
   const [questionnaire, setQuestionnaire] = useState(false);
   const [answers, setAnswers] = useState<QuestionnaireAnswers | null>(null);
+  const [sweeps, setSweeps] = useState<MonthlySaveDecision[]>([]);
+  const [latestFlow, setLatestFlow] = useState<{ month: string; incomeEur: number; spendingEur: number } | null>(null);
+  const [modelCheck, setModelCheck] = useState<SavingsCheckResult | null>(null);
+  const [modelState, setModelState] = useState<"idle" | "loading" | "ready" | "fallback">("idle");
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
   const [error, setError] = useState("");
 
   useEffect(() => {
     setAnswers(loadAnswers(HOME_CUSTOMER));
+    setSweeps(loadSweeps(HOME_CUSTOMER));
   }, []);
+
+  const latestMonth = months.length > 0 ? months[months.length - 1] : null;
+  const savePlan =
+    latestFlow && answers
+      ? realisticMonthlySave({
+          incomeEur: latestFlow.incomeEur,
+          expenseEur: latestFlow.spendingEur,
+          targetAmountEur: answers.targetAmountEur,
+          targetMonth: answers.targetDate,
+          analysedMonth: latestFlow.month,
+          alreadySavedEur: savedBalanceEur(sweeps),
+        })
+      : null;
+  const saveAmount = modelCheck?.amountEur ?? savePlan?.amountEur ?? 0;
+  const monthAlreadyAnswered = latestFlow != null && sweeps.some((row) => row.month === latestFlow.month);
+  const showSavePrompt =
+    !questionnaire &&
+    !analysis &&
+    answers?.createSavingsAccount === true &&
+    monthlySaveCheckIsDue() &&
+    latestFlow != null &&
+    !monthAlreadyAnswered;
+
+  const accounts = useMemo<Account[]>(() => {
+    const movedEur = savedBalanceEur(sweeps);
+    const bankAccounts = homeData.accounts.map((account) =>
+      account.id === "acc-1" && account.balanceEur != null
+        ? { ...account, balanceEur: Math.round((account.balanceEur - movedEur) * 100) / 100 }
+        : account,
+    );
+    if (!answers?.createSavingsAccount) return homeData.accounts;
+    const decision = latestMonth ? sweeps.find((row) => row.month === latestMonth) : undefined;
+    const detail = !decision
+      ? "Asks on the 1st"
+      : decision.accepted
+        ? `Saved ${formatEurWhole(decision.amountEur)} on the 1st`
+        : "Nothing saved this month";
+    const savings: Account = {
+      id: "goal-savings",
+      name: savingsAccountName(answers.goal),
+      kind: "savings",
+      detail,
+      balanceEur: movedEur,
+    };
+    return [savings, ...bankAccounts];
+  }, [answers, latestMonth, sweeps]);
 
   useEffect(() => {
     let active = true;
@@ -99,6 +167,81 @@ export function HomeScreen() {
       active = false;
     };
   }, [months, index]);
+
+  useEffect(() => {
+    if (!latestMonth || !answers?.createSavingsAccount) return;
+    let active = true;
+    getMonthlyFlow(HOME_CUSTOMER, monthRange(latestMonth))
+      .then((rows) => {
+        const row = rows[rows.length - 1];
+        if (!active || !row) return;
+        setLatestFlow({ month: row.month, incomeEur: row.incomeEur, spendingEur: row.spendingEur });
+      })
+      .catch(() => {
+        if (active) setLatestFlow(null);
+      });
+    return () => {
+      active = false;
+    };
+  }, [latestMonth, answers?.createSavingsAccount]);
+
+  const modelKey =
+    showSavePrompt && savePlan && latestFlow && answers
+      ? [
+          latestFlow.month,
+          answers.goal,
+          answers.targetAmountEur,
+          answers.targetDate,
+          answers.incomePredictability,
+          savePlan.remainingEur,
+          savePlan.goalPaceEur,
+          savePlan.safeCapEur,
+          savedBalanceEur(sweeps),
+        ].join("|")
+      : "";
+
+  useEffect(() => {
+    if (!modelKey || !savePlan || !latestFlow || !answers) return;
+    let active = true;
+    setModelCheck(null);
+    setModelState("loading");
+    fetchSavingsCheck({
+      goalLabel: goalLabel(answers.goal),
+      targetAmountEur: answers.targetAmountEur,
+      targetMonth: answers.targetDate,
+      analysedMonth: latestFlow.month,
+      monthsLeft: answers.targetDate ? monthsUntil(latestFlow.month, answers.targetDate) : 1,
+      alreadySavedEur: savedBalanceEur(sweeps),
+      incomeEur: latestFlow.incomeEur,
+      expenseEur: latestFlow.spendingEur,
+      remainingEur: savePlan.remainingEur,
+      goalPaceEur: savePlan.goalPaceEur,
+      safeCapEur: savePlan.safeCapEur,
+      incomePredictability: answers.incomePredictability,
+    })
+      .then((result) => {
+        if (!active) return;
+        setModelCheck(result);
+        setModelState(result ? "ready" : "fallback");
+      })
+      .catch(() => {
+        if (active) setModelState("fallback");
+      });
+    return () => {
+      active = false;
+    };
+  }, [modelKey]);
+
+  const answerSavePrompt = (accepted: boolean) => {
+    if (!latestFlow || !answers) return;
+    const decision: MonthlySaveDecision = {
+      month: latestFlow.month,
+      amountEur: accepted ? saveAmount : 0,
+      accepted,
+    };
+    if (!saveSweep(HOME_CUSTOMER, decision)) return;
+    setSweeps(loadSweeps(HOME_CUSTOMER));
+  };
 
   if (questionnaire) {
     return (
@@ -140,6 +283,7 @@ export function HomeScreen() {
           {story && status === "ready" ? (
             <SpendingDetail
               key={analysis.segment ?? "none"}
+              customerId={HOME_CUSTOMER}
               story={story}
               monthTitle={monthLabel(story.month)}
               initialSegment={analysis.segment}
@@ -187,12 +331,30 @@ export function HomeScreen() {
           onEdit={() => setQuestionnaire(true)}
           onReset={() => {
             clearAnswers(HOME_CUSTOMER);
+            clearSweeps(HOME_CUSTOMER);
             setAnswers(null);
+            setSweeps([]);
           }}
         />
         <QuickActions />
-        <AccountsList accounts={homeData.accounts} />
+        <AccountsList accounts={accounts} />
       </div>
+      {showSavePrompt && latestFlow && answers && savePlan && (
+        <MonthlySavePrompt
+          accountName={savingsAccountName(answers.goal)}
+          monthLabel={monthLabel(latestFlow.month)}
+          incomeEur={latestFlow.incomeEur}
+          expenseEur={latestFlow.spendingEur}
+          remainingEur={savePlan.remainingEur}
+          goalPaceEur={savePlan.goalPaceEur}
+          amountEur={saveAmount}
+          reason={modelCheck?.reason ?? null}
+          loading={modelState === "loading"}
+          fromModel={modelState === "ready"}
+          onSave={() => answerSavePrompt(true)}
+          onSkip={() => answerSavePrompt(false)}
+        />
+      )}
     </div>
   );
 }

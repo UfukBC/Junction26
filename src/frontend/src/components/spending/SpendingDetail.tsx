@@ -1,7 +1,15 @@
 import { useState } from "react";
+import { Analysing } from "../Analysing";
 import type { MonthStory } from "../../data/database";
+import { ADVISOR_NAME } from "../../data/advisor";
+import {
+  BENCHMARK_SOURCE,
+  bandLabel,
+  baselineComparison,
+} from "../../data/benchmarkComparison";
+import { usePeerBenchmark } from "../../data/usePeerBenchmark";
 import { OVERVIEW, amountOf, useAdvice } from "../../data/useAdvice";
-import { formatEur } from "../../format";
+import { formatEur, formatEurWhole } from "../../format";
 import { Donut } from "./Donut";
 import { LegendRow } from "./LegendRow";
 import { SLICE_COLORS, categoryParts, monthParts, pct, spentEur } from "./model";
@@ -9,39 +17,52 @@ import { SLICE_COLORS, categoryParts, monthParts, pct, spentEur } from "./model"
 type Mode = "month" | "everyday";
 
 /**
- * Extended view: a large donut (month, or the categories inside Everyday), an AI overview card that follows the
- * selection, and the full list. Tapping a segment or a row selects it; tapping again returns to the month overview.
+ * Extended view: a large donut (month, or the categories inside Everyday) and the full list.
+ * The summary is only for the whole month, or for Everyday as one basket. A single category is not analysed.
  */
 export function SpendingDetail({
+  customerId,
   story,
   monthTitle,
   initialSegment,
 }: {
+  customerId: string;
   story: MonthStory;
   monthTitle: string;
   initialSegment: string | null;
 }) {
-  const [mode, setMode] = useState<Mode>("month");
-  const [selected, setSelected] = useState<string | null>(initialSegment);
+  const [mode, setMode] = useState<Mode>(initialSegment === "Everyday" ? "everyday" : "month");
+  const [selected, setSelected] = useState<string | null>(initialSegment === "Everyday" ? null : initialSegment);
   const [seenMonth, setSeenMonth] = useState(story.month);
   if (seenMonth !== story.month) {
     setSeenMonth(story.month);
     setSelected(null);
   }
 
+  const baseline = usePeerBenchmark(customerId);
   const monthRing = monthParts(story);
   const categoryRing = categoryParts(story);
   const parts = mode === "month" ? monthRing : categoryRing;
   const ringTotal = parts.reduce((sum, part) => sum + part.valueEur, 0);
   const selectedPart = parts.find((part) => part.name === selected) ?? null;
-  const target = selected ?? OVERVIEW;
-  const advice = useAdvice(monthTitle, story, target);
+  const advice = useAdvice(customerId, monthTitle, story, mode === "everyday" ? "Everyday" : OVERVIEW, baseline);
 
-  const toggle = (name: string) => setSelected((current) => (current === name ? null : name));
+  const categoryComparison =
+    selectedPart && mode === "everyday" && baseline
+      ? baselineComparison(baseline, selectedPart.name)
+      : null;
+
   const switchMode = (next: Mode) => {
     if (next === mode) return;
     setMode(next);
     setSelected(null);
+  };
+  const toggle = (name: string) => {
+    if (name === "Everyday") {
+      switchMode("everyday");
+      return;
+    }
+    setSelected((current) => (current === name ? null : name));
   };
 
   const centerValue = selectedPart
@@ -82,17 +103,60 @@ export function SpendingDetail({
         />
       </div>
 
-      <section className="ai-card" key={target} aria-label="AI overview">
+      <section className="ai-card" key={selected ?? mode} aria-label="AI overview">
         <div className="ai-card__head">
-          <span className="ai-card__kicker">{advice.fromAi ? "AI overview" : "Overview"}</span>
-          {!advice.fromAi && <span className="ai-card__tag">built-in tips · AI not connected</span>}
+          <span className="ai-card__kicker">
+            {categoryComparison
+              ? "Statistics Finland Benchmark"
+              : advice.loading
+                ? "AI analysing"
+                : ADVISOR_NAME}
+          </span>
+          {categoryComparison && baseline && (
+            <span className="ai-card__tag">{bandLabel(baseline.quintile)}</span>
+          )}
         </div>
-        <p className="ai-card__title">{selected ? `${selected} · ${formatEur(amountOf(story, selected))}` : monthTitle}</p>
-        <p className="ai-card__text">{advice.summary}</p>
-        <p className="ai-card__text ai-card__rec"><strong>Recommendation:</strong> {advice.recommendation}</p>
+        <p className="ai-card__title">
+          {categoryComparison
+            ? `${selectedPart!.name} · ${formatEur(selectedPart!.valueEur)}`
+            : mode === "everyday"
+              ? `Everyday · ${formatEur(amountOf(story, "Everyday"))}`
+              : monthTitle}
+        </p>
+        {categoryComparison && baseline ? (
+          <div className="benchmark-detail">
+            <p className="ai-card__label">Peer Average ({bandLabel(baseline.quintile)})</p>
+            <p className="ai-card__text">
+              Finnish households in your band average{" "}
+              <strong>{formatEurWhole(categoryComparison.benchmarkMonthEur)}/month</strong> on {categoryComparison.category.toLowerCase()}.
+            </p>
+            <p className="ai-card__label">Your 12-Month Average</p>
+            <p className="ai-card__text">
+              You averaged <strong>{formatEurWhole(categoryComparison.userMonthlyEur)}/month</strong>
+              <span className={categoryComparison.diffEur > 0 ? " benchmark--above" : " benchmark--below"}>
+                {" "}— {categoryComparison.diffEur >= 0 ? "+" : ""}{formatEurWhole(categoryComparison.diffEur)} vs peer average
+              </span>
+              . This month: {formatEur(selectedPart!.valueEur)}.
+            </p>
+            <p className="benchmark__source">{BENCHMARK_SOURCE}</p>
+          </div>
+        ) : advice.loading ? (
+          <Analysing showText={false} />
+        ) : (
+          <>
+            <p className="ai-card__label">Summary</p>
+            <p className="ai-card__text">{advice.summary}</p>
+            {advice.recommendation && (
+              <>
+                <p className="ai-card__label">Recommendation</p>
+                <p className="ai-card__text ai-card__rec">{advice.recommendation}</p>
+              </>
+            )}
+          </>
+        )}
         {selected && (
           <button className="ai-card__back" type="button" onClick={() => setSelected(null)}>
-            Back to the month overview
+            {mode === "everyday" ? "Back to Everyday overview" : "Back to the month overview"}
           </button>
         )}
       </section>
