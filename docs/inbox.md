@@ -66,3 +66,20 @@ Time machine projections use a deliberately simple, explainable model and only t
 - **Wording:** rule-based, using the customer's numbers; states that this is not financial advice and never suggests
   cutting fixed costs or necessary care. No other customers are used (D-0011).
 
+---
+
+### I-20261114-demo-persona-balance-scale
+
+- [ ] Approved
+- **Type:** reference
+- **Target:** `src/frontend/DATA.md` (existing, section "Demo customers")
+- **Task:** T-018
+- **Author:** AI
+- **Evidence:** `src/frontend/scripts/build-demo-db.mjs` (`BALANCE_SCALE`), `src/frontend/public/data/s_pankki-demo.db`, `src/frontend/src/data/mock.ts:37`
+
+The default demo persona `CUST04457` has its running `balance_after_eur` scaled ×0.1 when the demo DB is built, so
+the latest balance is ~3,027.91 € instead of ~30,279 €. This makes the Time machine's saved amount a larger share of
+what the persona has. Transaction amounts are untouched, so income, spending and the monthly surplus are unchanged.
+`homeData.accounts` in `mock.ts` must stay in sync with that latest balance when the DB is rebuilt.
+
+

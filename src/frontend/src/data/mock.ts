@@ -34,7 +34,7 @@ export const homeData: HomeData = {
       name: "S-Bank account",
       kind: "account",
       detail: "FI00 1234 5600 0000 00",
-      balanceEur: 30279.12,
+      balanceEur: 3027.91,
     },
     {
       id: "acc-2",

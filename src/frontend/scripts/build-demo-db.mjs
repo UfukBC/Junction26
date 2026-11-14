@@ -30,6 +30,10 @@ const DEFAULT_CUSTOMERS = [
   "CUST03172",
 ];
 
+// Demo tweak: the default persona starts with less in the account, so the Time machine saving is a larger share of
+// what they have. Only the running balance is scaled; transaction amounts and the monthly surplus stay untouched.
+const BALANCE_SCALE = { CUST04457: 0.1 };
+
 const SCHEMA = `
 CREATE TABLE customers (
   customer_id          TEXT PRIMARY KEY,
@@ -179,6 +183,10 @@ insert("customers", ["customer_id", "customer_postal_code", "customer_age"],
   demoCustomers.map((c) => [c.customer_id, c.customer_postal_code, Number(c.customer_age)]));
 
 const txRows = await streamTransactions(path.join(RAW, "tx_junction_transactions.csv"), demo);
+for (const row of txRows) {
+  const factor = BALANCE_SCALE[row[0]];
+  if (factor != null && row[7] != null) row[7] = Math.round(row[7] * factor * 100) / 100;
+}
 insert("transactions",
   ["customer_id", "bank_account_id", "tx_date", "tx_timestamp", "tx_ts_iso", "category", "tx_amount_eur", "balance_after_eur", "transaction_type", "merchant_id", "mcc_code"],
   txRows);
