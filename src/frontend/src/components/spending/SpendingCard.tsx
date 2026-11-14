@@ -1,4 +1,3 @@
-import { ChevronRight } from "lucide-react";
 import type { MonthStory } from "../../data/database";
 import { formatEur } from "../../format";
 import { Donut } from "./Donut";
@@ -6,7 +5,7 @@ import { LegendRow } from "./LegendRow";
 import { SLICE_COLORS, monthParts, spentEur } from "./model";
 
 /**
- * Compact Home card: the month as a donut beside its four totals. Tapping the ring, a row or the link opens the
+ * Compact Home card: the month as a donut beside its four totals. Tapping the ring or a row opens the
  * extended view (`onOpen`, with the tapped row's name when there is one).
  */
 export function SpendingCard({
@@ -41,9 +40,6 @@ export function SpendingCard({
           ))}
         </ul>
       </div>
-      <button className="link-button spend__cta" type="button" onClick={() => onOpen(null)}>
-        Analyse spending <ChevronRight size={18} strokeWidth={2.6} />
-      </button>
     </div>
   );
 }

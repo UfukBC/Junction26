@@ -1,30 +1,65 @@
 import { useState } from "react";
 import type { MonthStory } from "../../data/database";
 import { OVERVIEW, amountOf, useAdvice } from "../../data/useAdvice";
-import { formatEur } from "../../format";
+import { horizonLabel, projectScenario } from "../../data/timeMachine";
+import { formatEur, formatEurWhole } from "../../format";
 import { Donut } from "./Donut";
 import { LegendRow } from "./LegendRow";
 import { SLICE_COLORS, categoryParts, monthParts, pct, spentEur } from "./model";
 
 type Mode = "month" | "everyday";
 
+/** AI tips look this far ahead when turning a monthly saving into a total. */
+const PROJECTION_MONTHS = 60;
+
+/** What a modest monthly saving from the current selection would add over the projection horizon. */
+function savingsProjection(
+  mode: Mode,
+  selected: string | null,
+  selectedPart: { name: string; valueEur: number } | null,
+  story: MonthStory,
+): { text: string; monthlyEur: number; savedEur: number } | null {
+  let monthlyEur: number;
+  let text: string;
+  if (mode === "everyday" && selectedPart && selectedPart.valueEur > 0) {
+    monthlyEur = selectedPart.valueEur * 0.2;
+    text = `Spending 20 % less on ${selectedPart.name}`;
+  } else if (mode === "month" && !selected) {
+    const left = amountOf(story, "Left");
+    if (left <= 0) return null;
+    monthlyEur = left / 2;
+    text = `Saving half of the ${formatEurWhole(left)} left this month`;
+  } else {
+    return null;
+  }
+  const savedEur = projectScenario({
+    startingBalanceEur: 0,
+    monthlyNetEur: 0,
+    months: PROJECTION_MONTHS,
+    monthlyExtraEur: monthlyEur,
+  }).finalBalanceEur;
+  return { text, monthlyEur, savedEur };
+}
+
 /**
- * Extended view: a large donut (month, or the categories inside Everyday), an AI overview card that follows the
- * selection, and the full list. Tapping a segment or a row selects it; tapping again returns to the month overview.
+ * Extended view: a large donut (month, or the categories inside Everyday) and the full list.
+ * The summary is only for the whole month, or for Everyday as one basket. A single category is not analysed.
  */
 export function SpendingDetail({
   customerId,
   story,
   monthTitle,
   initialSegment,
+  onOpenTimeMachine,
 }: {
   customerId: string;
   story: MonthStory;
   monthTitle: string;
   initialSegment: string | null;
+  onOpenTimeMachine?: () => void;
 }) {
-  const [mode, setMode] = useState<Mode>("month");
-  const [selected, setSelected] = useState<string | null>(initialSegment);
+  const [mode, setMode] = useState<Mode>(initialSegment === "Everyday" ? "everyday" : "month");
+  const [selected, setSelected] = useState<string | null>(initialSegment === "Everyday" ? null : initialSegment);
   const [seenMonth, setSeenMonth] = useState(story.month);
   if (seenMonth !== story.month) {
     setSeenMonth(story.month);
@@ -39,11 +74,19 @@ export function SpendingDetail({
   const target = selected ?? OVERVIEW;
   const advice = useAdvice(customerId, monthTitle, story, target);
 
-  const toggle = (name: string) => setSelected((current) => (current === name ? null : name));
+  const projection = savingsProjection(mode, selected, selectedPart, story);
+
   const switchMode = (next: Mode) => {
     if (next === mode) return;
     setMode(next);
     setSelected(null);
+  };
+  const toggle = (name: string) => {
+    if (name === "Everyday") {
+      switchMode("everyday");
+      return;
+    }
+    setSelected((current) => (current === name ? null : name));
   };
 
   const centerValue = selectedPart
@@ -84,7 +127,7 @@ export function SpendingDetail({
         />
       </div>
 
-      <section className="ai-card" key={target} aria-label="AI overview">
+      <section className="ai-card" key={selected ?? mode} aria-label="AI overview">
         <div className="ai-card__head">
           <span className="ai-card__kicker">
             {advice.fromAi ? "AI overview" : advice.loading ? "AI analysing" : "Overview"}
@@ -114,14 +157,29 @@ export function SpendingDetail({
                 <p className="ai-card__text">{advice.benchmark}</p>
               </>
             )}
-            <p className="ai-card__text ai-card__rec">
-              <strong>Recommendation:</strong> {advice.recommendation}
-            </p>
+            {advice.recommendation && (
+              <p className="ai-card__text ai-card__rec">
+                <strong>Recommendation:</strong> {advice.recommendation}
+              </p>
+            )}
           </>
+        )}
+        {projection && (
+          <div className="ai-card__projection">
+            <p className="ai-card__text">
+              {projection.text} (~{formatEurWhole(projection.monthlyEur)}/month) would add{" "}
+              <strong>{formatEurWhole(projection.savedEur)}</strong> over {horizonLabel(PROJECTION_MONTHS)}.
+            </p>
+            {onOpenTimeMachine && (
+              <button className="ai-card__back" type="button" onClick={onOpenTimeMachine}>
+                Project it over time →
+              </button>
+            )}
+          </div>
         )}
         {selected && (
           <button className="ai-card__back" type="button" onClick={() => setSelected(null)}>
-            Back to the month overview
+            {mode === "everyday" ? "Back to Everyday overview" : "Back to the month overview"}
           </button>
         )}
       </section>

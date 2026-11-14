@@ -12,6 +12,7 @@ import {
   INCOME_OPTIONS,
   goalLabel,
   incomeLabel,
+  realisticMonthlySave,
   saveAnswers,
   type FinancialGoal,
   type IncomePredictability,
@@ -19,13 +20,16 @@ import {
 } from "../data/questionnaire";
 import { formatEurWhole } from "../format";
 
-type Step = "goal" | "target" | "income" | "control" | "review";
+type Step = "goal" | "target" | "income" | "control" | "savings" | "review";
 
 interface Reference {
   months: number;
   averageIncomeEur: number;
   averageSpendingEur: number;
   averageLeftoverEur: number;
+  latestMonth: string | null;
+  latestIncomeEur: number;
+  latestSpendingEur: number;
   categories: CategorySpend[];
   asOfMonth: string;
 }
@@ -99,15 +103,22 @@ export function QuestionnaireScreen({ customerId, initialAnswers, onClose, onSav
   );
   const [control, setControl] = useState<string[]>(initialAnswers?.controlCategories ?? []);
   const [controlTouched, setControlTouched] = useState(initialAnswers != null);
+  const [createSavings, setCreateSavings] = useState<boolean | null>(
+    initialAnswers ? initialAnswers.createSavingsAccount : null,
+  );
   const [stepIndex, setStepIndex] = useState(0);
   const [reference, setReference] = useState<Reference | null>(null);
+  const [referenceState, setReferenceState] = useState<"loading" | "ready" | "error">("loading");
   const [saveState, setSaveState] = useState<"idle" | "failed">("idle");
 
   useEffect(() => {
     let active = true;
     (async () => {
       const asOf = await getDataAsOf();
-      if (!asOf) return;
+      if (!asOf) {
+        if (active) setReferenceState("error");
+        return;
+      }
       const range = trailingYear(asOf);
       const [flows, categories] = await Promise.all([
         getMonthlyFlow(customerId, range),
@@ -115,16 +126,24 @@ export function QuestionnaireScreen({ customerId, initialAnswers, onClose, onSav
       ]);
       if (!active) return;
       const months = flows.length || 1;
+      const latest = flows[flows.length - 1];
       setReference({
         months: flows.length,
         averageIncomeEur: flows.reduce((sum, flow) => sum + flow.incomeEur, 0) / months,
         averageSpendingEur: flows.reduce((sum, flow) => sum + flow.spendingEur, 0) / months,
         averageLeftoverEur: flows.reduce((sum, flow) => sum + flow.netEur, 0) / months,
+        latestMonth: latest?.month ?? null,
+        latestIncomeEur: latest?.incomeEur ?? 0,
+        latestSpendingEur: latest?.spendingEur ?? 0,
         categories,
         asOfMonth: asOf.slice(0, 7),
       });
+      setReferenceState("ready");
     })().catch(() => {
-      if (active) setReference(null);
+      if (active) {
+        setReference(null);
+        setReferenceState("error");
+      }
     });
     return () => {
       active = false;
@@ -140,6 +159,7 @@ export function QuestionnaireScreen({ customerId, initialAnswers, onClose, onSav
       ...(asksTarget ? (["target"] as Step[]) : []),
       "income",
       "control",
+      "savings",
       "review",
     ],
     [asksTarget],
@@ -153,6 +173,18 @@ export function QuestionnaireScreen({ customerId, initialAnswers, onClose, onSav
 
   const amount = Number(targetAmount.replace(",", ".").replace(/\s/g, ""));
   const amountValid = Number.isFinite(amount) && amount > 0;
+  const savePlan = reference?.latestMonth
+    ? realisticMonthlySave({
+        incomeEur: reference.latestIncomeEur,
+        expenseEur: reference.latestSpendingEur,
+        targetAmountEur: asksTarget && amountValid ? Math.round(amount) : null,
+        targetMonth: asksTarget && targetDate ? targetDate : null,
+        analysedMonth: reference.latestMonth,
+        alreadySavedEur: 0,
+      })
+    : null;
+  const monthlyTransferEur = savePlan?.amountEur ?? 0;
+  const remainReady = referenceState === "ready" && reference?.latestMonth != null;
 
   const canContinue = (() => {
     switch (step) {
@@ -164,6 +196,8 @@ export function QuestionnaireScreen({ customerId, initialAnswers, onClose, onSav
         return income !== null;
       case "control":
         return controlTouched;
+      case "savings":
+        return createSavings === false || (createSavings === true && remainReady);
       case "review":
         return true;
     }
@@ -194,6 +228,8 @@ export function QuestionnaireScreen({ customerId, initialAnswers, onClose, onSav
       targetDate: asksTarget && targetDate ? targetDate : null,
       incomePredictability: income,
       controlCategories: control,
+      createSavingsAccount: createSavings === true,
+      monthlyTransferEur: createSavings === true ? monthlyTransferEur : null,
       completedAt: new Date().toISOString(),
     };
     if (saveAnswers(customerId, answers)) {
@@ -401,6 +437,81 @@ export function QuestionnaireScreen({ customerId, initialAnswers, onClose, onSav
           </>
         )}
 
+        {step === "savings" && (
+          <>
+            <h1 className="quiz__question">Do you want to create a savings account for this goal?</h1>
+            <p className="quiz__why">
+              On the 1st of each month we compare what the goal needs with what remained, then ask about a realistic amount.
+            </p>
+
+            {remainReady && reference && savePlan && (
+              <div className="quiz__reference">
+                <p className="quiz__reference-title">Latest month, {reference.latestMonth}</p>
+                <div className="quiz__reference-row">
+                  <span>Income</span>
+                  <strong>{formatEurWhole(reference.latestIncomeEur)}</strong>
+                </div>
+                <div className="quiz__reference-row">
+                  <span>Expenses</span>
+                  <strong>{formatEurWhole(reference.latestSpendingEur)}</strong>
+                </div>
+                <div className="quiz__reference-row">
+                  <span>Remaining</span>
+                  <strong>{formatEurWhole(savePlan.remainingEur)}</strong>
+                </div>
+                <div className="quiz__reference-row">
+                  <span>Goal pace</span>
+                  <strong>
+                    {savePlan.goalPaceEur == null ? "No set amount" : `${formatEurWhole(savePlan.goalPaceEur)} / month`}
+                  </strong>
+                </div>
+                <div className="quiz__reference-row">
+                  <span>Suggested</span>
+                  <strong>{formatEurWhole(savePlan.amountEur)}</strong>
+                </div>
+              </div>
+            )}
+            {referenceState === "loading" && <p className="quiz__loading">Reading income and expenses…</p>}
+            {referenceState === "error" && (
+              <p className="quiz__error">Income and expenses could not be read, so the account cannot be set up.</p>
+            )}
+
+            <div className="quiz__options">
+              <button
+                type="button"
+                className={`quiz__option ${createSavings === true ? "quiz__option--active" : ""}`}
+                aria-pressed={createSavings === true}
+                disabled={!remainReady}
+                onClick={() => setCreateSavings(true)}
+              >
+                <span className="quiz__option-main">
+                  <span className="quiz__option-label">Yes, create the account</span>
+                  <span className="quiz__option-desc">
+                    {remainReady
+                      ? monthlyTransferEur > 0
+                        ? `On the 1st we will ask if you want to save ${formatEurWhole(monthlyTransferEur)}. That is not everything left.`
+                        : "On the 1st we will ask. Nothing realistic is left to move."
+                      : "Waiting for income and expenses."}
+                  </span>
+                </span>
+                {createSavings === true && <Check size={20} strokeWidth={2.4} className="quiz__tick" />}
+              </button>
+              <button
+                type="button"
+                className={`quiz__option ${createSavings === false ? "quiz__option--active" : ""}`}
+                aria-pressed={createSavings === false}
+                onClick={() => setCreateSavings(false)}
+              >
+                <span className="quiz__option-main">
+                  <span className="quiz__option-label">No, not now</span>
+                  <span className="quiz__option-desc">Keep the goal. Nothing moves on its own.</span>
+                </span>
+                {createSavings === false && <Check size={20} strokeWidth={2.4} className="quiz__tick" />}
+              </button>
+            </div>
+          </>
+        )}
+
         {step === "review" && goal && income && (
           <>
             <h1 className="quiz__question">Your goal, in one place</h1>
@@ -426,6 +537,12 @@ export function QuestionnaireScreen({ customerId, initialAnswers, onClose, onSav
               <div>
                 <dt>Focus spending</dt>
                 <dd>{control.length > 0 ? control.join(", ") : "Not sure yet"}</dd>
+              </div>
+              <div>
+                <dt>Savings account</dt>
+                <dd>
+                  {createSavings ? "Yes · asks on the 1st" : "No"}
+                </dd>
               </div>
             </dl>
             {saveState === "failed" && (

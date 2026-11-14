@@ -31,6 +31,10 @@ const DEFAULT_CUSTOMERS = [
   "CUST03172",
 ];
 
+// Demo tweak: the default persona starts with less in the account, so the Time machine saving is a larger share of
+// what they have. Only the running balance is scaled; transaction amounts and the monthly surplus stay untouched.
+const BALANCE_SCALE = { CUST04457: 0.1 };
+
 const SCHEMA = `
 CREATE TABLE customers (
   customer_id          TEXT PRIMARY KEY,
@@ -478,6 +482,12 @@ const txRows = await streamTransactions(path.join(RAW, "tx_junction_transactions
 applyMonthlyVariety(txRows);
 applyDemoHabits(txRows);
 rebuildBalancesAndOrder(txRows);
+
+// Origin's time-machine story: the demo persona keeps less savings on the statement.
+for (const row of txRows) {
+  const factor = BALANCE_SCALE[row[0]];
+  if (factor != null && row[7] != null) row[7] = Math.round(row[7] * factor * 100) / 100;
+}
 
 const merchants = collectMerchants(txRows);
 const merchantDirectory = [...merchants.values()].sort(

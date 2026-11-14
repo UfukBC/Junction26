@@ -1,7 +1,7 @@
 export interface Account {
   id: string;
   name: string;
-  kind: "card" | "account";
+  kind: "card" | "account" | "savings";
   detail?: string;
   balanceEur?: number;
 }
@@ -34,14 +34,13 @@ export const homeData: HomeData = {
       name: "S-Bank account",
       kind: "account",
       detail: "FI00 1234 5600 0000 00",
-      balanceEur: 30279.12,
+      balanceEur: 3027.91,
     },
     {
       id: "acc-2",
       name: "S-Etukortti Visa",
       kind: "card",
-      detail: "Debit · contactless",
-      balanceEur: 1250.4,
+      detail: "Debit · S-Bank account",
     },
   ],
 };

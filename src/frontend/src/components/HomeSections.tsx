@@ -1,4 +1,4 @@
-import { ArrowLeftRight, Bookmark, ChevronRight, MapPin, Plus } from "lucide-react";
+import { ArrowLeftRight, Bookmark, ChevronRight, MapPin, PiggyBank, Plus } from "lucide-react";
 import type { Account } from "../data/mock";
 import { formatEur } from "../format";
 import { AccountGlyph, CardGlyph } from "./icons";
@@ -41,7 +41,15 @@ export function AccountsList({ accounts }: { accounts: Account[] }) {
       <div className="card accounts">
         {accounts.map((a) => (
           <button key={a.id} className="account-row">
-            <span className="account-row__icon">{a.kind === "card" ? <CardGlyph /> : <AccountGlyph />}</span>
+            <span className="account-row__icon">
+              {a.kind === "card" ? (
+                <CardGlyph />
+              ) : a.kind === "savings" ? (
+                <PiggyBank size={26} strokeWidth={2} />
+              ) : (
+                <AccountGlyph />
+              )}
+            </span>
             <span className="account-row__text">
               <span className="account-row__name">{a.name}</span>
               {a.detail && <span className="account-row__detail">{a.detail}</span>}
