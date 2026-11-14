@@ -94,3 +94,40 @@ what the persona has. Transaction amounts are untouched, so income, spending and
 `homeData.accounts` in `mock.ts` must stay in sync with that latest balance when the DB is rebuilt.
 
 
+
+---
+
+### I-20261114-deep-thinking-agents
+
+- [ ] Approved
+- **Type:** decision
+- **Target:** new decision
+- **Task:** none
+- **Author:** AI
+- **Evidence:** `src/frontend/src/server/deepAnalysis.ts`, `src/frontend/src/server/agents.ts`, `src/frontend/src/server/news.ts`, `src/frontend/vite.config.ts` (`deepAnalysisPlugin`), tests in `src/frontend/src/server/deepAnalysis.test.ts`
+
+**Deep thinking: two different models check each other, and code checks the figures.**
+A "Deep thinking" switch at the top right of the AI card (extended view) runs a second, slower analysis of the same
+brief the normal summary uses.
+
+- **Analyst:** Nemotron 3.5 Super (DataCrunch, `VERDA_INFERENCE_KEY`) writes the summary and recommendation.
+- **Reviewer:** Claude Opus 5.5 (Anthropic API, `ANTHROPIC_API_KEY`) gets the same data plus the analyst's answer
+  and returns correct/incorrect with up to 3 issues and its corrected version. Two different model families, so they
+  don't share the same blind spots.
+- **Discussion:** on "incorrect", the analyst fixes or defends its answer, then the reviewer checks again (at most
+  2 review rounds). Result verdict: `verified`, `corrected`, `disputed` (no agreement: the answer with fewer
+  unsupported figures is shown), or `unchecked` (only one agent answered).
+- **Figure check in code:** every number in an answer must match a number in the brief or news (within 2 %), or simple
+  arithmetic on them (half, quarter, 10 %, 20 %, sum, difference, percentage; within 0.5 %). Unmatched figures are
+  sent to the reviewer and shown under the answer. Month labels like "September 2026" are not figures.
+- **Invisible to the user:** the cross-check exists to make the AI review more reliable, not as a feature to show.
+  The card looks the same whether two agents agreed, one corrected the other, or only one answered: no model names,
+  no verdict badge, no discussion view. If neither answers, the normal one-model summary is shown with no notice.
+  Verdict, turns and agent states (`ok` / `offline` / `not-configured`) stay in the NDJSON stream for debugging.
+- **News:** the server reads Yle News English RSS (`https://yle.fi/rss/news`), keeps up to 4 money-related items
+  (taxation, work, income, prices, energy…), caches them 30 min, and passes them as context. Agents are told news is
+  not the customer's data and to use it only when it changes what the customer should do. The demo data ends
+  2026-09-30, so news is newer than the data.
+- **Transport:** `POST /api/deep-analysis` in the Vite dev middleware streams NDJSON events so the UI shows each step
+  live. Finished runs with both agents up are cached 30 min on the server, and per page session on the client.
+  Like the other `/api/*` routes it exists only in `npm run dev`, not in `vite preview` or a static build.

@@ -35,6 +35,8 @@ export interface Advice extends SegmentAdvice {
   trend: string | null;
   /** One category against the public statistics for the closest income band. */
   benchmark: string | null;
+  /** The facts sent to the model. Deep thinking sends the same text to both of its agents. */
+  brief?: string;
 }
 
 const WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -414,7 +416,8 @@ export function useAdvice(customerId: string, monthTitle: string, story: MonthSt
         monthTitle,
         brief: brief(monthTitle, story, target, facts),
       };
-      const base = builtIn(monthTitle, story, target, facts);
+      // The brief rides along so deep thinking can send the same facts to its agents.
+      const base = { ...builtIn(monthTitle, story, target, facts), brief: request.brief };
       const cached = cachedAdviceFor(request, request.brief);
       if (cached) {
         setAdvice({ ...base, ...cached, fromAi: true, loading: false });

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import type { MonthStory } from "../../data/database";
 import { OVERVIEW, amountOf, useAdvice } from "../../data/useAdvice";
+import { useDeepAnalysis } from "../../data/useDeepAnalysis";
+import { DeepPanel, DeepToggle } from "./DeepThinking";
 import { horizonLabel, projectScenario } from "../../data/timeMachine";
 import { formatEur, formatEurWhole } from "../../format";
 import { Donut } from "./Donut";
@@ -8,6 +10,12 @@ import { LegendRow } from "./LegendRow";
 import { SLICE_COLORS, categoryParts, monthParts, pct, spentEur } from "./model";
 
 type Mode = "month" | "everyday";
+
+/**
+ * Overviews (customer · month · Month/Everyday) with deep thinking turned on. It cannot be turned off again for the
+ * same overview, and it stays on when the extended view is closed and reopened during this page session.
+ */
+const deepOverviews = new Set<string>();
 
 /** AI tips look this far ahead when turning a monthly saving into a total. */
 const PROJECTION_MONTHS = 60;
@@ -74,6 +82,52 @@ export function SpendingDetail({
   const target = selected ?? OVERVIEW;
   const advice = useAdvice(customerId, monthTitle, story, target);
 
+  // Deep thinking is per overview: this customer, month and selection (whole month or one slice/category).
+  const overviewKey = `${customerId}|${story.month}|${target}`;
+  const [, setDeepCount] = useState(deepOverviews.size);
+  const deepOn = deepOverviews.has(overviewKey);
+  const turnDeepOn = () => {
+    deepOverviews.add(overviewKey);
+    setDeepCount(deepOverviews.size);
+  };
+  const deep = useDeepAnalysis(deepOn, target, advice.brief);
+
+  /** Data-driven comparison blocks; shown with the normal and the deep answer alike. */
+  const comparisons = (
+    <>
+      {advice.trend && (
+        <>
+          <p className="ai-card__label">Against your previous months</p>
+          <p className="ai-card__text">{advice.trend}</p>
+        </>
+      )}
+      {advice.benchmark && (
+        <>
+          <p className="ai-card__label">Against people with a similar income (last 12 months)</p>
+          <p className="ai-card__text">{advice.benchmark}</p>
+        </>
+      )}
+    </>
+  );
+
+  /** The normal one-model overview. Also shown, without any notice, when deep thinking gets no answer. */
+  const standardAdvice = advice.loading ? (
+    <div className="ai-card__loading" role="status" aria-live="polite">
+      <span className="ai-card__bar" aria-hidden="true" />
+      <span className="ai-card__loading-text">Generating your overview…</span>
+    </div>
+  ) : (
+    <>
+      <p className="ai-card__text">{advice.summary}</p>
+      {comparisons}
+      {advice.recommendation && (
+        <p className="ai-card__text ai-card__rec">
+          <strong>Recommendation:</strong> {advice.recommendation}
+        </p>
+      )}
+    </>
+  );
+
   const projection = savingsProjection(mode, selected, selectedPart, story);
 
   const switchMode = (next: Mode) => {
@@ -130,40 +184,17 @@ export function SpendingDetail({
       <section className="ai-card" key={selected ?? mode} aria-label="AI overview">
         <div className="ai-card__head">
           <span className="ai-card__kicker">
-            {advice.fromAi ? "AI overview" : advice.loading ? "AI analysing" : "Overview"}
+            {deepOn ? "Deep thinking" : advice.fromAi ? "AI overview" : advice.loading ? "AI analysing" : "Overview"}
           </span>
-          {!advice.fromAi && !advice.loading && (
-            <span className="ai-card__tag">built-in tips · AI not connected</span>
-          )}
+          <span className="ai-card__head-end">
+            {!deepOn && !advice.fromAi && !advice.loading && (
+              <span className="ai-card__tag">built-in tips · AI not connected</span>
+            )}
+            <DeepToggle on={deepOn} onTurnOn={turnDeepOn} />
+          </span>
         </div>
         <p className="ai-card__title">{selected ? `${selected} · ${formatEur(amountOf(story, selected))}` : monthTitle}</p>
-        {advice.loading ? (
-          <div className="ai-card__loading" role="status" aria-live="polite">
-            <span className="ai-card__bar" aria-hidden="true" />
-            <span className="ai-card__loading-text">Generating your overview…</span>
-          </div>
-        ) : (
-          <>
-            <p className="ai-card__text">{advice.summary}</p>
-            {advice.trend && (
-              <>
-                <p className="ai-card__label">Against your previous months</p>
-                <p className="ai-card__text">{advice.trend}</p>
-              </>
-            )}
-            {advice.benchmark && (
-              <>
-                <p className="ai-card__label">Against people with a similar income (last 12 months)</p>
-                <p className="ai-card__text">{advice.benchmark}</p>
-              </>
-            )}
-            {advice.recommendation && (
-              <p className="ai-card__text ai-card__rec">
-                <strong>Recommendation:</strong> {advice.recommendation}
-              </p>
-            )}
-          </>
-        )}
+        {deepOn ? <DeepPanel state={deep} fallback={standardAdvice} comparisons={comparisons} /> : standardAdvice}
         {projection && (
           <div className="ai-card__projection">
             <p className="ai-card__text">

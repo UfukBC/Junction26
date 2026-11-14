@@ -2,9 +2,10 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import { ADVISOR_NAME, ADVISOR_VOICE, adviceFromPayments, type PaymentFact } from "./src/data/advisor";
-
-const VERDA_BASE = "https://containers.datacrunch.io/nemotron-3-5-super-vl-b300/v1";
-const VERDA_MODEL = "nemotron-3.5-super-vl";
+import { claudeAgent, nemotronAgent } from "./src/server/agents";
+import { runDeepAnalysis, type DeepEvent } from "./src/server/deepAnalysis";
+import { fetchMoneyNews } from "./src/server/news";
+import { VERDA_MODEL, verdaChat } from "./src/server/verda";
 
 const TRAINER_SYSTEM = [
   ADVISOR_VOICE,
@@ -111,37 +112,6 @@ const SAVINGS_SYSTEM = [
   "reason is one sentence, max 30 words, and it must mention the goal pace and what remained.",
   'Reply with JSON only: {"amountEur": number, "reason": string}',
 ].join(" ");
-
-async function verdaChat(apiKey: string, system: string, user: string, maxTokens: number): Promise<string> {
-  const response = await fetch(`${VERDA_BASE}/chat/completions`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      model: VERDA_MODEL,
-      temperature: 0.2,
-      max_tokens: maxTokens,
-      messages: [
-        { role: "system", content: system },
-        { role: "user", content: user },
-      ],
-    }),
-    signal: AbortSignal.timeout(120000),
-  });
-  if (!response.ok) throw new Error("model failed");
-  const data = (await response.json()) as {
-    choices?: { message?: { content?: string; reasoning_content?: string } }[];
-  };
-  const message = data.choices?.[0]?.message;
-  const content = (message?.content || "").trim();
-  const reasoning = (message?.reasoning || message?.reasoning_content || "").trim();
-  const raw = (content || reasoning).replace(/```json|```/g, "");
-  const json = raw.match(/\{[\s\S]*\}/)?.[0]?.trim() ?? "";
-  if (!json) throw new Error("empty");
-  return json;
-}
 
 function savingsCheckPlugin(apiKey: string | undefined): Plugin {
   return {
@@ -341,11 +311,95 @@ async function handleSegmentAdvice(req: IncomingMessage, res: ServerResponse, ap
   }
 }
 
+/** Finished two-agent runs, so the same month and view replays the same answer during a demo. */
+const deepCache = new Map<string, { at: number; events: DeepEvent[] }>();
+const DEEP_CACHE_MS = 30 * 60 * 1000;
+
+function deepAnalysisPlugin(verdaKey: string | undefined, anthropicKey: string | undefined): Plugin {
+  return {
+    name: "deep-analysis",
+    configureServer(server) {
+      server.middlewares.use("/api/deep-analysis", (req, res) => {
+        void handleDeepAnalysis(req, res, verdaKey, anthropicKey);
+      });
+    },
+  };
+}
+
+/**
+ * POST {segment, brief} → NDJSON stream of DeepEvent lines (agents, news, stage, turn, done | failed).
+ * Always 200 once started: a missing agent shows up as an event, not as an HTTP error.
+ */
+async function handleDeepAnalysis(
+  req: IncomingMessage,
+  res: ServerResponse,
+  verdaKey: string | undefined,
+  anthropicKey: string | undefined,
+) {
+  if (req.method !== "POST") {
+    sendJson(res, 405, { error: "post only" });
+    return;
+  }
+  let segment: string;
+  let brief: string;
+  try {
+    const raw = JSON.parse(await readBody(req, 12000)) as { segment?: unknown; brief?: unknown };
+    if (typeof raw.segment !== "string" || typeof raw.brief !== "string" || raw.segment.length > 48 || raw.brief.length > 8000) {
+      sendJson(res, 400, { error: "bad request" });
+      return;
+    }
+    segment = raw.segment;
+    brief = raw.brief;
+  } catch {
+    sendJson(res, 400, { error: "bad request" });
+    return;
+  }
+  res.statusCode = 200;
+  res.setHeader("Content-Type", "application/x-ndjson");
+  res.setHeader("Cache-Control", "no-cache");
+  const send = (event: DeepEvent) => {
+    if (!res.writableEnded) res.write(JSON.stringify(event) + "\n");
+  };
+  const news = await fetchMoneyNews();
+  const key = JSON.stringify([segment, brief, news.map((item) => item.title)]);
+  const hit = deepCache.get(key);
+  if (hit && Date.now() - hit.at < DEEP_CACHE_MS) {
+    hit.events.forEach(send);
+    res.end();
+    return;
+  }
+  const events: DeepEvent[] = [];
+  try {
+    const result = await runDeepAnalysis({
+      segment,
+      brief,
+      news,
+      analyst: nemotronAgent(verdaKey),
+      reviewer: claudeAgent(anthropicKey),
+      // Same rules as the normal overview, so the deep answer is never less careful than it.
+      guidance: TRAINER_SYSTEM,
+      emit: (event) => {
+        events.push(event);
+        send(event);
+      },
+    });
+    // Only cache runs where both agents answered; a run with one agent down should retry next time.
+    if (result && result.agents.every((agent) => agent.state === "ok")) {
+      deepCache.set(key, { at: Date.now(), events: events.filter((e) => e.type !== "stage") });
+    }
+  } catch {
+    send({ type: "failed", agents: [] });
+  }
+  res.end();
+}
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const apiKey = process.env.VERDA_INFERENCE_KEY || env.VERDA_INFERENCE_KEY;
+  const anthropicKey = process.env.ANTHROPIC_API_KEY || env.ANTHROPIC_API_KEY;
   return {
-    plugins: [react(), segmentAdvicePlugin(apiKey), savingsCheckPlugin(apiKey)],
+    // configureServer middlewares run before Vite's proxy, so the three local /api routes are not proxied.
+    plugins: [react(), segmentAdvicePlugin(apiKey), savingsCheckPlugin(apiKey), deepAnalysisPlugin(apiKey, anthropicKey)],
     server: { port: 5173, proxy },
     preview: { port: 4173, proxy },
   };
