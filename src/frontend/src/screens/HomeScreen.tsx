@@ -8,8 +8,6 @@ import { homeData } from "../data/mock";
 import { clearAnswers, loadAnswers, type QuestionnaireAnswers } from "../data/questionnaire";
 import { QuestionnaireScreen } from "./QuestionnaireScreen";
 
-const HOME_CUSTOMER = "CUST04457";
-
 const MONTHS = [
   "January",
   "February",
@@ -37,7 +35,7 @@ function asOfLabel(date: string) {
   return `${Number(day)} ${MONTHS_SHORT[Number(month) - 1]} ${year}`;
 }
 
-export function HomeScreen() {
+export function HomeScreen({ customerId }: { customerId: string }) {
   const [months, setMonths] = useState<string[]>([]);
   const [index, setIndex] = useState(0);
   const [story, setStory] = useState<MonthStory | null>(null);
@@ -48,12 +46,14 @@ export function HomeScreen() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    setAnswers(loadAnswers(HOME_CUSTOMER));
-  }, []);
+    setAnswers(loadAnswers(customerId));
+  }, [customerId]);
 
   useEffect(() => {
     let active = true;
-    listMonths(HOME_CUSTOMER)
+    setStory(null);
+    setStatus("loading");
+    listMonths(customerId)
       .then((list) => {
         if (!active) return;
         setMonths(list);
@@ -67,13 +67,13 @@ export function HomeScreen() {
     return () => {
       active = false;
     };
-  }, []);
+  }, [customerId]);
 
   useEffect(() => {
     const month = months[index];
     if (!month) return;
     let active = true;
-    getMonthStory(HOME_CUSTOMER, month)
+    getMonthStory(customerId, month)
       .then((next) => {
         if (!active) return;
         setStory(next);
@@ -93,7 +93,7 @@ export function HomeScreen() {
   if (questionnaire) {
     return (
       <QuestionnaireScreen
-        customerId={HOME_CUSTOMER}
+        customerId={customerId}
         initialAnswers={answers}
         onClose={() => setQuestionnaire(false)}
         onSaved={(next) => {
@@ -167,7 +167,7 @@ export function HomeScreen() {
           answers={answers}
           onEdit={() => setQuestionnaire(true)}
           onReset={() => {
-            clearAnswers(HOME_CUSTOMER);
+            clearAnswers(customerId);
             setAnswers(null);
           }}
         />
