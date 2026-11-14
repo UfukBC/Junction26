@@ -1,7 +1,7 @@
 # D-0006: Product: a spending dashboard with goal-based personalized insights, no chatbot, no backend for now
 
 - **Date:** 2026-11-14
-- **Status:** accepted
+- **Status:** accepted; its yearly month-by-month view is superseded by D-0009
 - **Deciders:** Team (stated by Ufuk)
 - **Source:** inbox entry I-20261114-product-dashboard-questionnaire / tasks T-010 to T-014
 

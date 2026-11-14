@@ -78,3 +78,4 @@ MCC 4121 is taxis/limousines, the brief's "taxis" example; most Transportation i
 - **The data ends 2026-09-30.** Relative questions ("last month", "this week") need a fixed reference date, otherwise they hit months with no data.
 - Amounts are signed; categories never mix signs (income categories are always positive, spending always negative).
 - Profiling: the full CSV fits in DuckDB in memory in a few seconds (`read_csv` with explicit `VARCHAR` types for IDs and postal codes).
+- **Salary-sweep customers look like almost-non-spenders.** The 264 customers with `salary_sweep` move most of each salary to another account within days, so only ~11% of their income shows up as spending (median 474 €/month vs 2,875 € for the other 4,836). Their low spending, restaurant shares and negative-balance rates are not comparable to other customers: exclude them when picking typical profiles or computing benchmarks, or label them as "partial view" in the UI.

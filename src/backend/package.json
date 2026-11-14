@@ -1,0 +1,16 @@
+{
+  "name": "junction26-backend",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Local AI narration server for the S-Pankki dashboard demo. No dependencies.",
+  "engines": {
+    "node": ">=18.17"
+  },
+  "scripts": {
+    "dev": "node --watch src/server.mjs",
+    "start": "node src/server.mjs",
+    "check": "node --check src/config.mjs && node --check src/providers.mjs && node --check src/prompts.mjs && node --check src/validate.mjs && node --check src/endpoints.mjs && node --check src/cache.mjs && node --check src/server.mjs",
+    "test": "node --test test/"
+  }
+}

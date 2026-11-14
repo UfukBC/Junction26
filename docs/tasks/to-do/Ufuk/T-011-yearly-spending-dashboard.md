@@ -41,4 +41,4 @@ A dashboard screen where the user sees their spending over a year, month by mont
 
 ## Progress
 <!-- Whoever works on the task updates this, oldest first. It should be enough for a fresh session to pick up the work. -->
-- 2026-11-14: **on hold.** After seeing the app, Ufuk asked for no annual view: the home screen shows the current month with a category pie instead (built under T-012, inbox entry `I-20261114-home-current-month-pie`). Revisit or close this task.
+- 2026-11-14: **on hold.** After seeing the app, Ufuk asked for no annual view: the home screen shows the current month with a category pie instead (built under T-012, [D-0009](../../../docs/decisions/D-0009-home-month-pie.md)). Revisit or close this task.

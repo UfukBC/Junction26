@@ -8,3 +8,4 @@ Human-verified facts that the code doesn't show. One line per file. Open only wh
 | [challenge.md](challenge.md) | What the S-Pankki challenge asks for, what it values, and how it is judged. |
 | [dataset.md](dataset.md) | Where the dataset lives, its schema, what the values look like, and the traps when using it. |
 | [frontend-data.md](frontend-data.md) | Frontend data layer: slim browser SQLite and typed query API. |
+| [finnish-consumption-statistics.md](finnish-consumption-statistics.md) | Benchmarks for Finnish household spending by category (public statistics). |

@@ -16,8 +16,10 @@ function Placeholder({ title }: { title: string }) {
 
 export default function App() {
   const [tab, setTab] = useState<Tab>("home");
-  // Demo customer shared by Home, Bank and the Me picker.
-  const [customerId, setCustomerId] = useState("CUST04457");
+  // Demo customer shared by Home, Bank and the Me picker. ?customer=CUST03172 still works.
+  const [customerId, setCustomerId] = useState(
+    () => new URLSearchParams(window.location.search).get("customer") ?? "CUST04457",
+  );
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [customersError, setCustomersError] = useState("");
 
