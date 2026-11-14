@@ -7,7 +7,8 @@
     "dev": "vite --host",
     "build": "tsc -b && vite build",
     "preview": "vite preview --host",
-    "build:data": "node scripts/build-demo-db.mjs"
+    "build:data": "node scripts/build-demo-db.mjs",
+    "build:benchmarks": "node scripts/build-benchmarks.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.460.0",

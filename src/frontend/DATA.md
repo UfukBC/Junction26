@@ -28,6 +28,8 @@ The full dataset is **never** bundled: 3.6 M transactions (346 MB CSV, ~585 MB S
 |---|---|
 | `src/frontend/src/data/database.ts` | sql.js loader + typed query functions. **This is the integration surface.** |
 | `src/frontend/src/data/mock.ts` | Static home-screen chrome (bonus card, messages, accounts). Not dataset-derived. |
+| `src/frontend/src/data/benchmarks.json` | Public spending benchmarks by income quintile (Statistics Finland, 2022). Generated, see below. |
+| `src/frontend/src/data/benchmarks.ts` | Typed accessors for the benchmarks (`QUINTILES`, `getCategoryBenchmark`, …). |
 | `src/frontend/src/screens/DataScreen.tsx` | Bank tab: summary, categories, recent transactions, mortgage, customer switcher. |
 | `src/frontend/scripts/build-demo-db.mjs` | Node script that builds the slim DB from `data/raw/`. |
 | `src/frontend/public/data/s_pankki-demo.db` | Prebuilt demo database (4 customers). |
@@ -146,6 +148,26 @@ const lastMonth = await getTransactions("CUST04457", {
 3. Loading/error states are handled locally; a failed DB load shows the error message.
 
 Styles live in `src/styles.css` under `/* data screen (Bank tab) */`, using the existing S-mobiili tokens (`--green`, `--tint`, …).
+
+## Public spending benchmarks
+
+`src/data/benchmarks.json` holds Statistics Finland's Household Budget Survey 2022 averages (CC BY 4.0), so the demo can compare a customer's spending with the population. It is **not** derived from `data/raw/`; it comes from the public PxWeb API. Full details, schema and category mapping: [BENCHMARKS.md](./BENCHMARKS.md).
+
+```bash
+npm run build:benchmarks    # refetch from pxdata.stat.fi and rewrite benchmarks.json
+```
+
+Shape: `quintiles` (all + Q1–Q5, with mean household size, consumption units and disposable income) and `categories` (13 main COICOP groups + 52 second-level groups). Each category has `values` per quintile with `eurYearHousehold`, `eurYearPerConsumptionUnit`, `shareOfSpendingPct` and `eurMonthPerConsumptionUnit`.
+
+```ts
+import { QUINTILES, getCategoryBenchmark, getSubCategoryBenchmarks } from "../data/benchmarks";
+
+const food = getCategoryBenchmark("01");
+food?.values.q1.shareOfSpendingPct; // 17.7
+getSubCategoryBenchmarks("07");     // 07.1, 07.2, 07.3, 07.4
+```
+
+**Caveats:** quintiles are formed on household disposable income per consumption unit (OECD scale), not gross salary, and the figures are 2022 group means, not cut-off boundaries. Do not compare these with national-accounts food shares (~12.5–12.9%), which use a different methodology.
 
 ## Adding a new data view
 

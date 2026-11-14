@@ -1,0 +1,3126 @@
+{
+  "meta": {
+    "title": "Household consumption expenditure by income quintile, Finland 2022",
+    "source": "Statistics Finland, Household Budget Survey (ktutk)",
+    "tables": [
+      "StatFin ktutk 14pg.px",
+      "StatFin ktutk 14qa.px"
+    ],
+    "referenceYear": 2022,
+    "retrieved": "2026-11-14",
+    "license": "CC BY 4.0",
+    "url": "https://pxdata.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__ktutk/",
+    "notes": [
+      "Quintiles are formed on household disposable income per consumption unit (OECD scale), not gross salary.",
+      "Mean disposable income is a group mean, not a cut-off boundary.",
+      "Shares are of household consumption expenditure and may not sum to 100 because of rounding and unclassified items."
+    ]
+  },
+  "quintiles": [
+    {
+      "id": "all",
+      "fi": "Kaikki kotitaloudet",
+      "en": "All households",
+      "meanHouseholdSize": 1.88,
+      "meanConsumptionUnits": 1.39,
+      "meanDisposableIncomeEur": 50270
+    },
+    {
+      "id": "q1",
+      "fi": "I (pienituloisimmat 20 %)",
+      "en": "Q1 (lowest 20%)",
+      "meanHouseholdSize": 1.43,
+      "meanConsumptionUnits": 1.18,
+      "meanDisposableIncomeEur": 18796
+    },
+    {
+      "id": "q2",
+      "fi": "II",
+      "en": "Q2",
+      "meanHouseholdSize": 1.86,
+      "meanConsumptionUnits": 1.36,
+      "meanDisposableIncomeEur": 33041
+    },
+    {
+      "id": "q3",
+      "fi": "III",
+      "en": "Q3",
+      "meanHouseholdSize": 1.97,
+      "meanConsumptionUnits": 1.43,
+      "meanDisposableIncomeEur": 44550
+    },
+    {
+      "id": "q4",
+      "fi": "IV",
+      "en": "Q4",
+      "meanHouseholdSize": 2.04,
+      "meanConsumptionUnits": 1.47,
+      "meanDisposableIncomeEur": 57642
+    },
+    {
+      "id": "q5",
+      "fi": "V (suurituloisimmat 20 %)",
+      "en": "Q5 (highest 20%)",
+      "meanHouseholdSize": 2.09,
+      "meanConsumptionUnits": 1.5,
+      "meanDisposableIncomeEur": 97410
+    }
+  ],
+  "categories": [
+    {
+      "code": "01",
+      "level": 1,
+      "parent": null,
+      "label": {
+        "fi": "Elintarvikkeet ja alkoholittomat juomat",
+        "en": "Food and non-alcoholic beverages"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 5646,
+          "eurYearPerConsumptionUnit": 3946,
+          "shareOfSpendingPct": 14.2,
+          "eurMonthPerConsumptionUnit": 329
+        },
+        "q1": {
+          "eurYearHousehold": 3475,
+          "eurYearPerConsumptionUnit": 2848,
+          "shareOfSpendingPct": 17.7,
+          "eurMonthPerConsumptionUnit": 237
+        },
+        "q2": {
+          "eurYearHousehold": 4942,
+          "eurYearPerConsumptionUnit": 3534,
+          "shareOfSpendingPct": 16.3,
+          "eurMonthPerConsumptionUnit": 295
+        },
+        "q3": {
+          "eurYearHousehold": 5839,
+          "eurYearPerConsumptionUnit": 4026,
+          "shareOfSpendingPct": 15.2,
+          "eurMonthPerConsumptionUnit": 335
+        },
+        "q4": {
+          "eurYearHousehold": 6419,
+          "eurYearPerConsumptionUnit": 4291,
+          "shareOfSpendingPct": 13.9,
+          "eurMonthPerConsumptionUnit": 358
+        },
+        "q5": {
+          "eurYearHousehold": 7559,
+          "eurYearPerConsumptionUnit": 5034,
+          "shareOfSpendingPct": 11.7,
+          "eurMonthPerConsumptionUnit": 419
+        }
+      }
+    },
+    {
+      "code": "011",
+      "level": 2,
+      "parent": "01",
+      "label": {
+        "fi": "Elintarvikkeet",
+        "en": "Food"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 5179,
+          "eurYearPerConsumptionUnit": 3616,
+          "shareOfSpendingPct": 13,
+          "eurMonthPerConsumptionUnit": 301
+        },
+        "q1": {
+          "eurYearHousehold": 3132,
+          "eurYearPerConsumptionUnit": 2565,
+          "shareOfSpendingPct": 15.9,
+          "eurMonthPerConsumptionUnit": 214
+        },
+        "q2": {
+          "eurYearHousehold": 4564,
+          "eurYearPerConsumptionUnit": 3258,
+          "shareOfSpendingPct": 15.1,
+          "eurMonthPerConsumptionUnit": 272
+        },
+        "q3": {
+          "eurYearHousehold": 5327,
+          "eurYearPerConsumptionUnit": 3669,
+          "shareOfSpendingPct": 13.8,
+          "eurMonthPerConsumptionUnit": 306
+        },
+        "q4": {
+          "eurYearHousehold": 5894,
+          "eurYearPerConsumptionUnit": 3942,
+          "shareOfSpendingPct": 12.8,
+          "eurMonthPerConsumptionUnit": 329
+        },
+        "q5": {
+          "eurYearHousehold": 6984,
+          "eurYearPerConsumptionUnit": 4650,
+          "shareOfSpendingPct": 10.8,
+          "eurMonthPerConsumptionUnit": 388
+        }
+      }
+    },
+    {
+      "code": "012",
+      "level": 2,
+      "parent": "01",
+      "label": {
+        "fi": "Alkoholittomat juomat",
+        "en": "Non-alcoholic beverages"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 467,
+          "eurYearPerConsumptionUnit": 330,
+          "shareOfSpendingPct": 1.2,
+          "eurMonthPerConsumptionUnit": 27
+        },
+        "q1": {
+          "eurYearHousehold": 343,
+          "eurYearPerConsumptionUnit": 284,
+          "shareOfSpendingPct": 1.8,
+          "eurMonthPerConsumptionUnit": 24
+        },
+        "q2": {
+          "eurYearHousehold": 378,
+          "eurYearPerConsumptionUnit": 276,
+          "shareOfSpendingPct": 1.3,
+          "eurMonthPerConsumptionUnit": 23
+        },
+        "q3": {
+          "eurYearHousehold": 512,
+          "eurYearPerConsumptionUnit": 357,
+          "shareOfSpendingPct": 1.3,
+          "eurMonthPerConsumptionUnit": 30
+        },
+        "q4": {
+          "eurYearHousehold": 525,
+          "eurYearPerConsumptionUnit": 349,
+          "shareOfSpendingPct": 1.1,
+          "eurMonthPerConsumptionUnit": 29
+        },
+        "q5": {
+          "eurYearHousehold": 575,
+          "eurYearPerConsumptionUnit": 384,
+          "shareOfSpendingPct": 0.9,
+          "eurMonthPerConsumptionUnit": 32
+        }
+      }
+    },
+    {
+      "code": "013",
+      "level": 2,
+      "parent": "01",
+      "label": {
+        "fi": "Elintarvikkeisiin ja alkoholittomiin juomiin liittyvät perushyödykkeiden jalostuspalvelut",
+        "en": "SERVICES FOR PROCESSING PRIMARY GOODS FOR FOOD AND NON-ALCOHOLIC BEVERAGES (S)"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": null,
+          "eurYearPerConsumptionUnit": null,
+          "shareOfSpendingPct": null,
+          "eurMonthPerConsumptionUnit": null
+        },
+        "q1": {
+          "eurYearHousehold": null,
+          "eurYearPerConsumptionUnit": null,
+          "shareOfSpendingPct": null,
+          "eurMonthPerConsumptionUnit": null
+        },
+        "q2": {
+          "eurYearHousehold": null,
+          "eurYearPerConsumptionUnit": null,
+          "shareOfSpendingPct": null,
+          "eurMonthPerConsumptionUnit": null
+        },
+        "q3": {
+          "eurYearHousehold": null,
+          "eurYearPerConsumptionUnit": null,
+          "shareOfSpendingPct": null,
+          "eurMonthPerConsumptionUnit": null
+        },
+        "q4": {
+          "eurYearHousehold": null,
+          "eurYearPerConsumptionUnit": null,
+          "shareOfSpendingPct": null,
+          "eurMonthPerConsumptionUnit": null
+        },
+        "q5": {
+          "eurYearHousehold": null,
+          "eurYearPerConsumptionUnit": null,
+          "shareOfSpendingPct": null,
+          "eurMonthPerConsumptionUnit": null
+        }
+      }
+    },
+    {
+      "code": "02",
+      "level": 1,
+      "parent": null,
+      "label": {
+        "fi": "Alkoholijuomat ja tupakka",
+        "en": "Alcoholic beverage and tobacco"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 736,
+          "eurYearPerConsumptionUnit": 554,
+          "shareOfSpendingPct": 1.9,
+          "eurMonthPerConsumptionUnit": 46
+        },
+        "q1": {
+          "eurYearHousehold": 600,
+          "eurYearPerConsumptionUnit": 547,
+          "shareOfSpendingPct": 3.1,
+          "eurMonthPerConsumptionUnit": 46
+        },
+        "q2": {
+          "eurYearHousehold": 484,
+          "eurYearPerConsumptionUnit": 383,
+          "shareOfSpendingPct": 1.6,
+          "eurMonthPerConsumptionUnit": 32
+        },
+        "q3": {
+          "eurYearHousehold": 760,
+          "eurYearPerConsumptionUnit": 540,
+          "shareOfSpendingPct": 2,
+          "eurMonthPerConsumptionUnit": 45
+        },
+        "q4": {
+          "eurYearHousehold": 751,
+          "eurYearPerConsumptionUnit": 521,
+          "shareOfSpendingPct": 1.6,
+          "eurMonthPerConsumptionUnit": 43
+        },
+        "q5": {
+          "eurYearHousehold": 1085,
+          "eurYearPerConsumptionUnit": 778,
+          "shareOfSpendingPct": 1.7,
+          "eurMonthPerConsumptionUnit": 65
+        }
+      }
+    },
+    {
+      "code": "021",
+      "level": 2,
+      "parent": "02",
+      "label": {
+        "fi": "Alkoholijuomat",
+        "en": "ALCOHOLIC BEVERAGES"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 543,
+          "eurYearPerConsumptionUnit": 402,
+          "shareOfSpendingPct": 1.4,
+          "eurMonthPerConsumptionUnit": 34
+        },
+        "q1": {
+          "eurYearHousehold": 312,
+          "eurYearPerConsumptionUnit": 284,
+          "shareOfSpendingPct": 1.6,
+          "eurMonthPerConsumptionUnit": 24
+        },
+        "q2": {
+          "eurYearHousehold": 331,
+          "eurYearPerConsumptionUnit": 260,
+          "shareOfSpendingPct": 1.1,
+          "eurMonthPerConsumptionUnit": 22
+        },
+        "q3": {
+          "eurYearHousehold": 530,
+          "eurYearPerConsumptionUnit": 375,
+          "shareOfSpendingPct": 1.4,
+          "eurMonthPerConsumptionUnit": 31
+        },
+        "q4": {
+          "eurYearHousehold": 599,
+          "eurYearPerConsumptionUnit": 410,
+          "shareOfSpendingPct": 1.3,
+          "eurMonthPerConsumptionUnit": 34
+        },
+        "q5": {
+          "eurYearHousehold": 942,
+          "eurYearPerConsumptionUnit": 682,
+          "shareOfSpendingPct": 1.5,
+          "eurMonthPerConsumptionUnit": 57
+        }
+      }
+    },
+    {
+      "code": "022",
+      "level": 2,
+      "parent": "02",
+      "label": {
+        "fi": "Alkoholin valmistuspalvelut",
+        "en": "ALCOHOL PRODUCTION SERVICES (S)"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": null,
+          "eurYearPerConsumptionUnit": null,
+          "shareOfSpendingPct": null,
+          "eurMonthPerConsumptionUnit": null
+        },
+        "q1": {
+          "eurYearHousehold": null,
+          "eurYearPerConsumptionUnit": null,
+          "shareOfSpendingPct": null,
+          "eurMonthPerConsumptionUnit": null
+        },
+        "q2": {
+          "eurYearHousehold": null,
+          "eurYearPerConsumptionUnit": null,
+          "shareOfSpendingPct": null,
+          "eurMonthPerConsumptionUnit": null
+        },
+        "q3": {
+          "eurYearHousehold": null,
+          "eurYearPerConsumptionUnit": null,
+          "shareOfSpendingPct": null,
+          "eurMonthPerConsumptionUnit": null
+        },
+        "q4": {
+          "eurYearHousehold": null,
+          "eurYearPerConsumptionUnit": null,
+          "shareOfSpendingPct": null,
+          "eurMonthPerConsumptionUnit": null
+        },
+        "q5": {
+          "eurYearHousehold": null,
+          "eurYearPerConsumptionUnit": null,
+          "shareOfSpendingPct": null,
+          "eurMonthPerConsumptionUnit": null
+        }
+      }
+    },
+    {
+      "code": "023",
+      "level": 2,
+      "parent": "02",
+      "label": {
+        "fi": "Tupakka",
+        "en": "Tobacco"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 193,
+          "eurYearPerConsumptionUnit": 152,
+          "shareOfSpendingPct": 0.5,
+          "eurMonthPerConsumptionUnit": 13
+        },
+        "q1": {
+          "eurYearHousehold": 288,
+          "eurYearPerConsumptionUnit": 263,
+          "shareOfSpendingPct": 1.5,
+          "eurMonthPerConsumptionUnit": 22
+        },
+        "q2": {
+          "eurYearHousehold": 154,
+          "eurYearPerConsumptionUnit": 124,
+          "shareOfSpendingPct": 0.5,
+          "eurMonthPerConsumptionUnit": 10
+        },
+        "q3": {
+          "eurYearHousehold": 230,
+          "eurYearPerConsumptionUnit": 165,
+          "shareOfSpendingPct": 0.6,
+          "eurMonthPerConsumptionUnit": 14
+        },
+        "q4": {
+          "eurYearHousehold": 153,
+          "eurYearPerConsumptionUnit": 111,
+          "shareOfSpendingPct": 0.3,
+          "eurMonthPerConsumptionUnit": 9
+        },
+        "q5": {
+          "eurYearHousehold": 143,
+          "eurYearPerConsumptionUnit": 96,
+          "shareOfSpendingPct": 0.2,
+          "eurMonthPerConsumptionUnit": 8
+        }
+      }
+    },
+    {
+      "code": "03",
+      "level": 1,
+      "parent": null,
+      "label": {
+        "fi": "Vaatetus ja jalkineet",
+        "en": "Clothing and footwear"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 1683,
+          "eurYearPerConsumptionUnit": 1163,
+          "shareOfSpendingPct": 4.2,
+          "eurMonthPerConsumptionUnit": 97
+        },
+        "q1": {
+          "eurYearHousehold": 899,
+          "eurYearPerConsumptionUnit": 762,
+          "shareOfSpendingPct": 4.6,
+          "eurMonthPerConsumptionUnit": 64
+        },
+        "q2": {
+          "eurYearHousehold": 1246,
+          "eurYearPerConsumptionUnit": 904,
+          "shareOfSpendingPct": 4.1,
+          "eurMonthPerConsumptionUnit": 75
+        },
+        "q3": {
+          "eurYearHousehold": 1604,
+          "eurYearPerConsumptionUnit": 1097,
+          "shareOfSpendingPct": 4.2,
+          "eurMonthPerConsumptionUnit": 91
+        },
+        "q4": {
+          "eurYearHousehold": 2046,
+          "eurYearPerConsumptionUnit": 1335,
+          "shareOfSpendingPct": 4.4,
+          "eurMonthPerConsumptionUnit": 111
+        },
+        "q5": {
+          "eurYearHousehold": 2622,
+          "eurYearPerConsumptionUnit": 1717,
+          "shareOfSpendingPct": 4.1,
+          "eurMonthPerConsumptionUnit": 143
+        }
+      }
+    },
+    {
+      "code": "031",
+      "level": 2,
+      "parent": "03",
+      "label": {
+        "fi": "Vaatetus",
+        "en": "CLOTHING"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 1319,
+          "eurYearPerConsumptionUnit": 918,
+          "shareOfSpendingPct": 3.3,
+          "eurMonthPerConsumptionUnit": 76
+        },
+        "q1": {
+          "eurYearHousehold": 746,
+          "eurYearPerConsumptionUnit": 639,
+          "shareOfSpendingPct": 3.8,
+          "eurMonthPerConsumptionUnit": 53
+        },
+        "q2": {
+          "eurYearHousehold": 940,
+          "eurYearPerConsumptionUnit": 680,
+          "shareOfSpendingPct": 3.1,
+          "eurMonthPerConsumptionUnit": 57
+        },
+        "q3": {
+          "eurYearHousehold": 1256,
+          "eurYearPerConsumptionUnit": 868,
+          "shareOfSpendingPct": 3.3,
+          "eurMonthPerConsumptionUnit": 72
+        },
+        "q4": {
+          "eurYearHousehold": 1577,
+          "eurYearPerConsumptionUnit": 1037,
+          "shareOfSpendingPct": 3.4,
+          "eurMonthPerConsumptionUnit": 86
+        },
+        "q5": {
+          "eurYearHousehold": 2077,
+          "eurYearPerConsumptionUnit": 1365,
+          "shareOfSpendingPct": 3.2,
+          "eurMonthPerConsumptionUnit": 114
+        }
+      }
+    },
+    {
+      "code": "032",
+      "level": 2,
+      "parent": "03",
+      "label": {
+        "fi": "Jalkineet",
+        "en": "FOOTWEAR"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 364,
+          "eurYearPerConsumptionUnit": 245,
+          "shareOfSpendingPct": 0.9,
+          "eurMonthPerConsumptionUnit": 20
+        },
+        "q1": {
+          "eurYearHousehold": 153,
+          "eurYearPerConsumptionUnit": 123,
+          "shareOfSpendingPct": 0.8,
+          "eurMonthPerConsumptionUnit": 10
+        },
+        "q2": {
+          "eurYearHousehold": 306,
+          "eurYearPerConsumptionUnit": 224,
+          "shareOfSpendingPct": 1,
+          "eurMonthPerConsumptionUnit": 19
+        },
+        "q3": {
+          "eurYearHousehold": 348,
+          "eurYearPerConsumptionUnit": 229,
+          "shareOfSpendingPct": 0.9,
+          "eurMonthPerConsumptionUnit": 19
+        },
+        "q4": {
+          "eurYearHousehold": 469,
+          "eurYearPerConsumptionUnit": 298,
+          "shareOfSpendingPct": 1,
+          "eurMonthPerConsumptionUnit": 25
+        },
+        "q5": {
+          "eurYearHousehold": 545,
+          "eurYearPerConsumptionUnit": 352,
+          "shareOfSpendingPct": 0.8,
+          "eurMonthPerConsumptionUnit": 29
+        }
+      }
+    },
+    {
+      "code": "04",
+      "level": 1,
+      "parent": null,
+      "label": {
+        "fi": "Asuminen, vesi, sähkö, kaasu ja muut polttoaineet",
+        "en": "Housing, water, electricity, gas and other fuels"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 12910,
+          "eurYearPerConsumptionUnit": 9541,
+          "shareOfSpendingPct": 32.4,
+          "eurMonthPerConsumptionUnit": 795
+        },
+        "q1": {
+          "eurYearHousehold": 7596,
+          "eurYearPerConsumptionUnit": 6668,
+          "shareOfSpendingPct": 38.6,
+          "eurMonthPerConsumptionUnit": 556
+        },
+        "q2": {
+          "eurYearHousehold": 10229,
+          "eurYearPerConsumptionUnit": 7897,
+          "shareOfSpendingPct": 33.8,
+          "eurMonthPerConsumptionUnit": 658
+        },
+        "q3": {
+          "eurYearHousehold": 12335,
+          "eurYearPerConsumptionUnit": 9061,
+          "shareOfSpendingPct": 32,
+          "eurMonthPerConsumptionUnit": 755
+        },
+        "q4": {
+          "eurYearHousehold": 15047,
+          "eurYearPerConsumptionUnit": 10743,
+          "shareOfSpendingPct": 32.6,
+          "eurMonthPerConsumptionUnit": 895
+        },
+        "q5": {
+          "eurYearHousehold": 19355,
+          "eurYearPerConsumptionUnit": 13344,
+          "shareOfSpendingPct": 30,
+          "eurMonthPerConsumptionUnit": 1112
+        }
+      }
+    },
+    {
+      "code": "041",
+      "level": 2,
+      "parent": "04",
+      "label": {
+        "fi": "Todelliset asumisvuokrat",
+        "en": "Actual rental payments made for housing"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 2955,
+          "eurYearPerConsumptionUnit": 2423,
+          "shareOfSpendingPct": 7.4,
+          "eurMonthPerConsumptionUnit": 202
+        },
+        "q1": {
+          "eurYearHousehold": 5374,
+          "eurYearPerConsumptionUnit": 4878,
+          "shareOfSpendingPct": 27.3,
+          "eurMonthPerConsumptionUnit": 407
+        },
+        "q2": {
+          "eurYearHousehold": 3778,
+          "eurYearPerConsumptionUnit": 2846,
+          "shareOfSpendingPct": 12.5,
+          "eurMonthPerConsumptionUnit": 237
+        },
+        "q3": {
+          "eurYearHousehold": 2502,
+          "eurYearPerConsumptionUnit": 2013,
+          "shareOfSpendingPct": 6.5,
+          "eurMonthPerConsumptionUnit": 168
+        },
+        "q4": {
+          "eurYearHousehold": 2006,
+          "eurYearPerConsumptionUnit": 1534,
+          "shareOfSpendingPct": 4.4,
+          "eurMonthPerConsumptionUnit": 128
+        },
+        "q5": {
+          "eurYearHousehold": 1108,
+          "eurYearPerConsumptionUnit": 837,
+          "shareOfSpendingPct": 1.7,
+          "eurMonthPerConsumptionUnit": 70
+        }
+      }
+    },
+    {
+      "code": "042",
+      "level": 2,
+      "parent": "04",
+      "label": {
+        "fi": "Laskennalliset asumisvuokrat",
+        "en": "Imputed rentals of owner-occupiers for main residence (S)"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 6072,
+          "eurYearPerConsumptionUnit": 4316,
+          "shareOfSpendingPct": 15.3,
+          "eurMonthPerConsumptionUnit": 360
+        },
+        "q1": {
+          "eurYearHousehold": 907,
+          "eurYearPerConsumptionUnit": 728,
+          "shareOfSpendingPct": 4.6,
+          "eurMonthPerConsumptionUnit": 61
+        },
+        "q2": {
+          "eurYearHousehold": 3407,
+          "eurYearPerConsumptionUnit": 2682,
+          "shareOfSpendingPct": 11.3,
+          "eurMonthPerConsumptionUnit": 224
+        },
+        "q3": {
+          "eurYearHousehold": 5685,
+          "eurYearPerConsumptionUnit": 4075,
+          "shareOfSpendingPct": 14.8,
+          "eurMonthPerConsumptionUnit": 340
+        },
+        "q4": {
+          "eurYearHousehold": 8235,
+          "eurYearPerConsumptionUnit": 5807,
+          "shareOfSpendingPct": 17.9,
+          "eurMonthPerConsumptionUnit": 484
+        },
+        "q5": {
+          "eurYearHousehold": 12140,
+          "eurYearPerConsumptionUnit": 8294,
+          "shareOfSpendingPct": 18.8,
+          "eurMonthPerConsumptionUnit": 691
+        }
+      }
+    },
+    {
+      "code": "043",
+      "level": 2,
+      "parent": "04",
+      "label": {
+        "fi": "Asuntojen huolto, korjaus ja turvallisuus",
+        "en": "Maintenance, repair and security of the dwelling"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 575,
+          "eurYearPerConsumptionUnit": 419,
+          "shareOfSpendingPct": 1.4,
+          "eurMonthPerConsumptionUnit": 35
+        },
+        "q1": {
+          "eurYearHousehold": 97,
+          "eurYearPerConsumptionUnit": 86,
+          "shareOfSpendingPct": 0.5,
+          "eurMonthPerConsumptionUnit": 7
+        },
+        "q2": {
+          "eurYearHousehold": 445,
+          "eurYearPerConsumptionUnit": 356,
+          "shareOfSpendingPct": 1.5,
+          "eurMonthPerConsumptionUnit": 30
+        },
+        "q3": {
+          "eurYearHousehold": 720,
+          "eurYearPerConsumptionUnit": 535,
+          "shareOfSpendingPct": 1.9,
+          "eurMonthPerConsumptionUnit": 45
+        },
+        "q4": {
+          "eurYearHousehold": 634,
+          "eurYearPerConsumptionUnit": 449,
+          "shareOfSpendingPct": 1.4,
+          "eurMonthPerConsumptionUnit": 37
+        },
+        "q5": {
+          "eurYearHousehold": 981,
+          "eurYearPerConsumptionUnit": 670,
+          "shareOfSpendingPct": 1.5,
+          "eurMonthPerConsumptionUnit": 56
+        }
+      }
+    },
+    {
+      "code": "044",
+      "level": 2,
+      "parent": "04",
+      "label": {
+        "fi": "Vesihuolto ja muut asumiseen liittyvät palvelut",
+        "en": "Water supply and miscellaneaous services relating to the dwelling"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 1469,
+          "eurYearPerConsumptionUnit": 1116,
+          "shareOfSpendingPct": 3.7,
+          "eurMonthPerConsumptionUnit": 93
+        },
+        "q1": {
+          "eurYearHousehold": 508,
+          "eurYearPerConsumptionUnit": 455,
+          "shareOfSpendingPct": 2.6,
+          "eurMonthPerConsumptionUnit": 38
+        },
+        "q2": {
+          "eurYearHousehold": 1268,
+          "eurYearPerConsumptionUnit": 1046,
+          "shareOfSpendingPct": 4.2,
+          "eurMonthPerConsumptionUnit": 87
+        },
+        "q3": {
+          "eurYearHousehold": 1626,
+          "eurYearPerConsumptionUnit": 1217,
+          "shareOfSpendingPct": 4.2,
+          "eurMonthPerConsumptionUnit": 101
+        },
+        "q4": {
+          "eurYearHousehold": 1840,
+          "eurYearPerConsumptionUnit": 1355,
+          "shareOfSpendingPct": 4,
+          "eurMonthPerConsumptionUnit": 113
+        },
+        "q5": {
+          "eurYearHousehold": 2107,
+          "eurYearPerConsumptionUnit": 1510,
+          "shareOfSpendingPct": 3.3,
+          "eurMonthPerConsumptionUnit": 126
+        }
+      }
+    },
+    {
+      "code": "045",
+      "level": 2,
+      "parent": "04",
+      "label": {
+        "fi": "Sähkö, kaasu ja muut polttoaineet",
+        "en": "Electricity, gas and other fuels"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 1501,
+          "eurYearPerConsumptionUnit": 1049,
+          "shareOfSpendingPct": 3.8,
+          "eurMonthPerConsumptionUnit": 87
+        },
+        "q1": {
+          "eurYearHousehold": 649,
+          "eurYearPerConsumptionUnit": 488,
+          "shareOfSpendingPct": 3.3,
+          "eurMonthPerConsumptionUnit": 41
+        },
+        "q2": {
+          "eurYearHousehold": 1159,
+          "eurYearPerConsumptionUnit": 867,
+          "shareOfSpendingPct": 3.8,
+          "eurMonthPerConsumptionUnit": 72
+        },
+        "q3": {
+          "eurYearHousehold": 1453,
+          "eurYearPerConsumptionUnit": 1000,
+          "shareOfSpendingPct": 3.8,
+          "eurMonthPerConsumptionUnit": 83
+        },
+        "q4": {
+          "eurYearHousehold": 1878,
+          "eurYearPerConsumptionUnit": 1298,
+          "shareOfSpendingPct": 4.1,
+          "eurMonthPerConsumptionUnit": 108
+        },
+        "q5": {
+          "eurYearHousehold": 2370,
+          "eurYearPerConsumptionUnit": 1591,
+          "shareOfSpendingPct": 3.7,
+          "eurMonthPerConsumptionUnit": 133
+        }
+      }
+    },
+    {
+      "code": "046",
+      "level": 2,
+      "parent": "04",
+      "label": {
+        "fi": "Omistusasuminen",
+        "en": "Owner-occupied housing"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 337,
+          "eurYearPerConsumptionUnit": 219,
+          "shareOfSpendingPct": 0.9,
+          "eurMonthPerConsumptionUnit": 18
+        },
+        "q1": {
+          "eurYearHousehold": 59,
+          "eurYearPerConsumptionUnit": 33,
+          "shareOfSpendingPct": 0.3,
+          "eurMonthPerConsumptionUnit": 3
+        },
+        "q2": {
+          "eurYearHousehold": 171,
+          "eurYearPerConsumptionUnit": 100,
+          "shareOfSpendingPct": 0.6,
+          "eurMonthPerConsumptionUnit": 8
+        },
+        "q3": {
+          "eurYearHousehold": 349,
+          "eurYearPerConsumptionUnit": 220,
+          "shareOfSpendingPct": 0.9,
+          "eurMonthPerConsumptionUnit": 18
+        },
+        "q4": {
+          "eurYearHousehold": 455,
+          "eurYearPerConsumptionUnit": 300,
+          "shareOfSpendingPct": 1,
+          "eurMonthPerConsumptionUnit": 25
+        },
+        "q5": {
+          "eurYearHousehold": 649,
+          "eurYearPerConsumptionUnit": 442,
+          "shareOfSpendingPct": 1,
+          "eurMonthPerConsumptionUnit": 37
+        }
+      }
+    },
+    {
+      "code": "05",
+      "level": 1,
+      "parent": null,
+      "label": {
+        "fi": "Kalusteet, kotitalouskoneet ja tavanomainen kodinhoito",
+        "en": "Furnishings, household equipment and routine household maintenance"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 1644,
+          "eurYearPerConsumptionUnit": 1150,
+          "shareOfSpendingPct": 4.1,
+          "eurMonthPerConsumptionUnit": 96
+        },
+        "q1": {
+          "eurYearHousehold": 609,
+          "eurYearPerConsumptionUnit": 509,
+          "shareOfSpendingPct": 3.1,
+          "eurMonthPerConsumptionUnit": 42
+        },
+        "q2": {
+          "eurYearHousehold": 1073,
+          "eurYearPerConsumptionUnit": 773,
+          "shareOfSpendingPct": 3.6,
+          "eurMonthPerConsumptionUnit": 64
+        },
+        "q3": {
+          "eurYearHousehold": 1626,
+          "eurYearPerConsumptionUnit": 1142,
+          "shareOfSpendingPct": 4.2,
+          "eurMonthPerConsumptionUnit": 95
+        },
+        "q4": {
+          "eurYearHousehold": 1863,
+          "eurYearPerConsumptionUnit": 1258,
+          "shareOfSpendingPct": 4,
+          "eurMonthPerConsumptionUnit": 105
+        },
+        "q5": {
+          "eurYearHousehold": 3050,
+          "eurYearPerConsumptionUnit": 2071,
+          "shareOfSpendingPct": 4.7,
+          "eurMonthPerConsumptionUnit": 173
+        }
+      }
+    },
+    {
+      "code": "051",
+      "level": 2,
+      "parent": "05",
+      "label": {
+        "fi": "Huonekalut, kalusteet ja irtomatot",
+        "en": "Furniture, furnishings and loose carpets (D)"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 501,
+          "eurYearPerConsumptionUnit": 352,
+          "shareOfSpendingPct": 1.3,
+          "eurMonthPerConsumptionUnit": 29
+        },
+        "q1": {
+          "eurYearHousehold": 178,
+          "eurYearPerConsumptionUnit": 153,
+          "shareOfSpendingPct": 0.9,
+          "eurMonthPerConsumptionUnit": 13
+        },
+        "q2": {
+          "eurYearHousehold": 279,
+          "eurYearPerConsumptionUnit": 203,
+          "shareOfSpendingPct": 0.9,
+          "eurMonthPerConsumptionUnit": 17
+        },
+        "q3": {
+          "eurYearHousehold": 432,
+          "eurYearPerConsumptionUnit": 310,
+          "shareOfSpendingPct": 1.1,
+          "eurMonthPerConsumptionUnit": 26
+        },
+        "q4": {
+          "eurYearHousehold": 579,
+          "eurYearPerConsumptionUnit": 397,
+          "shareOfSpendingPct": 1.3,
+          "eurMonthPerConsumptionUnit": 33
+        },
+        "q5": {
+          "eurYearHousehold": 1036,
+          "eurYearPerConsumptionUnit": 697,
+          "shareOfSpendingPct": 1.6,
+          "eurMonthPerConsumptionUnit": 58
+        }
+      }
+    },
+    {
+      "code": "052",
+      "level": 2,
+      "parent": "05",
+      "label": {
+        "fi": "Kodintekstiilit",
+        "en": "Household textiles"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 129,
+          "eurYearPerConsumptionUnit": 89,
+          "shareOfSpendingPct": 0.3,
+          "eurMonthPerConsumptionUnit": 7
+        },
+        "q1": {
+          "eurYearHousehold": 50,
+          "eurYearPerConsumptionUnit": 42,
+          "shareOfSpendingPct": 0.3,
+          "eurMonthPerConsumptionUnit": 4
+        },
+        "q2": {
+          "eurYearHousehold": 99,
+          "eurYearPerConsumptionUnit": 71,
+          "shareOfSpendingPct": 0.3,
+          "eurMonthPerConsumptionUnit": 6
+        },
+        "q3": {
+          "eurYearHousehold": 162,
+          "eurYearPerConsumptionUnit": 119,
+          "shareOfSpendingPct": 0.4,
+          "eurMonthPerConsumptionUnit": 10
+        },
+        "q4": {
+          "eurYearHousehold": 153,
+          "eurYearPerConsumptionUnit": 91,
+          "shareOfSpendingPct": 0.3,
+          "eurMonthPerConsumptionUnit": 8
+        },
+        "q5": {
+          "eurYearHousehold": 180,
+          "eurYearPerConsumptionUnit": 123,
+          "shareOfSpendingPct": 0.3,
+          "eurMonthPerConsumptionUnit": 10
+        }
+      }
+    },
+    {
+      "code": "053",
+      "level": 2,
+      "parent": "05",
+      "label": {
+        "fi": "Kodinkoneet",
+        "en": "Household appliances"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 276,
+          "eurYearPerConsumptionUnit": 199,
+          "shareOfSpendingPct": 0.7,
+          "eurMonthPerConsumptionUnit": 17
+        },
+        "q1": {
+          "eurYearHousehold": 108,
+          "eurYearPerConsumptionUnit": 92,
+          "shareOfSpendingPct": 0.6,
+          "eurMonthPerConsumptionUnit": 8
+        },
+        "q2": {
+          "eurYearHousehold": 177,
+          "eurYearPerConsumptionUnit": 127,
+          "shareOfSpendingPct": 0.6,
+          "eurMonthPerConsumptionUnit": 11
+        },
+        "q3": {
+          "eurYearHousehold": 293,
+          "eurYearPerConsumptionUnit": 203,
+          "shareOfSpendingPct": 0.8,
+          "eurMonthPerConsumptionUnit": 17
+        },
+        "q4": {
+          "eurYearHousehold": 297,
+          "eurYearPerConsumptionUnit": 203,
+          "shareOfSpendingPct": 0.6,
+          "eurMonthPerConsumptionUnit": 17
+        },
+        "q5": {
+          "eurYearHousehold": 506,
+          "eurYearPerConsumptionUnit": 368,
+          "shareOfSpendingPct": 0.8,
+          "eurMonthPerConsumptionUnit": 31
+        }
+      }
+    },
+    {
+      "code": "054",
+      "level": 2,
+      "parent": "05",
+      "label": {
+        "fi": "Lasitavarat, astiat ja taloustavarat",
+        "en": "Glassware, tableware and household utensils"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 130,
+          "eurYearPerConsumptionUnit": 86,
+          "shareOfSpendingPct": 0.3,
+          "eurMonthPerConsumptionUnit": 7
+        },
+        "q1": {
+          "eurYearHousehold": 53,
+          "eurYearPerConsumptionUnit": 40,
+          "shareOfSpendingPct": 0.3,
+          "eurMonthPerConsumptionUnit": 3
+        },
+        "q2": {
+          "eurYearHousehold": 84,
+          "eurYearPerConsumptionUnit": 57,
+          "shareOfSpendingPct": 0.3,
+          "eurMonthPerConsumptionUnit": 5
+        },
+        "q3": {
+          "eurYearHousehold": 159,
+          "eurYearPerConsumptionUnit": 102,
+          "shareOfSpendingPct": 0.4,
+          "eurMonthPerConsumptionUnit": 9
+        },
+        "q4": {
+          "eurYearHousehold": 138,
+          "eurYearPerConsumptionUnit": 86,
+          "shareOfSpendingPct": 0.3,
+          "eurMonthPerConsumptionUnit": 7
+        },
+        "q5": {
+          "eurYearHousehold": 216,
+          "eurYearPerConsumptionUnit": 144,
+          "shareOfSpendingPct": 0.3,
+          "eurMonthPerConsumptionUnit": 12
+        }
+      }
+    },
+    {
+      "code": "055",
+      "level": 2,
+      "parent": "05",
+      "label": {
+        "fi": "Kodin ja puutarhan työkalut ja laitteet",
+        "en": "Tools and equipment for house and garden"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 235,
+          "eurYearPerConsumptionUnit": 163,
+          "shareOfSpendingPct": 0.6,
+          "eurMonthPerConsumptionUnit": 14
+        },
+        "q1": {
+          "eurYearHousehold": 63,
+          "eurYearPerConsumptionUnit": 50,
+          "shareOfSpendingPct": 0.3,
+          "eurMonthPerConsumptionUnit": 4
+        },
+        "q2": {
+          "eurYearHousehold": 125,
+          "eurYearPerConsumptionUnit": 92,
+          "shareOfSpendingPct": 0.4,
+          "eurMonthPerConsumptionUnit": 8
+        },
+        "q3": {
+          "eurYearHousehold": 230,
+          "eurYearPerConsumptionUnit": 167,
+          "shareOfSpendingPct": 0.6,
+          "eurMonthPerConsumptionUnit": 14
+        },
+        "q4": {
+          "eurYearHousehold": 276,
+          "eurYearPerConsumptionUnit": 182,
+          "shareOfSpendingPct": 0.6,
+          "eurMonthPerConsumptionUnit": 15
+        },
+        "q5": {
+          "eurYearHousehold": 481,
+          "eurYearPerConsumptionUnit": 324,
+          "shareOfSpendingPct": 0.8,
+          "eurMonthPerConsumptionUnit": 27
+        }
+      }
+    },
+    {
+      "code": "056",
+      "level": 2,
+      "parent": "05",
+      "label": {
+        "fi": "Kodinhoitotarvikkeet ja -palvelut",
+        "en": "Goods and services for routine household maintenance"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 373,
+          "eurYearPerConsumptionUnit": 262,
+          "shareOfSpendingPct": 0.9,
+          "eurMonthPerConsumptionUnit": 22
+        },
+        "q1": {
+          "eurYearHousehold": 158,
+          "eurYearPerConsumptionUnit": 132,
+          "shareOfSpendingPct": 0.8,
+          "eurMonthPerConsumptionUnit": 11
+        },
+        "q2": {
+          "eurYearHousehold": 308,
+          "eurYearPerConsumptionUnit": 223,
+          "shareOfSpendingPct": 1,
+          "eurMonthPerConsumptionUnit": 19
+        },
+        "q3": {
+          "eurYearHousehold": 350,
+          "eurYearPerConsumptionUnit": 241,
+          "shareOfSpendingPct": 0.9,
+          "eurMonthPerConsumptionUnit": 20
+        },
+        "q4": {
+          "eurYearHousehold": 420,
+          "eurYearPerConsumptionUnit": 298,
+          "shareOfSpendingPct": 0.9,
+          "eurMonthPerConsumptionUnit": 25
+        },
+        "q5": {
+          "eurYearHousehold": 631,
+          "eurYearPerConsumptionUnit": 415,
+          "shareOfSpendingPct": 1,
+          "eurMonthPerConsumptionUnit": 35
+        }
+      }
+    },
+    {
+      "code": "06",
+      "level": 1,
+      "parent": null,
+      "label": {
+        "fi": "Terveys",
+        "en": "Health"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 1420,
+          "eurYearPerConsumptionUnit": 1038,
+          "shareOfSpendingPct": 3.6,
+          "eurMonthPerConsumptionUnit": 86
+        },
+        "q1": {
+          "eurYearHousehold": 767,
+          "eurYearPerConsumptionUnit": 712,
+          "shareOfSpendingPct": 3.9,
+          "eurMonthPerConsumptionUnit": 59
+        },
+        "q2": {
+          "eurYearHousehold": 1256,
+          "eurYearPerConsumptionUnit": 994,
+          "shareOfSpendingPct": 4.2,
+          "eurMonthPerConsumptionUnit": 83
+        },
+        "q3": {
+          "eurYearHousehold": 1595,
+          "eurYearPerConsumptionUnit": 1134,
+          "shareOfSpendingPct": 4.1,
+          "eurMonthPerConsumptionUnit": 95
+        },
+        "q4": {
+          "eurYearHousehold": 1460,
+          "eurYearPerConsumptionUnit": 1003,
+          "shareOfSpendingPct": 3.2,
+          "eurMonthPerConsumptionUnit": 84
+        },
+        "q5": {
+          "eurYearHousehold": 2024,
+          "eurYearPerConsumptionUnit": 1347,
+          "shareOfSpendingPct": 3.1,
+          "eurMonthPerConsumptionUnit": 112
+        }
+      }
+    },
+    {
+      "code": "061",
+      "level": 2,
+      "parent": "06",
+      "label": {
+        "fi": "Lääkkeet ja terveystuotteet",
+        "en": "Medicines and health products"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 753,
+          "eurYearPerConsumptionUnit": 551,
+          "shareOfSpendingPct": 1.9,
+          "eurMonthPerConsumptionUnit": 46
+        },
+        "q1": {
+          "eurYearHousehold": 410,
+          "eurYearPerConsumptionUnit": 385,
+          "shareOfSpendingPct": 2.1,
+          "eurMonthPerConsumptionUnit": 32
+        },
+        "q2": {
+          "eurYearHousehold": 717,
+          "eurYearPerConsumptionUnit": 565,
+          "shareOfSpendingPct": 2.4,
+          "eurMonthPerConsumptionUnit": 47
+        },
+        "q3": {
+          "eurYearHousehold": 887,
+          "eurYearPerConsumptionUnit": 627,
+          "shareOfSpendingPct": 2.3,
+          "eurMonthPerConsumptionUnit": 52
+        },
+        "q4": {
+          "eurYearHousehold": 794,
+          "eurYearPerConsumptionUnit": 548,
+          "shareOfSpendingPct": 1.7,
+          "eurMonthPerConsumptionUnit": 46
+        },
+        "q5": {
+          "eurYearHousehold": 959,
+          "eurYearPerConsumptionUnit": 630,
+          "shareOfSpendingPct": 1.5,
+          "eurMonthPerConsumptionUnit": 53
+        }
+      }
+    },
+    {
+      "code": "062",
+      "level": 2,
+      "parent": "06",
+      "label": {
+        "fi": "Avohoitopalvelut",
+        "en": "Outpatient care services"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 575,
+          "eurYearPerConsumptionUnit": 418,
+          "shareOfSpendingPct": 1.4,
+          "eurMonthPerConsumptionUnit": 35
+        },
+        "q1": {
+          "eurYearHousehold": 313,
+          "eurYearPerConsumptionUnit": 286,
+          "shareOfSpendingPct": 1.6,
+          "eurMonthPerConsumptionUnit": 24
+        },
+        "q2": {
+          "eurYearHousehold": 447,
+          "eurYearPerConsumptionUnit": 352,
+          "shareOfSpendingPct": 1.5,
+          "eurMonthPerConsumptionUnit": 29
+        },
+        "q3": {
+          "eurYearHousehold": 607,
+          "eurYearPerConsumptionUnit": 434,
+          "shareOfSpendingPct": 1.6,
+          "eurMonthPerConsumptionUnit": 36
+        },
+        "q4": {
+          "eurYearHousehold": 577,
+          "eurYearPerConsumptionUnit": 399,
+          "shareOfSpendingPct": 1.3,
+          "eurMonthPerConsumptionUnit": 33
+        },
+        "q5": {
+          "eurYearHousehold": 931,
+          "eurYearPerConsumptionUnit": 621,
+          "shareOfSpendingPct": 1.4,
+          "eurMonthPerConsumptionUnit": 52
+        }
+      }
+    },
+    {
+      "code": "063",
+      "level": 2,
+      "parent": "06",
+      "label": {
+        "fi": "Sairaalapalvelut",
+        "en": "Inpatient care services"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 30,
+          "eurYearPerConsumptionUnit": 23,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 2
+        },
+        "q1": {
+          "eurYearHousehold": 20,
+          "eurYearPerConsumptionUnit": 18,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 2
+        },
+        "q2": {
+          "eurYearHousehold": 41,
+          "eurYearPerConsumptionUnit": 35,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 3
+        },
+        "q3": {
+          "eurYearHousehold": 48,
+          "eurYearPerConsumptionUnit": 37,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 3
+        },
+        "q4": {
+          "eurYearHousehold": 26,
+          "eurYearPerConsumptionUnit": 16,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 1
+        },
+        "q5": {
+          "eurYearHousehold": 12,
+          "eurYearPerConsumptionUnit": 7,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": 1
+        }
+      }
+    },
+    {
+      "code": "064",
+      "level": 2,
+      "parent": "06",
+      "label": {
+        "fi": "Muut terveyspalvelut",
+        "en": "Other health services"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 62,
+          "eurYearPerConsumptionUnit": 46,
+          "shareOfSpendingPct": 0.2,
+          "eurMonthPerConsumptionUnit": 4
+        },
+        "q1": {
+          "eurYearHousehold": 24,
+          "eurYearPerConsumptionUnit": 22,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 2
+        },
+        "q2": {
+          "eurYearHousehold": 51,
+          "eurYearPerConsumptionUnit": 42,
+          "shareOfSpendingPct": 0.2,
+          "eurMonthPerConsumptionUnit": 3
+        },
+        "q3": {
+          "eurYearHousehold": 52,
+          "eurYearPerConsumptionUnit": 37,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 3
+        },
+        "q4": {
+          "eurYearHousehold": 63,
+          "eurYearPerConsumptionUnit": 40,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 3
+        },
+        "q5": {
+          "eurYearHousehold": 121,
+          "eurYearPerConsumptionUnit": 88,
+          "shareOfSpendingPct": 0.2,
+          "eurMonthPerConsumptionUnit": 7
+        }
+      }
+    },
+    {
+      "code": "07",
+      "level": 1,
+      "parent": null,
+      "label": {
+        "fi": "Liikenne",
+        "en": "Transport"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 5514,
+          "eurYearPerConsumptionUnit": 3761,
+          "shareOfSpendingPct": 13.9,
+          "eurMonthPerConsumptionUnit": 313
+        },
+        "q1": {
+          "eurYearHousehold": 1579,
+          "eurYearPerConsumptionUnit": 1276,
+          "shareOfSpendingPct": 8,
+          "eurMonthPerConsumptionUnit": 106
+        },
+        "q2": {
+          "eurYearHousehold": 3801,
+          "eurYearPerConsumptionUnit": 2676,
+          "shareOfSpendingPct": 12.6,
+          "eurMonthPerConsumptionUnit": 223
+        },
+        "q3": {
+          "eurYearHousehold": 5015,
+          "eurYearPerConsumptionUnit": 3476,
+          "shareOfSpendingPct": 13,
+          "eurMonthPerConsumptionUnit": 290
+        },
+        "q4": {
+          "eurYearHousehold": 6236,
+          "eurYearPerConsumptionUnit": 4022,
+          "shareOfSpendingPct": 13.5,
+          "eurMonthPerConsumptionUnit": 335
+        },
+        "q5": {
+          "eurYearHousehold": 10948,
+          "eurYearPerConsumptionUnit": 7361,
+          "shareOfSpendingPct": 17,
+          "eurMonthPerConsumptionUnit": 613
+        }
+      }
+    },
+    {
+      "code": "071",
+      "level": 2,
+      "parent": "07",
+      "label": {
+        "fi": "Ajoneuvojen hankinta",
+        "en": "Purchase of vehicles"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 2335,
+          "eurYearPerConsumptionUnit": 1562,
+          "shareOfSpendingPct": 5.9,
+          "eurMonthPerConsumptionUnit": 130
+        },
+        "q1": {
+          "eurYearHousehold": 328,
+          "eurYearPerConsumptionUnit": 254,
+          "shareOfSpendingPct": 1.7,
+          "eurMonthPerConsumptionUnit": 21
+        },
+        "q2": {
+          "eurYearHousehold": 1295,
+          "eurYearPerConsumptionUnit": 879,
+          "shareOfSpendingPct": 4.3,
+          "eurMonthPerConsumptionUnit": 73
+        },
+        "q3": {
+          "eurYearHousehold": 2081,
+          "eurYearPerConsumptionUnit": 1432,
+          "shareOfSpendingPct": 5.4,
+          "eurMonthPerConsumptionUnit": 119
+        },
+        "q4": {
+          "eurYearHousehold": 2495,
+          "eurYearPerConsumptionUnit": 1562,
+          "shareOfSpendingPct": 5.4,
+          "eurMonthPerConsumptionUnit": 130
+        },
+        "q5": {
+          "eurYearHousehold": 5480,
+          "eurYearPerConsumptionUnit": 3689,
+          "shareOfSpendingPct": 8.5,
+          "eurMonthPerConsumptionUnit": 307
+        }
+      }
+    },
+    {
+      "code": "072",
+      "level": 2,
+      "parent": "07",
+      "label": {
+        "fi": "Yksityisajoneuvojen käyttö",
+        "en": "Operation of personal transport equipment"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 2597,
+          "eurYearPerConsumptionUnit": 1767,
+          "shareOfSpendingPct": 6.5,
+          "eurMonthPerConsumptionUnit": 147
+        },
+        "q1": {
+          "eurYearHousehold": 905,
+          "eurYearPerConsumptionUnit": 694,
+          "shareOfSpendingPct": 4.6,
+          "eurMonthPerConsumptionUnit": 58
+        },
+        "q2": {
+          "eurYearHousehold": 2056,
+          "eurYearPerConsumptionUnit": 1438,
+          "shareOfSpendingPct": 6.8,
+          "eurMonthPerConsumptionUnit": 120
+        },
+        "q3": {
+          "eurYearHousehold": 2409,
+          "eurYearPerConsumptionUnit": 1663,
+          "shareOfSpendingPct": 6.3,
+          "eurMonthPerConsumptionUnit": 139
+        },
+        "q4": {
+          "eurYearHousehold": 3139,
+          "eurYearPerConsumptionUnit": 2066,
+          "shareOfSpendingPct": 6.8,
+          "eurMonthPerConsumptionUnit": 172
+        },
+        "q5": {
+          "eurYearHousehold": 4482,
+          "eurYearPerConsumptionUnit": 2979,
+          "shareOfSpendingPct": 7,
+          "eurMonthPerConsumptionUnit": 248
+        }
+      }
+    },
+    {
+      "code": "073",
+      "level": 2,
+      "parent": "07",
+      "label": {
+        "fi": "Matkustajien kuljetuspalvelut",
+        "en": "Passenger transport services"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 531,
+          "eurYearPerConsumptionUnit": 389,
+          "shareOfSpendingPct": 1.3,
+          "eurMonthPerConsumptionUnit": 32
+        },
+        "q1": {
+          "eurYearHousehold": 281,
+          "eurYearPerConsumptionUnit": 264,
+          "shareOfSpendingPct": 1.4,
+          "eurMonthPerConsumptionUnit": 22
+        },
+        "q2": {
+          "eurYearHousehold": 415,
+          "eurYearPerConsumptionUnit": 330,
+          "shareOfSpendingPct": 1.4,
+          "eurMonthPerConsumptionUnit": 28
+        },
+        "q3": {
+          "eurYearHousehold": 465,
+          "eurYearPerConsumptionUnit": 331,
+          "shareOfSpendingPct": 1.2,
+          "eurMonthPerConsumptionUnit": 28
+        },
+        "q4": {
+          "eurYearHousehold": 570,
+          "eurYearPerConsumptionUnit": 373,
+          "shareOfSpendingPct": 1.2,
+          "eurMonthPerConsumptionUnit": 31
+        },
+        "q5": {
+          "eurYearHousehold": 925,
+          "eurYearPerConsumptionUnit": 649,
+          "shareOfSpendingPct": 1.4,
+          "eurMonthPerConsumptionUnit": 54
+        }
+      }
+    },
+    {
+      "code": "074",
+      "level": 2,
+      "parent": "07",
+      "label": {
+        "fi": "Tavaroiden kuljetuspalvelut",
+        "en": "Transport services of goods"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 51,
+          "eurYearPerConsumptionUnit": 42,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 3
+        },
+        "q1": {
+          "eurYearHousehold": 66,
+          "eurYearPerConsumptionUnit": 64,
+          "shareOfSpendingPct": 0.3,
+          "eurMonthPerConsumptionUnit": 5
+        },
+        "q2": {
+          "eurYearHousehold": 35,
+          "eurYearPerConsumptionUnit": 29,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 2
+        },
+        "q3": {
+          "eurYearHousehold": 59,
+          "eurYearPerConsumptionUnit": 50,
+          "shareOfSpendingPct": 0.2,
+          "eurMonthPerConsumptionUnit": 4
+        },
+        "q4": {
+          "eurYearHousehold": 32,
+          "eurYearPerConsumptionUnit": 22,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 2
+        },
+        "q5": {
+          "eurYearHousehold": 62,
+          "eurYearPerConsumptionUnit": 44,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 4
+        }
+      }
+    },
+    {
+      "code": "08",
+      "level": 1,
+      "parent": null,
+      "label": {
+        "fi": "Informaatio ja viestintä",
+        "en": "Information and communication"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 1559,
+          "eurYearPerConsumptionUnit": 1133,
+          "shareOfSpendingPct": 3.9,
+          "eurMonthPerConsumptionUnit": 94
+        },
+        "q1": {
+          "eurYearHousehold": 992,
+          "eurYearPerConsumptionUnit": 850,
+          "shareOfSpendingPct": 5.1,
+          "eurMonthPerConsumptionUnit": 71
+        },
+        "q2": {
+          "eurYearHousehold": 1224,
+          "eurYearPerConsumptionUnit": 904,
+          "shareOfSpendingPct": 4,
+          "eurMonthPerConsumptionUnit": 75
+        },
+        "q3": {
+          "eurYearHousehold": 1642,
+          "eurYearPerConsumptionUnit": 1208,
+          "shareOfSpendingPct": 4.3,
+          "eurMonthPerConsumptionUnit": 101
+        },
+        "q4": {
+          "eurYearHousehold": 1773,
+          "eurYearPerConsumptionUnit": 1220,
+          "shareOfSpendingPct": 3.8,
+          "eurMonthPerConsumptionUnit": 102
+        },
+        "q5": {
+          "eurYearHousehold": 2164,
+          "eurYearPerConsumptionUnit": 1481,
+          "shareOfSpendingPct": 3.4,
+          "eurMonthPerConsumptionUnit": 123
+        }
+      }
+    },
+    {
+      "code": "081",
+      "level": 2,
+      "parent": "08",
+      "label": {
+        "fi": "Informaatio- ja viestintätekniset laitteet",
+        "en": "Information and communication equipment"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 546,
+          "eurYearPerConsumptionUnit": 404,
+          "shareOfSpendingPct": 1.4,
+          "eurMonthPerConsumptionUnit": 34
+        },
+        "q1": {
+          "eurYearHousehold": 352,
+          "eurYearPerConsumptionUnit": 299,
+          "shareOfSpendingPct": 1.8,
+          "eurMonthPerConsumptionUnit": 25
+        },
+        "q2": {
+          "eurYearHousehold": 363,
+          "eurYearPerConsumptionUnit": 257,
+          "shareOfSpendingPct": 1.2,
+          "eurMonthPerConsumptionUnit": 21
+        },
+        "q3": {
+          "eurYearHousehold": 588,
+          "eurYearPerConsumptionUnit": 466,
+          "shareOfSpendingPct": 1.5,
+          "eurMonthPerConsumptionUnit": 39
+        },
+        "q4": {
+          "eurYearHousehold": 613,
+          "eurYearPerConsumptionUnit": 427,
+          "shareOfSpendingPct": 1.3,
+          "eurMonthPerConsumptionUnit": 36
+        },
+        "q5": {
+          "eurYearHousehold": 816,
+          "eurYearPerConsumptionUnit": 570,
+          "shareOfSpendingPct": 1.3,
+          "eurMonthPerConsumptionUnit": 47
+        }
+      }
+    },
+    {
+      "code": "082",
+      "level": 2,
+      "parent": "08",
+      "label": {
+        "fi": "Ohjelmistot, pl. pelit",
+        "en": "Software, excluding games"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 7,
+          "eurYearPerConsumptionUnit": 5,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": 0
+        },
+        "q1": {
+          "eurYearHousehold": 8,
+          "eurYearPerConsumptionUnit": 6,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": 0
+        },
+        "q2": {
+          "eurYearHousehold": 4,
+          "eurYearPerConsumptionUnit": 3,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": 0
+        },
+        "q3": {
+          "eurYearHousehold": 6,
+          "eurYearPerConsumptionUnit": 5,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": 0
+        },
+        "q4": {
+          "eurYearHousehold": 10,
+          "eurYearPerConsumptionUnit": 9,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": 1
+        },
+        "q5": {
+          "eurYearHousehold": 6,
+          "eurYearPerConsumptionUnit": 5,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": 0
+        }
+      }
+    },
+    {
+      "code": "083",
+      "level": 2,
+      "parent": "08",
+      "label": {
+        "fi": "Informaatio- ja viestintäpalvelut",
+        "en": "Information and communication services"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 1006,
+          "eurYearPerConsumptionUnit": 724,
+          "shareOfSpendingPct": 2.5,
+          "eurMonthPerConsumptionUnit": 60
+        },
+        "q1": {
+          "eurYearHousehold": 632,
+          "eurYearPerConsumptionUnit": 545,
+          "shareOfSpendingPct": 3.2,
+          "eurMonthPerConsumptionUnit": 45
+        },
+        "q2": {
+          "eurYearHousehold": 857,
+          "eurYearPerConsumptionUnit": 645,
+          "shareOfSpendingPct": 2.8,
+          "eurMonthPerConsumptionUnit": 54
+        },
+        "q3": {
+          "eurYearHousehold": 1048,
+          "eurYearPerConsumptionUnit": 738,
+          "shareOfSpendingPct": 2.7,
+          "eurMonthPerConsumptionUnit": 61
+        },
+        "q4": {
+          "eurYearHousehold": 1151,
+          "eurYearPerConsumptionUnit": 784,
+          "shareOfSpendingPct": 2.5,
+          "eurMonthPerConsumptionUnit": 65
+        },
+        "q5": {
+          "eurYearHousehold": 1342,
+          "eurYearPerConsumptionUnit": 907,
+          "shareOfSpendingPct": 2.1,
+          "eurMonthPerConsumptionUnit": 76
+        }
+      }
+    },
+    {
+      "code": "09",
+      "level": 1,
+      "parent": null,
+      "label": {
+        "fi": "Kulttuuri ja vapaa-aika",
+        "en": "Recreation, sport and culture"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 2565,
+          "eurYearPerConsumptionUnit": 1784,
+          "shareOfSpendingPct": 6.4,
+          "eurMonthPerConsumptionUnit": 149
+        },
+        "q1": {
+          "eurYearHousehold": 998,
+          "eurYearPerConsumptionUnit": 839,
+          "shareOfSpendingPct": 5.1,
+          "eurMonthPerConsumptionUnit": 70
+        },
+        "q2": {
+          "eurYearHousehold": 1671,
+          "eurYearPerConsumptionUnit": 1210,
+          "shareOfSpendingPct": 5.5,
+          "eurMonthPerConsumptionUnit": 101
+        },
+        "q3": {
+          "eurYearHousehold": 2388,
+          "eurYearPerConsumptionUnit": 1629,
+          "shareOfSpendingPct": 6.2,
+          "eurMonthPerConsumptionUnit": 136
+        },
+        "q4": {
+          "eurYearHousehold": 3370,
+          "eurYearPerConsumptionUnit": 2305,
+          "shareOfSpendingPct": 7.3,
+          "eurMonthPerConsumptionUnit": 192
+        },
+        "q5": {
+          "eurYearHousehold": 4400,
+          "eurYearPerConsumptionUnit": 2936,
+          "shareOfSpendingPct": 6.8,
+          "eurMonthPerConsumptionUnit": 245
+        }
+      }
+    },
+    {
+      "code": "091",
+      "level": 2,
+      "parent": "09",
+      "label": {
+        "fi": "Vapaa-aikaan liittyvät kestokulutustavarat",
+        "en": "Recreational durables"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 212,
+          "eurYearPerConsumptionUnit": 138,
+          "shareOfSpendingPct": 0.5,
+          "eurMonthPerConsumptionUnit": 12
+        },
+        "q1": {
+          "eurYearHousehold": 10,
+          "eurYearPerConsumptionUnit": 9,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 1
+        },
+        "q2": {
+          "eurYearHousehold": 117,
+          "eurYearPerConsumptionUnit": 67,
+          "shareOfSpendingPct": 0.4,
+          "eurMonthPerConsumptionUnit": 6
+        },
+        "q3": {
+          "eurYearHousehold": 157,
+          "eurYearPerConsumptionUnit": 127,
+          "shareOfSpendingPct": 0.4,
+          "eurMonthPerConsumptionUnit": 11
+        },
+        "q4": {
+          "eurYearHousehold": 210,
+          "eurYearPerConsumptionUnit": 145,
+          "shareOfSpendingPct": 0.5,
+          "eurMonthPerConsumptionUnit": 12
+        },
+        "q5": {
+          "eurYearHousehold": 569,
+          "eurYearPerConsumptionUnit": 343,
+          "shareOfSpendingPct": 0.9,
+          "eurMonthPerConsumptionUnit": 29
+        }
+      }
+    },
+    {
+      "code": "092",
+      "level": 2,
+      "parent": "09",
+      "label": {
+        "fi": "Muut vapaa-ajan tuotteet",
+        "en": "Other recretional goods"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 410,
+          "eurYearPerConsumptionUnit": 269,
+          "shareOfSpendingPct": 1,
+          "eurMonthPerConsumptionUnit": 22
+        },
+        "q1": {
+          "eurYearHousehold": 160,
+          "eurYearPerConsumptionUnit": 132,
+          "shareOfSpendingPct": 0.8,
+          "eurMonthPerConsumptionUnit": 11
+        },
+        "q2": {
+          "eurYearHousehold": 250,
+          "eurYearPerConsumptionUnit": 161,
+          "shareOfSpendingPct": 0.8,
+          "eurMonthPerConsumptionUnit": 13
+        },
+        "q3": {
+          "eurYearHousehold": 375,
+          "eurYearPerConsumptionUnit": 235,
+          "shareOfSpendingPct": 1,
+          "eurMonthPerConsumptionUnit": 20
+        },
+        "q4": {
+          "eurYearHousehold": 541,
+          "eurYearPerConsumptionUnit": 350,
+          "shareOfSpendingPct": 1.2,
+          "eurMonthPerConsumptionUnit": 29
+        },
+        "q5": {
+          "eurYearHousehold": 723,
+          "eurYearPerConsumptionUnit": 468,
+          "shareOfSpendingPct": 1.1,
+          "eurMonthPerConsumptionUnit": 39
+        }
+      }
+    },
+    {
+      "code": "093",
+      "level": 2,
+      "parent": "09",
+      "label": {
+        "fi": "Puutarhatarvikkeet ja lemmikkieläimet",
+        "en": "Garden products and pets"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 424,
+          "eurYearPerConsumptionUnit": 301,
+          "shareOfSpendingPct": 1.1,
+          "eurMonthPerConsumptionUnit": 25
+        },
+        "q1": {
+          "eurYearHousehold": 221,
+          "eurYearPerConsumptionUnit": 181,
+          "shareOfSpendingPct": 1.1,
+          "eurMonthPerConsumptionUnit": 15
+        },
+        "q2": {
+          "eurYearHousehold": 335,
+          "eurYearPerConsumptionUnit": 259,
+          "shareOfSpendingPct": 1.1,
+          "eurMonthPerConsumptionUnit": 22
+        },
+        "q3": {
+          "eurYearHousehold": 444,
+          "eurYearPerConsumptionUnit": 311,
+          "shareOfSpendingPct": 1.2,
+          "eurMonthPerConsumptionUnit": 26
+        },
+        "q4": {
+          "eurYearHousehold": 489,
+          "eurYearPerConsumptionUnit": 342,
+          "shareOfSpendingPct": 1.1,
+          "eurMonthPerConsumptionUnit": 29
+        },
+        "q5": {
+          "eurYearHousehold": 633,
+          "eurYearPerConsumptionUnit": 412,
+          "shareOfSpendingPct": 1,
+          "eurMonthPerConsumptionUnit": 34
+        }
+      }
+    },
+    {
+      "code": "094",
+      "level": 2,
+      "parent": "09",
+      "label": {
+        "fi": "Vapaa-ajanpalvelut",
+        "en": "Recreational services"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 671,
+          "eurYearPerConsumptionUnit": 467,
+          "shareOfSpendingPct": 1.7,
+          "eurMonthPerConsumptionUnit": 39
+        },
+        "q1": {
+          "eurYearHousehold": 256,
+          "eurYearPerConsumptionUnit": 227,
+          "shareOfSpendingPct": 1.3,
+          "eurMonthPerConsumptionUnit": 19
+        },
+        "q2": {
+          "eurYearHousehold": 493,
+          "eurYearPerConsumptionUnit": 369,
+          "shareOfSpendingPct": 1.6,
+          "eurMonthPerConsumptionUnit": 31
+        },
+        "q3": {
+          "eurYearHousehold": 617,
+          "eurYearPerConsumptionUnit": 413,
+          "shareOfSpendingPct": 1.6,
+          "eurMonthPerConsumptionUnit": 34
+        },
+        "q4": {
+          "eurYearHousehold": 939,
+          "eurYearPerConsumptionUnit": 648,
+          "shareOfSpendingPct": 2,
+          "eurMonthPerConsumptionUnit": 54
+        },
+        "q5": {
+          "eurYearHousehold": 1048,
+          "eurYearPerConsumptionUnit": 679,
+          "shareOfSpendingPct": 1.6,
+          "eurMonthPerConsumptionUnit": 57
+        }
+      }
+    },
+    {
+      "code": "095",
+      "level": 2,
+      "parent": "09",
+      "label": {
+        "fi": "Kulttuuriesineet",
+        "en": "Cultural goods"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 32,
+          "eurYearPerConsumptionUnit": 23,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 2
+        },
+        "q1": {
+          "eurYearHousehold": 14,
+          "eurYearPerConsumptionUnit": 12,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 1
+        },
+        "q2": {
+          "eurYearHousehold": 25,
+          "eurYearPerConsumptionUnit": 16,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 1
+        },
+        "q3": {
+          "eurYearHousehold": 18,
+          "eurYearPerConsumptionUnit": 13,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 1
+        },
+        "q4": {
+          "eurYearHousehold": 55,
+          "eurYearPerConsumptionUnit": 36,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 3
+        },
+        "q5": {
+          "eurYearHousehold": 49,
+          "eurYearPerConsumptionUnit": 41,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 3
+        }
+      }
+    },
+    {
+      "code": "096",
+      "level": 2,
+      "parent": "09",
+      "label": {
+        "fi": "Kulttuuripalvelut",
+        "en": "Cultural services"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 150,
+          "eurYearPerConsumptionUnit": 104,
+          "shareOfSpendingPct": 0.4,
+          "eurMonthPerConsumptionUnit": 9
+        },
+        "q1": {
+          "eurYearHousehold": 59,
+          "eurYearPerConsumptionUnit": 46,
+          "shareOfSpendingPct": 0.3,
+          "eurMonthPerConsumptionUnit": 4
+        },
+        "q2": {
+          "eurYearHousehold": 98,
+          "eurYearPerConsumptionUnit": 70,
+          "shareOfSpendingPct": 0.3,
+          "eurMonthPerConsumptionUnit": 6
+        },
+        "q3": {
+          "eurYearHousehold": 153,
+          "eurYearPerConsumptionUnit": 95,
+          "shareOfSpendingPct": 0.4,
+          "eurMonthPerConsumptionUnit": 8
+        },
+        "q4": {
+          "eurYearHousehold": 221,
+          "eurYearPerConsumptionUnit": 156,
+          "shareOfSpendingPct": 0.5,
+          "eurMonthPerConsumptionUnit": 13
+        },
+        "q5": {
+          "eurYearHousehold": 220,
+          "eurYearPerConsumptionUnit": 154,
+          "shareOfSpendingPct": 0.3,
+          "eurMonthPerConsumptionUnit": 13
+        }
+      }
+    },
+    {
+      "code": "097",
+      "level": 2,
+      "parent": "09",
+      "label": {
+        "fi": "Sanomalehdet, kirjat ja paperitavarat",
+        "en": "Newspapers, books and stationery"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 349,
+          "eurYearPerConsumptionUnit": 262,
+          "shareOfSpendingPct": 0.9,
+          "eurMonthPerConsumptionUnit": 22
+        },
+        "q1": {
+          "eurYearHousehold": 146,
+          "eurYearPerConsumptionUnit": 133,
+          "shareOfSpendingPct": 0.7,
+          "eurMonthPerConsumptionUnit": 11
+        },
+        "q2": {
+          "eurYearHousehold": 258,
+          "eurYearPerConsumptionUnit": 209,
+          "shareOfSpendingPct": 0.9,
+          "eurMonthPerConsumptionUnit": 17
+        },
+        "q3": {
+          "eurYearHousehold": 381,
+          "eurYearPerConsumptionUnit": 281,
+          "shareOfSpendingPct": 1,
+          "eurMonthPerConsumptionUnit": 23
+        },
+        "q4": {
+          "eurYearHousehold": 406,
+          "eurYearPerConsumptionUnit": 293,
+          "shareOfSpendingPct": 0.9,
+          "eurMonthPerConsumptionUnit": 24
+        },
+        "q5": {
+          "eurYearHousehold": 557,
+          "eurYearPerConsumptionUnit": 392,
+          "shareOfSpendingPct": 0.9,
+          "eurMonthPerConsumptionUnit": 33
+        }
+      }
+    },
+    {
+      "code": "098",
+      "level": 2,
+      "parent": "09",
+      "label": {
+        "fi": "Valmismatkat",
+        "en": "Package holidays"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 316,
+          "eurYearPerConsumptionUnit": 219,
+          "shareOfSpendingPct": 0.8,
+          "eurMonthPerConsumptionUnit": 18
+        },
+        "q1": {
+          "eurYearHousehold": 132,
+          "eurYearPerConsumptionUnit": 99,
+          "shareOfSpendingPct": 0.7,
+          "eurMonthPerConsumptionUnit": 8
+        },
+        "q2": {
+          "eurYearHousehold": 97,
+          "eurYearPerConsumptionUnit": 59,
+          "shareOfSpendingPct": 0.3,
+          "eurMonthPerConsumptionUnit": 5
+        },
+        "q3": {
+          "eurYearHousehold": 242,
+          "eurYearPerConsumptionUnit": 154,
+          "shareOfSpendingPct": 0.6,
+          "eurMonthPerConsumptionUnit": 13
+        },
+        "q4": {
+          "eurYearHousehold": 508,
+          "eurYearPerConsumptionUnit": 336,
+          "shareOfSpendingPct": 1.1,
+          "eurMonthPerConsumptionUnit": 28
+        },
+        "q5": {
+          "eurYearHousehold": 601,
+          "eurYearPerConsumptionUnit": 447,
+          "shareOfSpendingPct": 0.9,
+          "eurMonthPerConsumptionUnit": 37
+        }
+      }
+    },
+    {
+      "code": "10",
+      "level": 1,
+      "parent": null,
+      "label": {
+        "fi": "Koulutus",
+        "en": "Education services"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 146,
+          "eurYearPerConsumptionUnit": 84,
+          "shareOfSpendingPct": 0.4,
+          "eurMonthPerConsumptionUnit": 7
+        },
+        "q1": {
+          "eurYearHousehold": 64,
+          "eurYearPerConsumptionUnit": 58,
+          "shareOfSpendingPct": 0.3,
+          "eurMonthPerConsumptionUnit": 5
+        },
+        "q2": {
+          "eurYearHousehold": 92,
+          "eurYearPerConsumptionUnit": 49,
+          "shareOfSpendingPct": 0.3,
+          "eurMonthPerConsumptionUnit": 4
+        },
+        "q3": {
+          "eurYearHousehold": 182,
+          "eurYearPerConsumptionUnit": 97,
+          "shareOfSpendingPct": 0.5,
+          "eurMonthPerConsumptionUnit": 8
+        },
+        "q4": {
+          "eurYearHousehold": 166,
+          "eurYearPerConsumptionUnit": 86,
+          "shareOfSpendingPct": 0.4,
+          "eurMonthPerConsumptionUnit": 7
+        },
+        "q5": {
+          "eurYearHousehold": 228,
+          "eurYearPerConsumptionUnit": 129,
+          "shareOfSpendingPct": 0.4,
+          "eurMonthPerConsumptionUnit": 11
+        }
+      }
+    },
+    {
+      "code": "101",
+      "level": 2,
+      "parent": "10",
+      "label": {
+        "fi": "Esiasteen ja alemman perusasteen koulutus",
+        "en": "Early childhood adn primary education"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 84,
+          "eurYearPerConsumptionUnit": 40,
+          "shareOfSpendingPct": 0.2,
+          "eurMonthPerConsumptionUnit": 3
+        },
+        "q1": {
+          "eurYearHousehold": null,
+          "eurYearPerConsumptionUnit": null,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": null
+        },
+        "q2": {
+          "eurYearHousehold": 58,
+          "eurYearPerConsumptionUnit": 26,
+          "shareOfSpendingPct": 0.2,
+          "eurMonthPerConsumptionUnit": 2
+        },
+        "q3": {
+          "eurYearHousehold": 100,
+          "eurYearPerConsumptionUnit": 46,
+          "shareOfSpendingPct": 0.3,
+          "eurMonthPerConsumptionUnit": 4
+        },
+        "q4": {
+          "eurYearHousehold": 123,
+          "eurYearPerConsumptionUnit": 60,
+          "shareOfSpendingPct": 0.3,
+          "eurMonthPerConsumptionUnit": 5
+        },
+        "q5": {
+          "eurYearHousehold": 137,
+          "eurYearPerConsumptionUnit": 68,
+          "shareOfSpendingPct": 0.2,
+          "eurMonthPerConsumptionUnit": 6
+        }
+      }
+    },
+    {
+      "code": "102",
+      "level": 2,
+      "parent": "10",
+      "label": {
+        "fi": "Ylemmän perusasteen ja keskiasteen koulutus",
+        "en": "Secondary education"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 2,
+          "eurYearPerConsumptionUnit": 1,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": 0
+        },
+        "q1": {
+          "eurYearHousehold": null,
+          "eurYearPerConsumptionUnit": null,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": null
+        },
+        "q2": {
+          "eurYearHousehold": null,
+          "eurYearPerConsumptionUnit": null,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": null
+        },
+        "q3": {
+          "eurYearHousehold": 5,
+          "eurYearPerConsumptionUnit": 3,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": 0
+        },
+        "q4": {
+          "eurYearHousehold": null,
+          "eurYearPerConsumptionUnit": null,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": null
+        },
+        "q5": {
+          "eurYearHousehold": 2,
+          "eurYearPerConsumptionUnit": 1,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": 0
+        }
+      }
+    },
+    {
+      "code": "103",
+      "level": 2,
+      "parent": "10",
+      "label": {
+        "fi": "Keskiasteen jälkeinen koulutus, joka ei ole korkea-asteen koulutusta",
+        "en": "Post-secondary non-tertiary education"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 3,
+          "eurYearPerConsumptionUnit": 2,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": 0
+        },
+        "q1": {
+          "eurYearHousehold": null,
+          "eurYearPerConsumptionUnit": null,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": null
+        },
+        "q2": {
+          "eurYearHousehold": 0,
+          "eurYearPerConsumptionUnit": 0,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": 0
+        },
+        "q3": {
+          "eurYearHousehold": null,
+          "eurYearPerConsumptionUnit": null,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": null
+        },
+        "q4": {
+          "eurYearHousehold": 7,
+          "eurYearPerConsumptionUnit": 3,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": 0
+        },
+        "q5": {
+          "eurYearHousehold": null,
+          "eurYearPerConsumptionUnit": null,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": null
+        }
+      }
+    },
+    {
+      "code": "104",
+      "level": 2,
+      "parent": "10",
+      "label": {
+        "fi": "Korkea-asteen koulutus",
+        "en": "Tertiary education"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 15,
+          "eurYearPerConsumptionUnit": 11,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": 1
+        },
+        "q1": {
+          "eurYearHousehold": 29,
+          "eurYearPerConsumptionUnit": 27,
+          "shareOfSpendingPct": 0.2,
+          "eurMonthPerConsumptionUnit": 2
+        },
+        "q2": {
+          "eurYearHousehold": 8,
+          "eurYearPerConsumptionUnit": 5,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": 0
+        },
+        "q3": {
+          "eurYearHousehold": 11,
+          "eurYearPerConsumptionUnit": 7,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": 1
+        },
+        "q4": {
+          "eurYearHousehold": 7,
+          "eurYearPerConsumptionUnit": 5,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": 0
+        },
+        "q5": {
+          "eurYearHousehold": 20,
+          "eurYearPerConsumptionUnit": 10,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": 1
+        }
+      }
+    },
+    {
+      "code": "105",
+      "level": 2,
+      "parent": "10",
+      "label": {
+        "fi": "Tasoltaan määrittelemätön koulutus",
+        "en": "Education not defined by level"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 43,
+          "eurYearPerConsumptionUnit": 30,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 3
+        },
+        "q1": {
+          "eurYearHousehold": 31,
+          "eurYearPerConsumptionUnit": 28,
+          "shareOfSpendingPct": 0.2,
+          "eurMonthPerConsumptionUnit": 2
+        },
+        "q2": {
+          "eurYearHousehold": 26,
+          "eurYearPerConsumptionUnit": 18,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 2
+        },
+        "q3": {
+          "eurYearHousehold": 65,
+          "eurYearPerConsumptionUnit": 41,
+          "shareOfSpendingPct": 0.2,
+          "eurMonthPerConsumptionUnit": 3
+        },
+        "q4": {
+          "eurYearHousehold": 28,
+          "eurYearPerConsumptionUnit": 17,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 1
+        },
+        "q5": {
+          "eurYearHousehold": 63,
+          "eurYearPerConsumptionUnit": 46,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 4
+        }
+      }
+    },
+    {
+      "code": "11",
+      "level": 1,
+      "parent": null,
+      "label": {
+        "fi": "Ravintola- ja majoituspalvelut",
+        "en": "Restaurants and accommodation services"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 1529,
+          "eurYearPerConsumptionUnit": 1089,
+          "shareOfSpendingPct": 3.8,
+          "eurMonthPerConsumptionUnit": 91
+        },
+        "q1": {
+          "eurYearHousehold": 636,
+          "eurYearPerConsumptionUnit": 558,
+          "shareOfSpendingPct": 3.2,
+          "eurMonthPerConsumptionUnit": 47
+        },
+        "q2": {
+          "eurYearHousehold": 995,
+          "eurYearPerConsumptionUnit": 724,
+          "shareOfSpendingPct": 3.3,
+          "eurMonthPerConsumptionUnit": 60
+        },
+        "q3": {
+          "eurYearHousehold": 1308,
+          "eurYearPerConsumptionUnit": 933,
+          "shareOfSpendingPct": 3.4,
+          "eurMonthPerConsumptionUnit": 78
+        },
+        "q4": {
+          "eurYearHousehold": 1943,
+          "eurYearPerConsumptionUnit": 1317,
+          "shareOfSpendingPct": 4.2,
+          "eurMonthPerConsumptionUnit": 110
+        },
+        "q5": {
+          "eurYearHousehold": 2768,
+          "eurYearPerConsumptionUnit": 1912,
+          "shareOfSpendingPct": 4.3,
+          "eurMonthPerConsumptionUnit": 159
+        }
+      }
+    },
+    {
+      "code": "111",
+      "level": 2,
+      "parent": "11",
+      "label": {
+        "fi": "Ravitsemispalvelut",
+        "en": "Food and beverage serving services"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 1329,
+          "eurYearPerConsumptionUnit": 953,
+          "shareOfSpendingPct": 3.3,
+          "eurMonthPerConsumptionUnit": 79
+        },
+        "q1": {
+          "eurYearHousehold": 595,
+          "eurYearPerConsumptionUnit": 520,
+          "shareOfSpendingPct": 3,
+          "eurMonthPerConsumptionUnit": 43
+        },
+        "q2": {
+          "eurYearHousehold": 860,
+          "eurYearPerConsumptionUnit": 633,
+          "shareOfSpendingPct": 2.8,
+          "eurMonthPerConsumptionUnit": 53
+        },
+        "q3": {
+          "eurYearHousehold": 1149,
+          "eurYearPerConsumptionUnit": 827,
+          "shareOfSpendingPct": 3,
+          "eurMonthPerConsumptionUnit": 69
+        },
+        "q4": {
+          "eurYearHousehold": 1671,
+          "eurYearPerConsumptionUnit": 1140,
+          "shareOfSpendingPct": 3.6,
+          "eurMonthPerConsumptionUnit": 95
+        },
+        "q5": {
+          "eurYearHousehold": 2374,
+          "eurYearPerConsumptionUnit": 1643,
+          "shareOfSpendingPct": 3.7,
+          "eurMonthPerConsumptionUnit": 137
+        }
+      }
+    },
+    {
+      "code": "112",
+      "level": 2,
+      "parent": "11",
+      "label": {
+        "fi": "Majoituspalvelut",
+        "en": "ACCOMMODATION SERVICES"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 200,
+          "eurYearPerConsumptionUnit": 136,
+          "shareOfSpendingPct": 0.5,
+          "eurMonthPerConsumptionUnit": 11
+        },
+        "q1": {
+          "eurYearHousehold": 40,
+          "eurYearPerConsumptionUnit": 38,
+          "shareOfSpendingPct": 0.2,
+          "eurMonthPerConsumptionUnit": 3
+        },
+        "q2": {
+          "eurYearHousehold": 135,
+          "eurYearPerConsumptionUnit": 91,
+          "shareOfSpendingPct": 0.4,
+          "eurMonthPerConsumptionUnit": 8
+        },
+        "q3": {
+          "eurYearHousehold": 158,
+          "eurYearPerConsumptionUnit": 105,
+          "shareOfSpendingPct": 0.4,
+          "eurMonthPerConsumptionUnit": 9
+        },
+        "q4": {
+          "eurYearHousehold": 273,
+          "eurYearPerConsumptionUnit": 177,
+          "shareOfSpendingPct": 0.6,
+          "eurMonthPerConsumptionUnit": 15
+        },
+        "q5": {
+          "eurYearHousehold": 394,
+          "eurYearPerConsumptionUnit": 269,
+          "shareOfSpendingPct": 0.6,
+          "eurMonthPerConsumptionUnit": 22
+        }
+      }
+    },
+    {
+      "code": "12",
+      "level": 1,
+      "parent": null,
+      "label": {
+        "fi": "Vakuutus- ja rahoituspalvelut",
+        "en": "Insurance and financial services"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 1786,
+          "eurYearPerConsumptionUnit": 1255,
+          "shareOfSpendingPct": 4.5,
+          "eurMonthPerConsumptionUnit": 105
+        },
+        "q1": {
+          "eurYearHousehold": 625,
+          "eurYearPerConsumptionUnit": 525,
+          "shareOfSpendingPct": 3.2,
+          "eurMonthPerConsumptionUnit": 44
+        },
+        "q2": {
+          "eurYearHousehold": 1407,
+          "eurYearPerConsumptionUnit": 1030,
+          "shareOfSpendingPct": 4.7,
+          "eurMonthPerConsumptionUnit": 86
+        },
+        "q3": {
+          "eurYearHousehold": 1786,
+          "eurYearPerConsumptionUnit": 1246,
+          "shareOfSpendingPct": 4.6,
+          "eurMonthPerConsumptionUnit": 104
+        },
+        "q4": {
+          "eurYearHousehold": 2147,
+          "eurYearPerConsumptionUnit": 1489,
+          "shareOfSpendingPct": 4.7,
+          "eurMonthPerConsumptionUnit": 124
+        },
+        "q5": {
+          "eurYearHousehold": 2968,
+          "eurYearPerConsumptionUnit": 1989,
+          "shareOfSpendingPct": 4.6,
+          "eurMonthPerConsumptionUnit": 166
+        }
+      }
+    },
+    {
+      "code": "121",
+      "level": 2,
+      "parent": "12",
+      "label": {
+        "fi": "Vakuutukset",
+        "en": "Insurance"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 1149,
+          "eurYearPerConsumptionUnit": 802,
+          "shareOfSpendingPct": 2.9,
+          "eurMonthPerConsumptionUnit": 67
+        },
+        "q1": {
+          "eurYearHousehold": 389,
+          "eurYearPerConsumptionUnit": 323,
+          "shareOfSpendingPct": 2,
+          "eurMonthPerConsumptionUnit": 27
+        },
+        "q2": {
+          "eurYearHousehold": 855,
+          "eurYearPerConsumptionUnit": 636,
+          "shareOfSpendingPct": 2.8,
+          "eurMonthPerConsumptionUnit": 53
+        },
+        "q3": {
+          "eurYearHousehold": 1120,
+          "eurYearPerConsumptionUnit": 773,
+          "shareOfSpendingPct": 2.9,
+          "eurMonthPerConsumptionUnit": 64
+        },
+        "q4": {
+          "eurYearHousehold": 1457,
+          "eurYearPerConsumptionUnit": 989,
+          "shareOfSpendingPct": 3.2,
+          "eurMonthPerConsumptionUnit": 82
+        },
+        "q5": {
+          "eurYearHousehold": 1927,
+          "eurYearPerConsumptionUnit": 1290,
+          "shareOfSpendingPct": 3,
+          "eurMonthPerConsumptionUnit": 108
+        }
+      }
+    },
+    {
+      "code": "122",
+      "level": 2,
+      "parent": "12",
+      "label": {
+        "fi": "Rahoituspalvelut",
+        "en": "Financial services"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 637,
+          "eurYearPerConsumptionUnit": 453,
+          "shareOfSpendingPct": 1.6,
+          "eurMonthPerConsumptionUnit": 38
+        },
+        "q1": {
+          "eurYearHousehold": 237,
+          "eurYearPerConsumptionUnit": 201,
+          "shareOfSpendingPct": 1.2,
+          "eurMonthPerConsumptionUnit": 17
+        },
+        "q2": {
+          "eurYearHousehold": 552,
+          "eurYearPerConsumptionUnit": 394,
+          "shareOfSpendingPct": 1.8,
+          "eurMonthPerConsumptionUnit": 33
+        },
+        "q3": {
+          "eurYearHousehold": 666,
+          "eurYearPerConsumptionUnit": 472,
+          "shareOfSpendingPct": 1.7,
+          "eurMonthPerConsumptionUnit": 39
+        },
+        "q4": {
+          "eurYearHousehold": 690,
+          "eurYearPerConsumptionUnit": 500,
+          "shareOfSpendingPct": 1.5,
+          "eurMonthPerConsumptionUnit": 42
+        },
+        "q5": {
+          "eurYearHousehold": 1041,
+          "eurYearPerConsumptionUnit": 698,
+          "shareOfSpendingPct": 1.6,
+          "eurMonthPerConsumptionUnit": 58
+        }
+      }
+    },
+    {
+      "code": "13",
+      "level": 1,
+      "parent": null,
+      "label": {
+        "fi": "Henkilökohtainen hygienia, sosiaaliturva ja muut tavarat ja palvelut",
+        "en": "Personal care, social protection and miscellaneous goods and services"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 1880,
+          "eurYearPerConsumptionUnit": 1303,
+          "shareOfSpendingPct": 4.7,
+          "eurMonthPerConsumptionUnit": 109
+        },
+        "q1": {
+          "eurYearHousehold": 633,
+          "eurYearPerConsumptionUnit": 545,
+          "shareOfSpendingPct": 3.2,
+          "eurMonthPerConsumptionUnit": 45
+        },
+        "q2": {
+          "eurYearHousehold": 1383,
+          "eurYearPerConsumptionUnit": 1000,
+          "shareOfSpendingPct": 4.6,
+          "eurMonthPerConsumptionUnit": 83
+        },
+        "q3": {
+          "eurYearHousehold": 1908,
+          "eurYearPerConsumptionUnit": 1302,
+          "shareOfSpendingPct": 5,
+          "eurMonthPerConsumptionUnit": 109
+        },
+        "q4": {
+          "eurYearHousehold": 2048,
+          "eurYearPerConsumptionUnit": 1333,
+          "shareOfSpendingPct": 4.4,
+          "eurMonthPerConsumptionUnit": 111
+        },
+        "q5": {
+          "eurYearHousehold": 3433,
+          "eurYearPerConsumptionUnit": 2339,
+          "shareOfSpendingPct": 5.3,
+          "eurMonthPerConsumptionUnit": 195
+        }
+      }
+    },
+    {
+      "code": "131",
+      "level": 2,
+      "parent": "13",
+      "label": {
+        "fi": "Henkilökohtainen hygienia",
+        "en": "Personal care"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 646,
+          "eurYearPerConsumptionUnit": 463,
+          "shareOfSpendingPct": 1.6,
+          "eurMonthPerConsumptionUnit": 39
+        },
+        "q1": {
+          "eurYearHousehold": 340,
+          "eurYearPerConsumptionUnit": 298,
+          "shareOfSpendingPct": 1.7,
+          "eurMonthPerConsumptionUnit": 25
+        },
+        "q2": {
+          "eurYearHousehold": 538,
+          "eurYearPerConsumptionUnit": 412,
+          "shareOfSpendingPct": 1.8,
+          "eurMonthPerConsumptionUnit": 34
+        },
+        "q3": {
+          "eurYearHousehold": 644,
+          "eurYearPerConsumptionUnit": 447,
+          "shareOfSpendingPct": 1.7,
+          "eurMonthPerConsumptionUnit": 37
+        },
+        "q4": {
+          "eurYearHousehold": 735,
+          "eurYearPerConsumptionUnit": 481,
+          "shareOfSpendingPct": 1.6,
+          "eurMonthPerConsumptionUnit": 40
+        },
+        "q5": {
+          "eurYearHousehold": 975,
+          "eurYearPerConsumptionUnit": 676,
+          "shareOfSpendingPct": 1.5,
+          "eurMonthPerConsumptionUnit": 56
+        }
+      }
+    },
+    {
+      "code": "132",
+      "level": 2,
+      "parent": "13",
+      "label": {
+        "fi": "Muut henkilökohtaiset tavarat",
+        "en": "Other personal effects"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 120,
+          "eurYearPerConsumptionUnit": 82,
+          "shareOfSpendingPct": 0.3,
+          "eurMonthPerConsumptionUnit": 7
+        },
+        "q1": {
+          "eurYearHousehold": 54,
+          "eurYearPerConsumptionUnit": 45,
+          "shareOfSpendingPct": 0.3,
+          "eurMonthPerConsumptionUnit": 4
+        },
+        "q2": {
+          "eurYearHousehold": 116,
+          "eurYearPerConsumptionUnit": 82,
+          "shareOfSpendingPct": 0.4,
+          "eurMonthPerConsumptionUnit": 7
+        },
+        "q3": {
+          "eurYearHousehold": 160,
+          "eurYearPerConsumptionUnit": 107,
+          "shareOfSpendingPct": 0.4,
+          "eurMonthPerConsumptionUnit": 9
+        },
+        "q4": {
+          "eurYearHousehold": 86,
+          "eurYearPerConsumptionUnit": 52,
+          "shareOfSpendingPct": 0.2,
+          "eurMonthPerConsumptionUnit": 4
+        },
+        "q5": {
+          "eurYearHousehold": 185,
+          "eurYearPerConsumptionUnit": 124,
+          "shareOfSpendingPct": 0.3,
+          "eurMonthPerConsumptionUnit": 10
+        }
+      }
+    },
+    {
+      "code": "133",
+      "level": 2,
+      "parent": "13",
+      "label": {
+        "fi": "Sosiaaliturva",
+        "en": "Social protection"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 40,
+          "eurYearPerConsumptionUnit": 28,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 2
+        },
+        "q1": {
+          "eurYearHousehold": 21,
+          "eurYearPerConsumptionUnit": 20,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 2
+        },
+        "q2": {
+          "eurYearHousehold": 37,
+          "eurYearPerConsumptionUnit": 30,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 3
+        },
+        "q3": {
+          "eurYearHousehold": 74,
+          "eurYearPerConsumptionUnit": 53,
+          "shareOfSpendingPct": 0.2,
+          "eurMonthPerConsumptionUnit": 4
+        },
+        "q4": {
+          "eurYearHousehold": 17,
+          "eurYearPerConsumptionUnit": 9,
+          "shareOfSpendingPct": 0,
+          "eurMonthPerConsumptionUnit": 1
+        },
+        "q5": {
+          "eurYearHousehold": 49,
+          "eurYearPerConsumptionUnit": 31,
+          "shareOfSpendingPct": 0.1,
+          "eurMonthPerConsumptionUnit": 3
+        }
+      }
+    },
+    {
+      "code": "139",
+      "level": 2,
+      "parent": "13",
+      "label": {
+        "fi": "Muut palvelut",
+        "en": "Other services"
+      },
+      "values": {
+        "all": {
+          "eurYearHousehold": 1074,
+          "eurYearPerConsumptionUnit": 730,
+          "shareOfSpendingPct": 2.7,
+          "eurMonthPerConsumptionUnit": 61
+        },
+        "q1": {
+          "eurYearHousehold": 218,
+          "eurYearPerConsumptionUnit": 182,
+          "shareOfSpendingPct": 1.1,
+          "eurMonthPerConsumptionUnit": 15
+        },
+        "q2": {
+          "eurYearHousehold": 691,
+          "eurYearPerConsumptionUnit": 475,
+          "shareOfSpendingPct": 2.3,
+          "eurMonthPerConsumptionUnit": 40
+        },
+        "q3": {
+          "eurYearHousehold": 1031,
+          "eurYearPerConsumptionUnit": 695,
+          "shareOfSpendingPct": 2.7,
+          "eurMonthPerConsumptionUnit": 58
+        },
+        "q4": {
+          "eurYearHousehold": 1211,
+          "eurYearPerConsumptionUnit": 792,
+          "shareOfSpendingPct": 2.6,
+          "eurMonthPerConsumptionUnit": 66
+        },
+        "q5": {
+          "eurYearHousehold": 2224,
+          "eurYearPerConsumptionUnit": 1508,
+          "shareOfSpendingPct": 3.5,
+          "eurMonthPerConsumptionUnit": 126
+        }
+      }
+    }
+  ]
+}
