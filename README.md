@@ -2,7 +2,7 @@
 
 Junction 2026 hackathon project. Team: Ufuk, Michal, Chamb.
 
-Challenge: **S-Pankki – Personal Economic Trainer**. An AI coach that lets people chat with their own banking data.
+Challenge: **S-Pankki – Personal Economic Trainer**. Our take: a personal spending dashboard inside an S-mobiili-style app: a year of spending month by month, a pie chart of expenses by category, and personalized insights based on a short financial-goal questionnaire. No chatbot.
 
 The prototype is a mobile-first web app in `src/frontend/` (React + TypeScript + Vite). There is **no backend**: a slim SQLite database covering a few demo customers ships with the app and is queried in the browser with [sql.js](https://sql.js.org/).
 

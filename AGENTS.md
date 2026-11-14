@@ -7,9 +7,9 @@ Every AI agent starts here. Read this file in full. Read everything else only wh
 
 **Challenge:** S-Pankki "Personal Economic Trainer" ([D-0002](docs/decisions/D-0002-sp-pankki-challenge.md)): an AI experience that lets people chat with their own banking data, on S-Pankki's synthetic dataset (5,100 customers, 3.6 M transactions, Oct 2024 – Sep 2026). S-Pankki values the three-basket pedagogy (mandatory regular / mandatory irregular / everyday leak), MyData-style free exploration, plain-language explanations, what-if simulation, and safe-to-spend / safe-to-save guidance, on mobile. Judged 20% each on financial literacy, originality of AI, mobile UX clarity, feasibility, and S-mobiili fit. Brief: [challenge](docs/references/challenge.md). Data: [dataset](docs/references/dataset.md).
 
-> TODO (team): our concrete idea and the demo we're aiming for.
+**Our idea** ([D-0006](docs/decisions/D-0006-product-dashboard-questionnaire.md)): a personal spending **dashboard** inside the S-mobiili-style app. The user sees their spending for a year, month by month, and a **pie chart** of expenses by category. A short **questionnaire** learns the user's financial goal, and the app shows **personalized insights** for financial literacy. **No chatbot. No backend.** Tasks: T-010 (dashboard data), T-011 (yearly dashboard), T-012 (pie chart), T-013 (questionnaire), T-014 (insights), all owned by Ufuk.
 
-- Data: download once into `data/raw/` (gitignored, [D-0003](docs/decisions/D-0003-dataset-location.md)); instructions and checksum in the dataset reference. Never commit data or put it in `docs/`.
+- Data: download once into `data/raw/` (gitignored, [D-0003](docs/decisions/D-0003-dataset-location.md), superseded in part by [D-0007](docs/decisions/D-0007-browser-sqlite.md)); instructions and checksum in the dataset reference. Never commit raw data or put it in `docs/`; the only committed data is the small demo DB `src/frontend/public/data/s_pankki-demo.db` (D-0007).
 - Stack: mobile-first web app embeddable in S-mobiili ([D-0004](docs/decisions/D-0004-mobile-web-app.md)); frontend React + TypeScript + Vite ([D-0005](docs/decisions/D-0005-frontend-stack.md)). **No backend**: a slim SQLite DB ships with the frontend and is queried in-browser with sql.js — see [src/frontend/DATA.md](src/frontend/DATA.md).
 - Rebuild the demo DB (needs `data/raw/`): `cd src/frontend && npm run build:data`
 - Run frontend: `cd src/frontend && npm install && npm run dev` → <http://localhost:5173> (phone-sized; open in a phone or a narrow window). Build/type-check: `npm run build`.
@@ -35,8 +35,8 @@ Every AI agent starts here. Read this file in full. Read everything else only wh
 
 | Member | Owns (areas) | Task folder |
 |---|---|---|
-| Ufuk | TODO | `docs/tasks/to-do/Ufuk/` |
-| Michal | TODO | `docs/tasks/to-do/Michal/` |
+| Ufuk | Dashboard, questionnaire, insights (T-010 to T-014) | `docs/tasks/to-do/Ufuk/` |
+| Michal | Browser data layer: `src/frontend/src/data/database.ts`, `scripts/build-demo-db.mjs`, `src/frontend/DATA.md` | `docs/tasks/to-do/Michal/` |
 | Chamb | TODO | `docs/tasks/to-do/Chamb/` |
 
 Assign a new task to the owner of its area. If the area or the owner is unclear, put it in `unassigned/`.

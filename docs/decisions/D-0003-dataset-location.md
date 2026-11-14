@@ -1,7 +1,7 @@
 # D-0003: The challenge dataset lives in `data/raw/`, outside git
 
 - **Date:** 2026-11-14
-- **Status:** accepted
+- **Status:** superseded by D-0007
 - **Deciders:** Ufuk (asked for the docs to be set up from the data; AI chose the location)
 - **Source:** setup of the S-Pankki challenge, 2026-11-14
 

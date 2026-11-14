@@ -354,6 +354,95 @@ export async function getBalanceHistory(
   );
 }
 
+/* ------------------------------------------------------- year dashboard */
+// Added for the dashboard (T-010/T-011/T-012). "Spending" follows the same rule as above:
+// negative amounts except Salary Sweep and Invest Deposit. Income = all positive amounts.
+
+/** One calendar month of a year view. Months with no transactions have `hasData: false` and null amounts (not 0). */
+export interface MonthSpending {
+  month: string; // "2025-03"
+  hasData: boolean;
+  incomeEur: number | null;
+  spendingEur: number | null;
+  netEur: number | null;
+}
+
+/** A calendar year, always 12 months (January–December), plus totals over the months that have data. */
+export interface YearSpending {
+  year: number;
+  months: MonthSpending[];
+  monthsWithData: number;
+  totalIncomeEur: number;
+  totalSpendingEur: number;
+  /** Total spending / months with data; null when the year has no data. */
+  averageMonthlySpendingEur: number | null;
+}
+
+export interface YearAvailability {
+  year: number;
+  monthsWithData: number;
+  /** True when all 12 months have data (2025 is the only full year in the dataset). */
+  isComplete: boolean;
+}
+
+const pad2 = (n: number) => String(n).padStart(2, "0");
+
+/** DateRange covering a calendar year: `yearRange(2025)` → 2025-01-01 … 2025-12-31. */
+export function yearRange(year: number): DateRange {
+  return { startDate: `${year}-01-01`, endDate: `${year}-12-31` };
+}
+
+/** DateRange covering one month: `monthRange("2025-02")` → 2025-02-01 … 2025-02-28. */
+export function monthRange(month: string): DateRange {
+  const [year, mon] = month.split("-").map(Number);
+  const lastDay = new Date(Date.UTC(year, mon, 0)).getUTCDate();
+  return { startDate: `${month}-01`, endDate: `${month}-${pad2(lastDay)}` };
+}
+
+/** Last transaction date in the demo DB ("2026-09-30"). Use it as "today" for relative periods. */
+export async function getDataAsOf(): Promise<string | null> {
+  const db = await loadDatabase();
+  return queryOne<{ asOf: string | null }>(db, `SELECT MAX(tx_date) AS asOf FROM transactions`)?.asOf ?? null;
+}
+
+/** Calendar years in which the customer has transactions, oldest first. */
+export async function listAvailableYears(customerId: string): Promise<YearAvailability[]> {
+  const db = await loadDatabase();
+  const rows = query<{ year: string; monthsWithData: number }>(
+    db,
+    `SELECT substr(tx_date, 1, 4) AS year, COUNT(DISTINCT substr(tx_date, 1, 7)) AS monthsWithData
+     FROM transactions
+     WHERE customer_id = ?
+     GROUP BY year
+     ORDER BY year`,
+    [customerId],
+  );
+  return rows.map((r) => ({ year: Number(r.year), monthsWithData: r.monthsWithData, isComplete: r.monthsWithData === 12 }));
+}
+
+/** Month-by-month income and spending for one calendar year, with missing months marked. */
+export async function getYearSpending(customerId: string, year: number): Promise<YearSpending> {
+  const flows = await getMonthlyFlow(customerId, yearRange(year));
+  const byMonth = new Map(flows.map((f) => [f.month, f]));
+  const months: MonthSpending[] = Array.from({ length: 12 }, (_, i) => {
+    const month = `${year}-${pad2(i + 1)}`;
+    const flow = byMonth.get(month);
+    return flow
+      ? { month, hasData: true, incomeEur: flow.incomeEur, spendingEur: flow.spendingEur, netEur: flow.netEur }
+      : { month, hasData: false, incomeEur: null, spendingEur: null, netEur: null };
+  });
+  const totalIncomeEur = flows.reduce((sum, f) => sum + f.incomeEur, 0);
+  const totalSpendingEur = flows.reduce((sum, f) => sum + f.spendingEur, 0);
+  return {
+    year,
+    months,
+    monthsWithData: flows.length,
+    totalIncomeEur,
+    totalSpendingEur,
+    averageMonthlySpendingEur: flows.length ? totalSpendingEur / flows.length : null,
+  };
+}
+
 /* -------------------------------------------------------------- mortgages */
 
 export async function getMortgageLink(customerId: string): Promise<MortgageLink | null> {

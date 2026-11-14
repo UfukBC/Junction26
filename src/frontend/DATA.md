@@ -12,7 +12,7 @@ There is **no backend and no Python**. A slim SQLite database is shipped as a st
 data/raw/*.csv            (gitignored, full challenge dataset)
         │  npm run build:data
         ▼
-src/frontend/public/data/s_pankki-demo.db   (committed, ~464 KB, 4 demo customers)
+src/frontend/public/data/s_pankki-demo.db   (committed, ~1.06 MB, 8 demo customers)
         │  fetch() + sql.js
         ▼
 src/frontend/src/data/database.ts           (typed query API)
@@ -32,7 +32,7 @@ The full dataset is **never** bundled: 3.6 M transactions (346 MB CSV, ~585 MB S
 | `src/frontend/src/data/benchmarks.ts` | Typed accessors for the benchmarks (`QUINTILES`, `getCategoryBenchmark`, …). |
 | `src/frontend/src/screens/DataScreen.tsx` | Bank tab: summary, categories, recent transactions, mortgage, customer switcher. |
 | `src/frontend/scripts/build-demo-db.mjs` | Node script that builds the slim DB from `data/raw/`. |
-| `src/frontend/public/data/s_pankki-demo.db` | Prebuilt demo database (4 customers). |
+| `src/frontend/public/data/s_pankki-demo.db` | Prebuilt demo database (8 customers). |
 | `src/frontend/public/sql-wasm.wasm` | sql.js WASM binary, copied from `node_modules/sql.js/dist/`. |
 | `data/raw/` | Raw challenge CSVs. Gitignored — download once (see root README). |
 
@@ -52,12 +52,19 @@ npm run build               # tsc -b && vite build
 
 Defined in `src/frontend/scripts/build-demo-db.mjs` (`DEFAULT_CUSTOMERS`):
 
-| Customer | Mortgage | Outcome | Why it's included |
-|---|---|---|---|
-| `CUST00296` | `C0115` | rejected (insufficient income) | large salary-sweep behaviour |
-| `CUST00382` | `C0070` | rejected (insufficient collateral) | high-income saver |
-| `CUST04415` | `C0016` | approved | large loan (€454k) |
-| `CUST04457` | `C0004` | approved | typical approved case |
+| Customer | Age | Mortgage | Outcome | Profile / why it's included |
+|---|---|---|---|---|
+| `CUST00296` | 53 | `C0115` | rejected (insufficient income) | Saver: 24 monthly investment deposits (11.6k € over two years), no salary sweep. Spends ~2,940 €/month. |
+| `CUST00382` | 42 | `C0070` | rejected (insufficient collateral) | **Salary sweep:** moves 60k € of 70k € income to another account, so recorded spending is only ~120 €/month. |
+| `CUST04415` | 54 | `C0016` | approved | Large loan (454k €). **Salary sweep:** moves 122k € of 155k € income out, recorded spending ~230 €/month. |
+| `CUST04457` | 54 | `C0004` | approved | Typical approved case, spends ~1,950 €/month. |
+| `CUST03953` | 20 | – | – | **Young adult:** the most typical spender aged 18–24 (closest to that group's median). Income ~1,880 €/month, spends ~97% of it. |
+| `CUST00614` | 42 | – | – | **High earner:** income ~6,350 €/month (97th percentile of all 5,100 customers), yet spends ~98% of it. |
+| `CUST00367` | 40 | – | – | **Often negative:** spends ~104% of income; 13% of months end with a negative balance (population average 0.6%). |
+| `CUST04506` | 24 | – | – | **Heavy restaurant spender:** 22.5% of spending goes to restaurants (median 7.8%); spends more than earned in 2025. |
+
+The last four were picked for the dashboard (task T-010) from customers with all 24 months of data, no salary sweep and no mortgage, using DuckDB over the full dataset (one-off analysis, not part of the build). Salary-sweep customers (264 of 5,100) have a median recorded spend of 474 €/month vs 2,875 € for everyone else, because most of their money leaves to another account: their dashboards show only a fraction of their real spending.
+
 
 Add or replace customers:
 
@@ -106,6 +113,7 @@ import {
   getSpendingByCategory, getMonthlyFlow, getTopMerchants, getBalanceHistory,
   getMortgageLink, getMortgageEvents, getMortgageApplication,
   getCustomerDashboard,
+  getYearSpending, listAvailableYears, getDataAsOf, yearRange, monthRange,
 } from "../data/database";
 ```
 
@@ -123,6 +131,10 @@ import {
 | `getMortgageEvents(mortgageId)` | `MortgageEvent[]` |
 | `getMortgageApplication(customerId)` | `{ link, events } \| null` |
 | `getCustomerDashboard(id, range?)` | everything above in one call |
+| `listAvailableYears(id)` | `YearAvailability[]` — `{ year, monthsWithData, isComplete }`, oldest first |
+| `getYearSpending(id, year)` | `YearSpending` — always 12 `MonthSpending` rows (Jan–Dec) plus `monthsWithData`, `totalIncomeEur`, `totalSpendingEur`, `averageMonthlySpendingEur` |
+| `getDataAsOf()` | last transaction date in the DB (`"2026-09-30"`), the app's "today" |
+| `yearRange(year)` / `monthRange("YYYY-MM")` | `DateRange` helpers (not async) for the functions above |
 
 `DateRange = { startDate?: string; endDate?: string }` uses `YYYY-MM-DD` and filters on `tx_date`.
 
@@ -134,6 +146,22 @@ const lastMonth = await getTransactions("CUST04457", {
   limit: 50,
 });
 ```
+
+### Year view (dashboard)
+
+For the yearly dashboard and its pie chart:
+
+```ts
+const years = await listAvailableYears("CUST03953");      // 2024: 3 months, 2025: 12 (complete), 2026: 9
+const year = await getYearSpending("CUST03953", 2025);     // 12 months, totals, monthly average
+const pieYear = await getSpendingByCategory("CUST03953", yearRange(2025));
+const pieMonth = await getSpendingByCategory("CUST03953", monthRange("2025-03"));
+```
+
+- Months with no transactions have `hasData: false` and `null` amounts, never `0`: in 2024 only Oct–Dec have data, in 2026 only Jan–Sep.
+- `averageMonthlySpendingEur` divides by the months that have data, so partial years are not understated.
+- The pie for one month adds up exactly to that month's `spendingEur`.
+- The dataset ends 2026-09-30; use `getDataAsOf()` instead of the real current date for "this month" or "last 12 months".
 
 ### Spending rule
 

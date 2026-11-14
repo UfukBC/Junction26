@@ -21,7 +21,12 @@ const ROOT = path.resolve(__dirname, "../../..");
 const RAW = path.join(ROOT, "data/raw");
 const DEFAULT_OUT = path.join(ROOT, "src/frontend/public/data/s_pankki-demo.db");
 
-const DEFAULT_CUSTOMERS = ["CUST04457", "CUST04415", "CUST00382", "CUST00296"];
+// Michal's four mortgage applicants (CUST00382 and CUST04415 sweep their salary to another account),
+// plus four T-010 dashboard profiles: young adult, high earner, often negative, heavy restaurant spender.
+const DEFAULT_CUSTOMERS = [
+  "CUST04457", "CUST04415", "CUST00382", "CUST00296",
+  "CUST03953", "CUST00614", "CUST00367", "CUST04506",
+];
 
 const SCHEMA = `
 CREATE TABLE customers (

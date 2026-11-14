@@ -1,7 +1,7 @@
 # D-0005: Frontend: React + TypeScript + Vite, plain CSS, an S-mobiili-style shell
 
 - **Date:** 2026-11-14
-- **Status:** accepted
+- **Status:** accepted; its data-source and backend points are superseded by D-0007
 - **Deciders:** Ufuk (approved an AI proposal)
 - **Source:** inbox entry I-20261114-frontend-stack / task none
 
