@@ -2,14 +2,7 @@
 
 Junction 2026 hackathon project. Team: Ufuk, Michal, Chamb.
 
-A Python chess reinforcement-learning environment for LLMs. Each move the LLM makes is scored against Stockfish: Stockfish evaluates the position after the LLM's move and the position after its own best move, and the point gap between them is the score.
-
-```
-python -m venv .venv
-.venv\Scripts\python -m pip install -e ".[dev]"
-.venv\Scripts\python -m chess_rl        # demo episode on mock data
-.venv\Scripts\python -m pytest -q       # tests
-```
+> TODO: what we're building, plus how to run it.
 
 ## How we work with AI agents
 
