@@ -2,7 +2,20 @@
 
 Junction 2026 hackathon project. Team: Ufuk, Michal, Chamb.
 
-> TODO: what we're building, plus how to run it.
+Challenge: **S-Pankki – Personal Economic Trainer**. An AI coach that lets people chat with their own banking data.
+
+> TODO: our idea, plus how to run it.
+
+### Data
+The challenge dataset is not in this repo. Download it once into `data/raw/` (gitignored):
+
+```bash
+mkdir -p data/raw
+curl -L -o data/raw/tx_junction_transactions.csv https://media.githubusercontent.com/media/hackjunction/Junction-2026-S-pankki/main/tx_junction_transactions.csv
+# the three small CSVs: "Download raw file" on https://github.com/hackjunction/Junction-2026-S-pankki
+```
+
+Details, schema and traps: `docs/references/dataset.md`.
 
 ## How we work with AI agents
 

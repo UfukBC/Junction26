@@ -5,18 +5,22 @@ Every AI agent starts here. Read this file in full. Read everything else only wh
 
 ## Project
 
-> TODO (team): one paragraph covering what we're building, which challenge it's for, and the demo we're aiming for.
+**Challenge:** S-Pankki "Personal Economic Trainer" ([D-0002](docs/decisions/D-0002-sp-pankki-challenge.md)): an AI experience that lets people chat with their own banking data, on S-Pankki's synthetic dataset (5,100 customers, 3.6 M transactions, Oct 2024 – Sep 2026). S-Pankki values the three-basket pedagogy (mandatory regular / mandatory irregular / everyday leak), MyData-style free exploration, plain-language explanations, what-if simulation, and safe-to-spend / safe-to-save guidance, on mobile. Judged 20% each on financial literacy, originality of AI, mobile UX clarity, feasibility, and S-mobiili fit. Brief: [challenge](docs/references/challenge.md). Data: [dataset](docs/references/dataset.md).
 
-- Stack: TODO (record it as a decision in `docs/decisions/` once chosen)
+> TODO (team): our concrete idea and the demo we're aiming for.
+
+- Data: download once into `data/raw/` (gitignored, [D-0003](docs/decisions/D-0003-dataset-location.md)); instructions and checksum in the dataset reference. Never commit data or put it in `docs/`.
+- Stack: mobile-first web app embeddable in S-mobiili ([D-0004](docs/decisions/D-0004-mobile-web-app.md)); frontend React + TypeScript + Vite ([D-0005](docs/decisions/D-0005-frontend-stack.md)). Backend: TODO.
 - Run backend: TODO
-- Run frontend: TODO
+- Run frontend: `cd src/frontend && npm install && npm run dev` → <http://localhost:5173> (phone-sized; open in a phone or a narrow window). Build/type-check: `npm run build`.
 
 ## Repo map
 
 | Path | What's there |
 |---|---|
 | `src/backend/` | Backend service |
-| `src/frontend/` | Frontend app |
+| `src/frontend/` | Mobile web app (React + TypeScript + Vite). `src/App.tsx` = S-mobiili-style home screen, `src/components/`, mock data in `src/data/mock.ts` |
+| `data/` | Challenge dataset and derived data. Gitignored, local only |
 | `docs/references/` | Human-verified facts the code doesn't show: DB schema, external APIs, env/setup, gotchas |
 | `docs/decisions/` | Human-verified architectural decisions (`D-NNNN-*.md`) |
 | `docs/tasks/to-do/<Owner>/` | Open tasks per team member. `unassigned/` holds tasks with no owner yet |
