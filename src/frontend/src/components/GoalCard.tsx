@@ -18,7 +18,7 @@ export function GoalCard({
           <Target size={19} strokeWidth={2} />
         </span>
         <div className="goal-card__main">
-          <h2 className="goal-card__title">Set your goal</h2>
+          <h2 className="goal-card__title">What do you save for?</h2>
           <p className="goal-card__text">Four quick questions, advice that fits you.</p>
         </div>
         <button type="button" className="goal-card__cta" onClick={onEdit}>

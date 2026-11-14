@@ -108,6 +108,29 @@ export interface TransactionQuery extends DateRange {
   order?: "asc" | "desc";
 }
 
+export interface PurchaseCategory {
+  name: string;
+  count: number;
+  valueEur: number;
+}
+
+export interface MonthSlice {
+  name: "Fixed" | "Everyday" | "Left";
+  detail: string;
+  valueEur: number;
+  categories?: PurchaseCategory[];
+}
+
+export interface MonthStory {
+  month: string;
+  asOf: string;
+  balanceEur: number;
+  incomeEur: number;
+  incomeDetail: string;
+  calm: boolean;
+  slices: MonthSlice[];
+}
+
 export interface CustomerDashboard {
   customer: Customer;
   summary: CustomerSummary;
@@ -440,6 +463,78 @@ export async function getYearSpending(customerId: string, year: number): Promise
     totalIncomeEur,
     totalSpendingEur,
     averageMonthlySpendingEur: flows.length ? totalSpendingEur / flows.length : null,
+  };
+}
+
+/* ---------------------------------------------------------- one month */
+
+const round2 = (value: number) => Math.round(value * 100) / 100;
+
+export async function listMonths(customerId: string): Promise<string[]> {
+  const db = await loadDatabase();
+  return query<{ month: string }>(
+    db,
+    `SELECT DISTINCT substr(tx_date, 1, 7) AS month
+     FROM transactions
+     WHERE customer_id = ?
+     ORDER BY month`,
+    [customerId],
+  ).map((row) => row.month);
+}
+
+export async function getMonthStory(customerId: string, month: string): Promise<MonthStory | null> {
+  const db = await loadDatabase();
+  const rows = query<{ type: string; category: string; count: number; totalEur: number }>(
+    db,
+    `SELECT transaction_type AS type, category, COUNT(*) AS count, SUM(tx_amount_eur) AS totalEur
+     FROM transactions
+     WHERE customer_id = ? AND substr(tx_date, 1, 7) = ?
+     GROUP BY transaction_type, category`,
+    [customerId, month],
+  );
+  const end = queryOne<{ date: string; balanceEur: number }>(
+    db,
+    `SELECT tx_date AS date, balance_after_eur AS balanceEur
+     FROM transactions
+     WHERE customer_id = ? AND substr(tx_date, 1, 7) = ?
+     ORDER BY tx_ts_iso DESC, id DESC
+     LIMIT 1`,
+    [customerId, month],
+  );
+  if (!end) return null;
+
+  const incomeRows = rows.filter((row) => row.totalEur > 0);
+  const incomeEur = round2(incomeRows.reduce((sum, row) => sum + row.totalEur, 0));
+  const incomeDetail =
+    incomeRows.length > 0 && incomeRows.every((row) => row.category === "Salary") ? "Salary" : "Income";
+  const fixedEur = round2(
+    -rows
+      .filter((row) => row.type === "housing_payment" || row.type === "utilities_payment")
+      .reduce((sum, row) => sum + row.totalEur, 0),
+  );
+  const purchases = rows.filter((row) => row.type === "purchase");
+  const everydayEur = round2(-purchases.reduce((sum, row) => sum + row.totalEur, 0));
+  const categories = purchases
+    .map((row) => ({ name: row.category, count: row.count, valueEur: round2(-row.totalEur) }))
+    .sort((a, b) => b.valueEur - a.valueEur);
+  const leftEur = round2(incomeEur - fixedEur - everydayEur);
+
+  return {
+    month,
+    asOf: end.date,
+    balanceEur: end.balanceEur,
+    incomeEur,
+    incomeDetail,
+    calm: leftEur >= 0,
+    slices: [
+      { name: "Fixed", detail: "Housing and utilities", valueEur: fixedEur },
+      { name: "Everyday", detail: "Tap for categories", valueEur: everydayEur, categories },
+      {
+        name: "Left",
+        detail: leftEur >= 0 ? "Still in the account" : "Spent past the income",
+        valueEur: leftEur,
+      },
+    ],
   };
 }
 

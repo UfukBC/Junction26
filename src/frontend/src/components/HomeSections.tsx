@@ -1,7 +1,16 @@
-import { ArrowLeftRight, Bookmark, MapPin, Plus } from "lucide-react";
+import { ArrowLeftRight, Bookmark, ChevronRight, MapPin, Plus } from "lucide-react";
 import type { Account } from "../data/mock";
 import { formatEur } from "../format";
 import { AccountGlyph, CardGlyph } from "./icons";
+
+export function SavingPrompt({ onPress }: { onPress: () => void }) {
+  return (
+    <button className="saving-prompt" type="button" onClick={onPress}>
+      <span>What do you save for?</span>
+      <ChevronRight size={18} strokeWidth={2.2} />
+    </button>
+  );
+}
 
 const ACTIONS = [
   { label: "New payment", Icon: Plus },

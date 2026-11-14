@@ -1,0 +1,777 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A calm month, then a spike</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --green: #017842;
+        --green-text: #0a7442;
+        --green-bright: #00ac49;
+        --tint: #ebf7ed;
+        --text: #1c1c1e;
+        --text-muted: #6b6b70;
+        --gray-icon: #8e8e93;
+        --line: #e4e4e6;
+        --bg: #ffffff;
+        --frame: #dfe6e1;
+        --neg: #c0372f;
+        --fixed: #017842;
+        --everyday: #00ac49;
+        --left: #8dceb0;
+        font-family: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        color: var(--text);
+        -webkit-font-smoothing: antialiased;
+      }
+      * { box-sizing: border-box; }
+      html, body { height: 100%; margin: 0; }
+      body { background: var(--frame); display: grid; place-items: center; }
+
+      .phone {
+        width: 430px;
+        height: min(932px, 96dvh);
+        background: var(--bg);
+        border-radius: 36px;
+        box-shadow: 0 24px 60px rgba(0, 40, 20, 0.18);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      .screen {
+        flex: 1;
+        padding: 22px 18px 12px;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        scrollbar-width: none;
+      }
+      .screen::-webkit-scrollbar { display: none; }
+
+      .data-eyebrow {
+        margin: 0;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--green-bright);
+      }
+      .data-title {
+        margin: 4px 0 0;
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--green-text);
+        letter-spacing: -0.4px;
+      }
+      .data-sub { margin: 6px 0 0; font-size: 13px; line-height: 1.45; color: var(--text-muted); }
+
+      .balance {
+        margin-top: 16px;
+        padding: 16px 16px 14px;
+        border-radius: 14px;
+        background: var(--tint);
+      }
+      .balance__head { display: flex; align-items: baseline; justify-content: space-between; }
+      .balance__label, .balance__asof { font-size: 12px; color: var(--text-muted); }
+      .balance__value {
+        display: block;
+        margin-top: 2px;
+        font-size: 40px;
+        font-weight: 800;
+        letter-spacing: -1px;
+        color: var(--green-text);
+        font-variant-numeric: tabular-nums;
+        line-height: 1.1;
+      }
+
+      .data-panel { margin-top: 22px; }
+      .data-panel h2 { margin: 0; font-size: 17px; font-weight: 800; color: var(--green-text); }
+      .data-panel__head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 8px;
+      }
+      .data-panel__head span { font-size: 12px; color: var(--text-muted); }
+
+      .chart { display: grid; place-items: center; margin: 2px 0 4px; }
+      .chart svg { width: 248px; height: 248px; overflow: visible; font-family: inherit; }
+      .chart path { cursor: pointer; }
+      .pie-label { paint-order: stroke; stroke-linejoin: round; }
+
+      .advice {
+        margin: 0;
+        padding: 12px 12px 10px;
+        border-radius: 14px;
+        background: var(--tint);
+        animation: rise 0.45s ease;
+      }
+      .advice__kicker, .advice__label {
+        margin: 0;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--green-bright);
+      }
+      .advice__label { margin-top: 10px; color: var(--green-text); }
+      .advice__title {
+        margin: 3px 0 0;
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: -0.2px;
+        color: var(--green-text);
+      }
+      .advice__summary, .advice__rec {
+        margin: 6px 0 0;
+        font-size: 13.5px;
+        line-height: 1.4;
+      }
+      .advice__close {
+        margin-top: 10px;
+        padding: 0;
+        border: 0;
+        background: none;
+        color: var(--green-text);
+        font: inherit;
+        font-size: 12.5px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .legend { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+      .legend__row, .legend__button {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        text-align: left;
+      }
+      .legend__button {
+        padding: 0;
+        border: 0;
+        background: none;
+        color: inherit;
+        font: inherit;
+        cursor: pointer;
+      }
+      .swatch { width: 12px; height: 12px; border-radius: 50%; flex: none; }
+      .swatch--ring { background: transparent; box-shadow: inset 0 0 0 2px var(--green); }
+      .legend__copy { flex: 1; min-width: 0; }
+      .legend__name { font-size: 14px; font-weight: 600; }
+      .legend__detail { display: block; margin-top: 1px; font-size: 11.5px; font-weight: 500; color: var(--text-muted); }
+      .legend__detail.is-link { color: var(--green-text); font-weight: 700; }
+      .legend__value { font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--text-muted); white-space: nowrap; }
+      .legend__value.is-pos { color: var(--green-text); }
+      .legend__value.is-neg { color: var(--neg); }
+      .chevron {
+        width: 8px;
+        height: 8px;
+        margin-right: 2px;
+        border-right: 2px solid var(--green-text);
+        border-bottom: 2px solid var(--green-text);
+        transform: rotate(45deg) translateY(-2px);
+        flex: none;
+      }
+      .legend__button[aria-expanded="true"] .chevron { transform: rotate(225deg) translateY(-1px); }
+
+      .dots { display: flex; justify-content: center; gap: 18px; margin-top: auto; padding: 18px 0 8px; }
+      .dot { width: 8px; height: 8px; border-radius: 50%; background: #d2d2d4; }
+      .dot--active { background: #8f8e93; }
+
+      .tabbar {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        background: var(--bg);
+        border-top: 1px solid var(--line);
+        padding: 10px 0 16px;
+      }
+      .tab {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        font-size: 12.5px;
+        color: var(--text-muted);
+        background: none;
+        border: 0;
+        font: inherit;
+      }
+      .tab--active { color: var(--text); }
+
+      .reveal { opacity: 0; transform: translateY(6px); animation: rise 0.55s ease forwards; }
+      .reveal--2 { animation-delay: 0.08s; }
+      .reveal--3 { animation-delay: 0.16s; }
+      @keyframes rise { to { opacity: 1; transform: none; } }
+      @media (prefers-reduced-motion: reduce) {
+        .reveal { animation: none; opacity: 1; transform: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="phone">
+      <main class="screen">
+        <p class="data-eyebrow reveal" id="month">April 2026</p>
+        <h1 class="data-title reveal reveal--2" id="title">A calm month</h1>
+        <p class="data-sub reveal reveal--3" id="note">Income covers the bills, and the balance rises.</p>
+
+        <section class="balance" aria-label="Balance">
+          <div class="balance__head">
+            <span class="balance__label">Balance</span>
+            <span class="balance__asof" id="asof">30 Apr 2026</span>
+          </div>
+          <span class="balance__value" id="balance">0,00&nbsp;€</span>
+        </section>
+
+        <section class="data-panel">
+          <div class="data-panel__head">
+            <h2 id="chart-title">Where the money goes</h2>
+            <span>One month</span>
+          </div>
+          <div class="chart">
+            <svg id="pie" viewBox="-32 -32 264 264" role="img" aria-label="Income split into fixed bills, everyday spending, and what is left"></svg>
+          </div>
+          <ul class="legend" id="legend"></ul>
+        </section>
+
+        <div class="dots" aria-hidden="true">
+          <span class="dot dot--active" id="dot0"></span>
+          <span class="dot" id="dot1"></span>
+        </div>
+      </main>
+      <nav class="tabbar" aria-label="Main">
+        <button class="tab" type="button">
+          <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><path d="M14 3.2 3 12.4V25h8.2v-7.2h5.6V25H25V12.4z" fill="none" stroke="#8e8e93" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <span>Home</span>
+        </button>
+        <button class="tab" type="button">
+          <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><text x="13" y="21" text-anchor="middle" font-size="24" font-style="italic" font-weight="600" fill="none" stroke="#8e8e93" stroke-width="1.3">S</text></svg>
+          <span>S-Etukortti</span>
+        </button>
+        <button class="tab tab--active" type="button" aria-current="page">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5H19a2 2 0 0 1 2 2v1H3v-.5zM3 10h18v6.5A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5V10z" stroke="#00ac49" stroke-width="1.6"/><path d="M16 14.5h3" stroke="#00ac49" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <span>Bank</span>
+        </button>
+        <button class="tab" type="button">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="3.2" stroke="#8e8e93" stroke-width="1.6"/><path d="M5.5 19.2c1.2-2.8 3.5-4.2 6.5-4.2s5.3 1.4 6.5 4.2" stroke="#8e8e93" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <span>Me</span>
+        </button>
+      </nav>
+    </div>
+    <script>
+      const COLORS = { Income: "#017842", Fixed: "#017842", Everyday: "#00ac49", Left: "#8dceb0" };
+      const CATEGORY_COLORS = ["#017842", "#0a8a45", "#3aaa68", "#8dceb0"];
+      const scenes = [
+        {
+          month: "April 2026",
+          title: "A calm month",
+          note: "Income covers the bills, and the balance rises.",
+          asof: "30 Apr 2026",
+          balance: 24070.63,
+          income: 3074.31,
+          slices: [
+            { name: "Fixed", detail: "Housing and utilities", value: 1280.55 },
+            {
+              name: "Everyday",
+              detail: "Tap for categories",
+              value: 92.24,
+              categories: [
+                { name: "Restaurants", count: 10, value: 36.82 },
+                { name: "Home & Tech", count: 1, value: 26.7 },
+                { name: "Entertainment", count: 5, value: 15.82 },
+                { name: "Lifestyle", count: 1, value: 12.9 },
+              ],
+            },
+            { name: "Left", detail: "Still in the account", value: 1701.52 },
+          ],
+        },
+        {
+          month: "December 2024",
+          title: "A spike month",
+          note: "Bills plus everyday spending passed the income. The balance fell.",
+          asof: "29 Dec 2024",
+          balance: 4488.43,
+          income: 3599.46,
+          slices: [
+            { name: "Fixed", detail: "Housing and utilities", value: 1383.45 },
+            {
+              name: "Everyday",
+              detail: "Tap for categories",
+              value: 2881.65,
+              categories: [
+                { name: "Groceries", count: 20, value: 1403.33 },
+                { name: "Lifestyle", count: 1, value: 656.59 },
+                { name: "Restaurants", count: 10, value: 417.35 },
+                { name: "Health", count: 3, value: 404.38 },
+              ],
+            },
+            { name: "Left", detail: "Spent past the income", value: -665.64 },
+          ],
+        },
+      ];
+
+      const monthEl = document.getElementById("month");
+      const titleEl = document.getElementById("title");
+      const noteEl = document.getElementById("note");
+      const asofEl = document.getElementById("asof");
+      const balanceEl = document.getElementById("balance");
+      const chartTitle = document.getElementById("chart-title");
+      const pie = document.getElementById("pie");
+      const legend = document.getElementById("legend");
+      const dots = [document.getElementById("dot0"), document.getElementById("dot1")];
+
+      const formatEur = (value) => {
+        const neg = value < 0;
+        const [whole, frac] = Math.abs(value).toFixed(2).split(".");
+        const grouped = whole.replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0");
+        return (neg ? "−" : "") + grouped + "," + frac + "\u00a0€";
+      };
+      const purchases = (count) => (count === 1 ? "1 purchase" : count + " purchases");
+      const ease = (t) => 1 - Math.pow(1 - t, 3);
+      const tween = (from, to, t) => from + (to - from) * ease(Math.min(1, Math.max(0, t)));
+
+      const baked = {
+        "April 2026|Income": {
+          summary: "One salary arrived, 3 074,31 €. That is all of April’s income.",
+          recommendation: "Budget the month from this salary. What remains after the bills is what you can save.",
+        },
+        "April 2026|Fixed": {
+          summary: "Housing and utilities were 1 280,55 €, about two fifths of the salary.",
+          recommendation: "Leave this basket. These are the regular bills, not the leak.",
+        },
+        "April 2026|Everyday": {
+          summary: "Everyday spending was 92,24 € across 17 purchases. Restaurants were the largest, at 36,82 €.",
+          recommendation: "Nothing to cut. This is a calm month. Watch for a jump like December.",
+        },
+        "April 2026|Left": {
+          summary: "1 701,52 € of the salary was still unspent, so the balance rose.",
+          recommendation: "On payday, move a set part of this leftover into savings.",
+        },
+        "April 2026|Restaurants": {
+          summary: "Ten restaurant payments totaled 36,82 €, only a few euros each.",
+          recommendation: "This is a small habit. No change is needed in a month like this.",
+        },
+        "April 2026|Home & Tech": {
+          summary: "One Home & Tech purchase was 26,70 €.",
+          recommendation: "A single small buy. Act only if the same kind of purchase starts repeating.",
+        },
+        "April 2026|Entertainment": {
+          summary: "Five entertainment payments totaled 15,82 €.",
+          recommendation: "These are tiny. Leave them.",
+        },
+        "April 2026|Lifestyle": {
+          summary: "One lifestyle purchase was 12,90 €.",
+          recommendation: "Nothing to change here.",
+        },
+        "December 2024|Income": {
+          summary: "Salary was 3 599,46 €, higher than April. Pay is not what broke the month.",
+          recommendation: "Compare spending with this salary. The shortfall is in spending, not income.",
+        },
+        "December 2024|Fixed": {
+          summary: "Housing and utilities were 1 383,45 €, close to April’s 1 280,55 €.",
+          recommendation: "Keep paying these. The spike is in everyday spending, not in the bills.",
+        },
+        "December 2024|Everyday": {
+          summary: "Everyday spending was 2 881,65 €. With the bills, the month went 665,64 € past the salary.",
+          recommendation: "Start with groceries, 1 403,33 €, and the one lifestyle purchase of 656,59 €.",
+        },
+        "December 2024|Left": {
+          summary: "Spending passed the salary by 665,64 €. The balance ended at 4 488,43 €.",
+          recommendation: "Next month, keep the bills plus everyday spending under the salary.",
+        },
+        "December 2024|Groceries": {
+          summary: "Twenty grocery payments totaled 1 403,33 €, about half of everyday spending.",
+          recommendation: "This is the main leak. Look at the largest grocery trips first.",
+        },
+        "December 2024|Lifestyle": {
+          summary: "One lifestyle purchase was 656,59 €, more than April’s whole everyday basket.",
+          recommendation: "If this was optional, this single buy is most of the 666 € shortfall.",
+        },
+        "December 2024|Restaurants": {
+          summary: "Ten restaurant visits cost 417,35 €, against 36,82 € in April. The count is the same.",
+          recommendation: "Cap the amount per visit. The habit grew in euros, not in how often you went.",
+        },
+        "December 2024|Health": {
+          summary: "Three health payments totaled 404,38 €.",
+          recommendation: "Check whether these were necessary care before cutting them. Needed health costs are not the leak.",
+        },
+      };
+
+      let scene = 0;
+      let open = false;
+      let selected = null;
+      let legendKey = "";
+      let playing = true;
+      let adviceToken = 0;
+      const adviceCache = new Map();
+      let frameToken = 0;
+      let timers = [];
+      let shown = { balance: 0, income: 0, slices: [0, 0, 0] };
+      const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      function stopLoop() {
+        playing = false;
+        timers.forEach(clearTimeout);
+        timers = [];
+      }
+
+      function wedge(value, total, start) {
+        const sweep = (value / total) * Math.PI * 2;
+        const end = start + sweep;
+        if (sweep >= Math.PI * 2 - 0.0001) {
+          return { d: "M 100 12 A 88 88 0 1 1 99.99 12 Z", end };
+        }
+        const x0 = 100 + 88 * Math.cos(start);
+        const y0 = 100 + 88 * Math.sin(start);
+        const x1 = 100 + 88 * Math.cos(end);
+        const y1 = 100 + 88 * Math.sin(end);
+        const large = sweep > Math.PI ? 1 : 0;
+        return { d: `M 100 100 L ${x0} ${y0} A 88 88 0 ${large} 1 ${x1} ${y1} Z`, end };
+      }
+
+      function esc(value) {
+        return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll('"', "&quot;");
+      }
+
+      function formatPie(value) {
+        const grouped = String(Math.round(Math.abs(value))).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0");
+        return (value < 0 ? "−" : "") + grouped + "\u00a0€";
+      }
+
+      function amountFor(current, name) {
+        if (name === "Income") return current.income;
+        const slice = current.slices.find((item) => item.name === name);
+        if (slice) return slice.value;
+        const everyday = current.slices.find((item) => item.categories);
+        const category = everyday.categories.find((item) => item.name === name);
+        return category ? category.value : 0;
+      }
+
+      function adviceFor(current, name) {
+        const key = current.month + "|" + name;
+        return adviceCache.get(key) || baked[key] || {
+          summary: name + " is " + formatEur(amountFor(current, name)) + " in " + current.month + ".",
+          recommendation: "Compare this slice with the salary before deciding what to change.",
+        };
+      }
+
+      function drawPie(parts) {
+        const drawable = parts.filter((part) => part.value > 0.5);
+        const total = drawable.reduce((sum, part) => sum + part.value, 0);
+        if (total <= 0) {
+          pie.innerHTML = '<circle cx="100" cy="100" r="88" fill="#e4e4e6"/>';
+          return;
+        }
+        const names = new Set(drawable.map((part) => part.name));
+        const dim = selected && names.has(selected);
+        let angle = -Math.PI / 2;
+        pie.innerHTML = drawable
+          .map((part) => {
+            const sweep = (part.value / total) * Math.PI * 2;
+            const next = wedge(part.value, total, angle);
+            const mid = angle + sweep / 2;
+            angle = next.end;
+            const inside = sweep > 0.72;
+            const radius = inside ? 52 : 112;
+            const x = (100 + radius * Math.cos(mid)).toFixed(1);
+            const y = (100 + radius * Math.sin(mid)).toFixed(1);
+            const fill = part.color === "#8dceb0" || !inside ? "#017842" : "#ffffff";
+            const halo = inside ? "" : ' stroke="#ffffff" stroke-width="3" paint-order="stroke fill"';
+            const opacity = dim && part.name !== selected ? 0.28 : 1;
+            const lead = inside
+              ? ""
+              : `<line x1="${(100 + 90 * Math.cos(mid)).toFixed(1)}" y1="${(100 + 90 * Math.sin(mid)).toFixed(1)}" x2="${(100 + 104 * Math.cos(mid)).toFixed(1)}" y2="${(100 + 104 * Math.sin(mid)).toFixed(1)}" stroke="#017842" stroke-width="1.5" pointer-events="none"/>`;
+            return `<g opacity="${opacity}">${lead}<path d="${next.d}" fill="${part.color}" data-name="${esc(part.name)}"><title>${esc(part.name)} ${esc(formatEur(part.value))}</title></path><text class="pie-label" x="${x}" y="${y}" text-anchor="middle" dominant-baseline="middle" fill="${fill}"${halo} font-size="12" font-weight="800" pointer-events="none">${esc(formatPie(part.value))}</text></g>`;
+          })
+          .join("");
+      }
+
+      function partsFor(current) {
+        if (open) {
+          const everyday = current.slices.find((slice) => slice.categories);
+          return everyday.categories.map((category, index) => ({
+            name: category.name,
+            value: category.value,
+            color: CATEGORY_COLORS[index],
+          }));
+        }
+        return current.slices.map((slice, index) => ({
+          name: slice.name,
+          value: Math.max(0, shown.slices[index]),
+          color: COLORS[slice.name],
+        }));
+      }
+
+      function legendRow(name, detail, value, color, link) {
+        const valueClass = value < 0 ? "is-neg" : name === "Income" || name === "Left" ? "is-pos" : "";
+        const swatch = name === "Income" ? "swatch swatch--ring" : "swatch";
+        const style = name === "Income" ? "" : ` style="background:${color}"`;
+        return `
+          <span class="${swatch}"${style}></span>
+          <span class="legend__copy">
+            <span class="legend__name">${name}</span>
+            <span class="legend__detail${link ? " is-link" : ""}">${detail}</span>
+          </span>
+          <span class="legend__value ${valueClass}">${formatEur(value)}</span>`;
+      }
+
+      function renderAdvice(current, name) {
+        const text = adviceFor(current, name);
+        chartTitle.textContent = open ? "Everyday" : "Where the money goes";
+        legend.innerHTML = `
+          <li class="advice" id="advice">
+            <p class="advice__kicker">Trainer</p>
+            <p class="advice__title" id="advice-title"></p>
+            <p class="advice__summary" id="advice-summary"></p>
+            <p class="advice__label">Recommendation</p>
+            <p class="advice__rec" id="advice-rec"></p>
+            <button class="advice__close" id="advice-close" type="button">Back to the month</button>
+          </li>`;
+        document.getElementById("advice-title").textContent = name + " · " + formatEur(amountFor(current, name));
+        document.getElementById("advice-summary").textContent = text.summary;
+        document.getElementById("advice-rec").textContent = text.recommendation;
+        drawPie(partsFor(current));
+      }
+
+      function renderLegend() {
+        const current = scenes[scene];
+        if (selected) {
+          renderAdvice(current, selected);
+          return;
+        }
+        if (open) {
+          const everyday = current.slices.find((slice) => slice.categories);
+          chartTitle.textContent = "Everyday";
+          const items = everyday.categories
+            .map(
+              (category, index) => `
+              <li>
+                <button class="legend__button" type="button" data-segment="${esc(category.name)}">
+                  ${legendRow(category.name, purchases(category.count), category.value, CATEGORY_COLORS[index], false)}
+                </button>
+              </li>`
+            )
+            .join("");
+          legend.innerHTML = `
+            <li>
+              <button class="legend__button" id="everyday" type="button" aria-expanded="true">
+                <span class="swatch" style="background:${COLORS.Everyday}"></span>
+                <span class="legend__copy">
+                  <span class="legend__name">Everyday</span>
+                  <span class="legend__detail is-link">Hide categories</span>
+                </span>
+                <span class="chevron" aria-hidden="true"></span>
+                <span class="legend__value">${formatEur(everyday.value)}</span>
+              </button>
+            </li>
+            ${items}`;
+          drawPie(partsFor(current));
+          return;
+        }
+
+        chartTitle.textContent = "Where the money goes";
+        const income = shown.income;
+        const rows = current.slices
+          .map((slice, index) => {
+            const value = shown.slices[index];
+            if (slice.categories) {
+              return `
+              <li>
+                <button class="legend__button" id="everyday" type="button" aria-expanded="false">
+                  ${legendRow(slice.name, "Tap for categories", value, COLORS[slice.name], true)}
+                  <span class="chevron" aria-hidden="true"></span>
+                </button>
+              </li>`;
+            }
+            return `
+              <li>
+                <button class="legend__button" type="button" data-segment="${esc(slice.name)}">
+                  ${legendRow(slice.name, slice.detail, value, COLORS[slice.name], false)}
+                </button>
+              </li>`;
+          })
+          .join("");
+        legend.innerHTML = `
+          <li>
+            <button class="legend__button" type="button" data-segment="Income">
+              ${legendRow("Income", "Salary", income, COLORS.Income, false)}
+            </button>
+          </li>
+          ${rows}`;
+        drawPie(partsFor(current));
+      }
+
+      function updateClosed() {
+        if (!selected) {
+          const values = [shown.income, ...shown.slices];
+          legend.querySelectorAll(".legend__value").forEach((node, index) => {
+            const value = values[index];
+            node.textContent = formatEur(value);
+            node.classList.toggle("is-neg", value < 0);
+            node.classList.toggle("is-pos", index === 0 || (index === 3 && value > 0));
+          });
+        }
+        if (!open) drawPie(partsFor(scenes[scene]));
+      }
+
+      function paint() {
+        balanceEl.textContent = formatEur(shown.balance);
+        const key = scene + ":" + open + ":" + (selected || "");
+        if (key !== legendKey) {
+          legendKey = key;
+          renderLegend();
+          return;
+        }
+        if (!open) updateClosed();
+      }
+
+      function applyCopy(next) {
+        monthEl.textContent = next.month;
+        titleEl.textContent = next.title;
+        noteEl.textContent = next.note;
+        asofEl.textContent = next.asof;
+        dots.forEach((dot, index) => dot.classList.toggle("dot--active", index === scene));
+      }
+
+      function runScene(index) {
+        scene = index;
+        selected = null;
+        adviceToken += 1;
+        const token = ++frameToken;
+        const next = scenes[index];
+        applyCopy(next);
+        const from = {
+          balance: shown.balance,
+          income: shown.income,
+          slices: shown.slices.slice(),
+        };
+        const started = performance.now();
+        const balanceMs = 900;
+        const delay = 500;
+        const sliceMs = 1100;
+
+        if (reduced) {
+          shown = { balance: next.balance, income: next.income, slices: next.slices.map((slice) => slice.value) };
+          paint();
+          return;
+        }
+
+        function frame(now) {
+          if (token !== frameToken) return;
+          const t = now - started;
+          shown = {
+            balance: tween(from.balance, next.balance, t / balanceMs),
+            income: tween(from.income, next.income, (t - delay) / sliceMs),
+            slices: next.slices.map((slice, i) => tween(from.slices[i] || 0, slice.value, (t - delay - i * 90) / sliceMs)),
+          };
+          paint();
+          if (t < balanceMs + delay + sliceMs) requestAnimationFrame(frame);
+          else {
+            shown = { balance: next.balance, income: next.income, slices: next.slices.map((slice) => slice.value) };
+            paint();
+          }
+        }
+        requestAnimationFrame(frame);
+      }
+
+      function toggleEveryday() {
+        stopLoop();
+        open = !open;
+        selected = null;
+        adviceToken += 1;
+        paint();
+      }
+
+      function choose(name) {
+        if (!name) return;
+        stopLoop();
+        selected = selected === name ? null : name;
+        paint();
+        if (selected === name) requestAdvice(scenes[scene], name);
+      }
+
+      function requestAdvice(current, name) {
+        const key = current.month + "|" + name;
+        if (adviceCache.has(key) || location.protocol === "file:") return;
+        const token = ++adviceToken;
+        const everyday = current.slices.find((slice) => slice.categories);
+        const brief = [
+          "Month: " + current.month,
+          "Balance: " + formatEur(current.balance) + " on " + current.asof,
+          "Income (salary): " + formatEur(current.income),
+          ...current.slices.map((slice) => slice.name + ": " + formatEur(slice.value) + ". " + slice.detail),
+          "Everyday categories: " +
+            everyday.categories.map((category) => category.name + " " + formatEur(category.value) + " (" + category.count + ")").join(", "),
+          "Selected slice: " + name + ", amount " + formatEur(amountFor(current, name)) + ".",
+        ].join("\n");
+        fetch("/api/segment-advice", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ month: current.month, segment: name, brief }),
+        })
+          .then((res) => (res.ok ? res.json() : Promise.reject(new Error("advice"))))
+          .then((data) => {
+            if (token !== adviceToken) return;
+            if (!data || typeof data.summary !== "string" || typeof data.recommendation !== "string") return;
+            adviceCache.set(key, { summary: data.summary, recommendation: data.recommendation });
+            if (selected !== name || scenes[scene] !== current) return;
+            const summary = document.getElementById("advice-summary");
+            const rec = document.getElementById("advice-rec");
+            if (summary) summary.textContent = data.summary;
+            if (rec) rec.textContent = data.recommendation;
+          })
+          .catch(() => {});
+      }
+
+      function later(fn, ms) {
+        timers.push(setTimeout(fn, ms));
+      }
+
+      function loop() {
+        if (!playing) return;
+        runScene(0);
+        if (reduced) return;
+        later(() => playing && runScene(1), 5200);
+        later(loop, 11000);
+      }
+
+      legend.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+        if (target.closest("#advice-close")) {
+          selected = null;
+          adviceToken += 1;
+          paint();
+          return;
+        }
+        if (target.closest("#everyday")) {
+          toggleEveryday();
+          return;
+        }
+        const segment = target.closest("[data-segment]");
+        if (segment) choose(segment.getAttribute("data-segment"));
+      });
+
+      pie.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+        const path = target.closest("path");
+        if (path) choose(path.getAttribute("data-name"));
+      });
+
+      dots.forEach((dot, index) => {
+        dot.style.cursor = "pointer";
+        dot.addEventListener("click", () => {
+          stopLoop();
+          runScene(index);
+        });
+      });
+
+      loop();
+    </script>
+  </body>
+</html>

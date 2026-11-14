@@ -37,7 +37,11 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   body { display: grid; place-items: center; }
   .phone { width: 430px; height: min(932px, 96dvh); border-radius: 36px; box-shadow: 0 24px 60px rgba(0, 40, 20, 0.18); }
 }
-.screen { flex: 1; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; }
+@media (max-width: 599px) {
+  .pie-row { flex-wrap: wrap; }
+  .advice { flex: 1 0 100%; }
+}
+.screen { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; }
 .screen::-webkit-scrollbar { display: none; }
 
 /* ---------- top bar ---------- */
@@ -136,8 +140,32 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 
 /* ---------- tinted area ---------- */
-.tinted { background: var(--tint); padding: 18px 21px 20px; min-height: 100%; }
+.tinted { background: var(--tint); padding: 14px 16px 20px; min-height: 100%; }
 .card { background: var(--card); border-radius: 14px; }
+
+.saving-prompt {
+  width: 100%;
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 12px;
+  border-radius: 12px;
+  background: var(--green);
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 800;
+  text-align: left;
+}
+.questionnaire { padding: 8px 18px 28px; }
+.questionnaire__bar { display: flex; align-items: center; gap: 4px; }
+.questionnaire__title { margin: 0; font-size: 20px; font-weight: 800; color: var(--green-text); }
+.questionnaire__body { margin-top: 18px; }
+.badge {
+  min-width: 28px; height: 26px; padding: 0 9px; border-radius: 13px; background: var(--green);
+  color: #fff; font-size: 15px; font-weight: 800; display: grid; place-items: center;
+}
 
 .actions { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 14px; }
 .action { display: flex; flex-direction: column; align-items: center; gap: 8px; }
@@ -362,3 +390,116 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   color: #fff; font-size: 16px; font-weight: 800;
 }
 .quiz__cta:disabled { opacity: 0.4; }
+
+/* ---------- home month story ---------- */
+.home-fit {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.home-fit .topbar { padding: 6px 12px 0; flex: none; }
+.home-fit .icon-button { width: 34px; height: 34px; }
+.home-fit .home-story {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0 8px 2px;
+}
+.home-fit .home-panel {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+}
+.home-fit .home-panel h2 { font-size: 15px; }
+.home-fit .pie-row { flex: 1 1 auto; min-height: 0; align-items: center; }
+.home-fit .pie-wrap { height: 100%; min-height: 0; }
+.home-fit .pie { width: auto; height: 100%; max-width: 100%; max-height: 100%; }
+.home-fit .legend { gap: 8px; overflow-y: auto; min-height: 0; }
+.home-fit .tinted {
+  flex: none;
+  min-height: 0;
+  padding: 8px 12px 8px;
+}
+.home-fit .actions { margin-top: 8px; }
+.home-fit .action__circle { width: 40px; height: 40px; }
+.home-fit .action__label { font-size: 12px; max-width: 68px; }
+.home-fit .section-title { margin: 8px 0 0; font-size: 16px; }
+.home-fit .accounts { margin-top: 6px; }
+.home-fit .account-row { min-height: 44px; padding: 6px 12px; }
+.home-fit .account-row__balance { font-size: 16px; }
+.home-story { padding: 2px 10px 8px; }
+.messages__label { line-height: 1.2; }
+.month-nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.month-nav__button {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  color: var(--green-text);
+  border-radius: 50%;
+}
+.month-nav__button:disabled { color: var(--line); cursor: default; }
+.home-panel { margin-top: 2px; }
+.home-panel .data-panel__head { margin-bottom: 0; }
+.pie-row { display: flex; align-items: flex-start; gap: 4px; }
+.pie-wrap { flex: 0 0 46%; display: grid; place-items: center; margin: 0; }
+.pie { width: 100%; height: auto; overflow: visible; font-family: inherit; }
+.pie path { cursor: pointer; }
+.pie-label { paint-order: stroke fill; stroke-linejoin: round; }
+.advice {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 12px 12px 10px;
+  border-radius: 14px;
+  background: var(--tint);
+}
+.advice__kicker, .advice__label {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green-bright);
+}
+.advice__label { margin-top: 10px; color: var(--green-text); }
+.advice__title {
+  margin: 3px 0 0;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  color: var(--green-text);
+}
+.advice__summary, .advice__rec { margin: 6px 0 0; font-size: 13.5px; line-height: 1.4; }
+.advice__close {
+  margin-top: 10px;
+  color: var(--green-text);
+  font-size: 12.5px;
+  font-weight: 800;
+}
+.legend { flex: 1; min-width: 0; list-style: none; margin: 0; padding: 2px 0 0; display: flex; flex-direction: column; gap: 12px; }
+.legend__button { display: flex; align-items: flex-start; gap: 8px; width: 100%; text-align: left; }
+.swatch { width: 12px; height: 12px; margin-top: 3px; border-radius: 50%; flex: none; }
+.swatch--ring { background: transparent; box-shadow: inset 0 0 0 2px var(--green); }
+.legend__copy { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 1px; }
+.legend__name { font-size: 14px; font-weight: 700; overflow-wrap: anywhere; }
+.legend__detail { display: block; margin-top: 1px; font-size: 11.5px; font-weight: 500; color: var(--text-muted); }
+.legend__detail.is-link { color: var(--green-text); font-weight: 700; }
+.legend__value { font-size: 13.5px; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--text-muted); }
+.legend__value.is-pos { color: var(--green-text); }
+.legend__value.is-neg { color: #c0372f; }
+.chevron {
+  width: 8px;
+  height: 8px;
+  margin-top: 5px;
+  border-right: 2px solid var(--green-text);
+  border-bottom: 2px solid var(--green-text);
+  transform: rotate(45deg);
+  flex: none;
+}
+.legend__button[aria-expanded="true"] .chevron { transform: rotate(225deg) translateY(-1px); }

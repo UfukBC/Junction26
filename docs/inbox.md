@@ -119,3 +119,18 @@ The same PxWeb table (`14ph.px`) also breaks figures down by household type, inc
 - T-011 (yearly dashboard) is on hold; the year helpers from T-010 (`getYearSpending`, `listAvailableYears`) stay available but unused by the UI.
 - The S-mobiili bonus card is gone from the home screen.
 - Colours follow rank, not category (the largest category is always blue), because 10 categories don't fit 5 validated colours.
+
+---
+
+### I-20261114-segment-advice-key
+
+- [ ] Approved
+- **Type:** reference
+- **Target:** `docs/references/frontend-data.md` (new, section "Segment advice")
+- **Task:** none
+- **Author:** AI
+- **Evidence:** `src/frontend/vite.config.ts` (`segmentAdvicePlugin`, `POST /api/segment-advice`), `src/frontend/motion-graphic.html` (`requestAdvice`), https://docs.x.ai/developers/quickstart
+
+**Segment advice key:** `XAI_API_KEY` in the environment or in `src/frontend/.env` (gitignored). The Vite dev server reads it with `loadEnv` and calls `POST https://api.x.ai/v1/responses` with model `grok-4.7` and `store: false`. The key is not sent to the browser.
+
+`motion-graphic.html` posts `{ month, segment, brief }` to `/api/segment-advice` only when the page is served by that dev server. With no key the route returns 503 and the graphic keeps the trainer lines written in the file. Opening the HTML with `file://` does not call the API.
