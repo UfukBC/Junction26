@@ -120,7 +120,7 @@ export function DataScreen({ selectedId }: { selectedId?: string }) {
                     <span className="data-tx__cat">{tx.category}</span>
                     <span className="data-tx__meta">
                       {tx.date}
-                      {tx.merchantId ? ` · ${tx.merchantId}` : ""}
+                      {tx.merchantId ? ` · ${tx.merchantName ?? tx.merchantId}` : ""}
                     </span>
                   </div>
                   <span className={`data-tx__amount ${tx.amountEur > 0 ? "is-pos" : ""}`}>

@@ -13,10 +13,12 @@ type Mode = "month" | "everyday";
  * selection, and the full list. Tapping a segment or a row selects it; tapping again returns to the month overview.
  */
 export function SpendingDetail({
+  customerId,
   story,
   monthTitle,
   initialSegment,
 }: {
+  customerId: string;
   story: MonthStory;
   monthTitle: string;
   initialSegment: string | null;
@@ -35,7 +37,7 @@ export function SpendingDetail({
   const ringTotal = parts.reduce((sum, part) => sum + part.valueEur, 0);
   const selectedPart = parts.find((part) => part.name === selected) ?? null;
   const target = selected ?? OVERVIEW;
-  const advice = useAdvice(monthTitle, story, target);
+  const advice = useAdvice(customerId, monthTitle, story, target);
 
   const toggle = (name: string) => setSelected((current) => (current === name ? null : name));
   const switchMode = (next: Mode) => {
@@ -84,12 +86,39 @@ export function SpendingDetail({
 
       <section className="ai-card" key={target} aria-label="AI overview">
         <div className="ai-card__head">
-          <span className="ai-card__kicker">{advice.fromAi ? "AI overview" : "Overview"}</span>
-          {!advice.fromAi && <span className="ai-card__tag">built-in tips · AI not connected</span>}
+          <span className="ai-card__kicker">
+            {advice.fromAi ? "AI overview" : advice.loading ? "AI analysing" : "Overview"}
+          </span>
+          {!advice.fromAi && !advice.loading && (
+            <span className="ai-card__tag">built-in tips · AI not connected</span>
+          )}
         </div>
         <p className="ai-card__title">{selected ? `${selected} · ${formatEur(amountOf(story, selected))}` : monthTitle}</p>
-        <p className="ai-card__text">{advice.summary}</p>
-        <p className="ai-card__text ai-card__rec"><strong>Recommendation:</strong> {advice.recommendation}</p>
+        {advice.loading ? (
+          <div className="ai-card__loading" role="status" aria-live="polite">
+            <span className="ai-card__bar" aria-hidden="true" />
+            <span className="ai-card__loading-text">Generating your overview…</span>
+          </div>
+        ) : (
+          <>
+            <p className="ai-card__text">{advice.summary}</p>
+            {advice.trend && (
+              <>
+                <p className="ai-card__label">Against your previous months</p>
+                <p className="ai-card__text">{advice.trend}</p>
+              </>
+            )}
+            {advice.benchmark && (
+              <>
+                <p className="ai-card__label">Against people with a similar income (last 12 months)</p>
+                <p className="ai-card__text">{advice.benchmark}</p>
+              </>
+            )}
+            <p className="ai-card__text ai-card__rec">
+              <strong>Recommendation:</strong> {advice.recommendation}
+            </p>
+          </>
+        )}
         {selected && (
           <button className="ai-card__back" type="button" onClick={() => setSelected(null)}>
             Back to the month overview

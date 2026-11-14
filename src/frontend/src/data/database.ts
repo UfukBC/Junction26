@@ -20,6 +20,8 @@ export interface Transaction {
   balanceAfterEur: number;
   type: string;
   merchantId: string | null;
+  /** Human-readable place name from the `merchants` table, when the merchant is known. */
+  merchantName: string | null;
   mccCode: string | null;
 }
 
@@ -49,6 +51,8 @@ export interface MonthlyFlow {
 
 export interface MerchantSpend {
   merchantId: string;
+  /** Human-readable place name from the `merchants` table (`merchantId` when unknown). */
+  name: string;
   totalEur: number;
   count: number;
 }
@@ -207,18 +211,19 @@ const NON_SPENDING_CATEGORIES = `'Salary Sweep', 'Invest Deposit'`;
 const NOT_SPENDING = `category NOT IN (${NON_SPENDING_CATEGORIES})`;
 
 const TRANSACTION_COLUMNS = `
-  id,
-  customer_id AS customerId,
-  bank_account_id AS accountId,
-  tx_date AS date,
-  tx_timestamp AS timestamp,
-  tx_ts_iso AS timestampIso,
-  category,
-  tx_amount_eur AS amountEur,
-  balance_after_eur AS balanceAfterEur,
-  transaction_type AS type,
-  merchant_id AS merchantId,
-  mcc_code AS mccCode
+  t.id,
+  t.customer_id AS customerId,
+  t.bank_account_id AS accountId,
+  t.tx_date AS date,
+  t.tx_timestamp AS timestamp,
+  t.tx_ts_iso AS timestampIso,
+  t.category,
+  t.tx_amount_eur AS amountEur,
+  t.balance_after_eur AS balanceAfterEur,
+  t.transaction_type AS type,
+  t.merchant_id AS merchantId,
+  m.name AS merchantName,
+  t.mcc_code AS mccCode
 `;
 
 /* ------------------------------------------------------------ customers */
@@ -241,7 +246,7 @@ export async function getTransactions(
 ): Promise<Transaction[]> {
   const db = await loadDatabase();
   const { sql: rangeSql, params: rangeParams } = rangeClause(options);
-  const categorySql = options.category ? " AND category = ?" : "";
+  const categorySql = options.category ? " AND t.category = ?" : "";
   const params: SqlValue[] = [customerId, ...rangeParams];
   if (options.category) params.push(options.category);
   params.push(options.limit ?? 50, options.offset ?? 0);
@@ -249,9 +254,10 @@ export async function getTransactions(
   return query<Transaction>(
     db,
     `SELECT ${TRANSACTION_COLUMNS}
-     FROM transactions
-     WHERE customer_id = ?${rangeSql}${categorySql}
-     ORDER BY tx_ts_iso ${direction}, id ${direction}
+     FROM transactions t
+     LEFT JOIN merchants m ON m.merchant_id = t.merchant_id AND m.mcc_code = t.mcc_code
+     WHERE t.customer_id = ?${rangeSql}${categorySql}
+     ORDER BY t.tx_ts_iso ${direction}, t.id ${direction}
      LIMIT ? OFFSET ?`,
     params,
   );
@@ -347,14 +353,185 @@ export async function getTopMerchants(
   const { sql: rangeSql, params: rangeParams } = rangeClause(options);
   return query<MerchantSpend>(
     db,
-    `SELECT merchant_id AS merchantId, -SUM(tx_amount_eur) AS totalEur, COUNT(*) AS count
-     FROM transactions
-     WHERE customer_id = ? AND tx_amount_eur < 0 AND ${NOT_SPENDING} AND merchant_id IS NOT NULL AND merchant_id <> ''${rangeSql}
-     GROUP BY merchant_id
+    `SELECT
+       t.merchant_id AS merchantId,
+       COALESCE(MAX(m.name), t.merchant_id) AS name,
+       -SUM(t.tx_amount_eur) AS totalEur,
+       COUNT(*) AS count
+     FROM transactions t
+     LEFT JOIN merchants m ON m.merchant_id = t.merchant_id AND m.mcc_code = t.mcc_code
+     WHERE t.customer_id = ? AND t.tx_amount_eur < 0 AND ${NOT_SPENDING} AND t.merchant_id IS NOT NULL AND t.merchant_id <> ''${rangeSql}
+     GROUP BY t.merchant_id
      ORDER BY totalEur DESC
      LIMIT ?`,
     [customerId, ...rangeParams, options.limit ?? 10],
   );
+}
+
+/** One unusually large purchase, for spotting a spree or a one-off splurge. */
+export interface LargePurchase {
+  date: string;
+  name: string;
+  category: string;
+  amountEur: number;
+}
+
+/** This customer's biggest purchases in a period, largest first. */
+export async function getLargestPurchases(
+  customerId: string,
+  options: DateRange & { limit?: number; minEur?: number } = {},
+): Promise<LargePurchase[]> {
+  const db = await loadDatabase();
+  const { sql: rangeSql, params: rangeParams } = rangeClause(options);
+  const minSql = options.minEur !== undefined ? " AND -t.tx_amount_eur >= ?" : "";
+  const params: SqlValue[] = [customerId, ...rangeParams];
+  if (options.minEur !== undefined) params.push(options.minEur);
+  params.push(options.limit ?? 3);
+  return query<LargePurchase>(
+    db,
+    `SELECT
+       t.tx_date AS date,
+       COALESCE(m.name, t.merchant_id, t.category) AS name,
+       t.category AS category,
+       -t.tx_amount_eur AS amountEur
+     FROM transactions t
+     LEFT JOIN merchants m ON m.merchant_id = t.merchant_id AND m.mcc_code = t.mcc_code
+     WHERE t.customer_id = ? AND t.transaction_type = 'purchase' AND t.tx_amount_eur < 0${rangeSql}${minSql}
+     ORDER BY t.tx_amount_eur ASC
+     LIMIT ?`,
+    params,
+  );
+}
+
+/** One customer's spend in one purchase category in one month. */
+export interface CategoryMonthSpend {
+  month: string;
+  totalEur: number;
+  count: number;
+}
+
+/** Monthly history of one purchase category, oldest first. */
+export async function getCategoryMonthlySpending(
+  customerId: string,
+  category: string,
+): Promise<CategoryMonthSpend[]> {
+  const db = await loadDatabase();
+  return query<CategoryMonthSpend>(
+    db,
+    `SELECT substr(tx_date, 1, 7) AS month, -SUM(tx_amount_eur) AS totalEur, COUNT(*) AS count
+     FROM transactions
+     WHERE customer_id = ? AND category = ? AND tx_amount_eur < 0 AND transaction_type = 'purchase'
+     GROUP BY month
+     ORDER BY month`,
+    [customerId, category],
+  );
+}
+
+/** A place this customer visits often, with the day and hour their visits usually fall on. */
+export interface PlaceHabit {
+  merchantId: string;
+  name: string;
+  category: string;
+  visits: number;
+  totalEur: number;
+  lastDate: string;
+  /** Most common weekday (0 = Sunday … 6 = Saturday); null when no single day stands out. */
+  weekday: number | null;
+  /** Most common hour of day; null when no single hour stands out. */
+  hour: number | null;
+}
+
+/**
+ * This customer's most-visited purchase places in a period, by visit count (T-0xx demo habits).
+ * Only their own purchases; nothing is compared with other customers.
+ */
+export async function getFrequentPlaces(
+  customerId: string,
+  options: DateRange & { limit?: number } = {},
+): Promise<PlaceHabit[]> {
+  const db = await loadDatabase();
+  const { sql: rangeSql, params: rangeParams } = rangeClause(options);
+  const buckets = query<{
+    merchantId: string;
+    mccCode: string;
+    name: string;
+    category: string;
+    visits: number;
+    totalEur: number;
+    lastDate: string;
+    weekday: number;
+    hour: number;
+  }>(
+    db,
+    `SELECT
+       t.merchant_id AS merchantId,
+       t.mcc_code AS mccCode,
+       COALESCE(MAX(m.name), t.merchant_id) AS name,
+       t.category AS category,
+       COUNT(*) AS visits,
+       -SUM(t.tx_amount_eur) AS totalEur,
+       MAX(t.tx_date) AS lastDate,
+       CAST(strftime('%w', t.tx_date) AS INTEGER) AS weekday,
+       CAST(substr(t.tx_ts_iso, 12, 2) AS INTEGER) AS hour
+     FROM transactions t
+     LEFT JOIN merchants m ON m.merchant_id = t.merchant_id AND m.mcc_code = t.mcc_code
+     WHERE t.customer_id = ? AND t.transaction_type = 'purchase'
+       AND t.merchant_id IS NOT NULL AND t.merchant_id <> '' AND t.tx_ts_iso IS NOT NULL${rangeSql}
+     GROUP BY t.merchant_id, t.mcc_code, weekday, hour`,
+    [customerId, ...rangeParams],
+  );
+
+  const places = new Map<string, PlaceHabit & { weekdayCounts: Map<number, number>; hourCounts: Map<number, number> }>();
+  for (const bucket of buckets) {
+    // A merchant can appear under several MCCs; each (merchant, MCC) is its own place.
+    const placeKey = `${bucket.merchantId}|${bucket.mccCode}`;
+    let place = places.get(placeKey);
+    if (!place) {
+      place = {
+        merchantId: bucket.merchantId,
+        name: bucket.name,
+        category: bucket.category,
+        visits: 0,
+        totalEur: 0,
+        lastDate: bucket.lastDate,
+        weekday: null,
+        hour: null,
+        weekdayCounts: new Map(),
+        hourCounts: new Map(),
+      };
+      places.set(placeKey, place);
+    }
+    place.visits += bucket.visits;
+    place.totalEur += bucket.totalEur;
+    if (bucket.lastDate > place.lastDate) place.lastDate = bucket.lastDate;
+    place.weekdayCounts.set(bucket.weekday, (place.weekdayCounts.get(bucket.weekday) ?? 0) + bucket.visits);
+    place.hourCounts.set(bucket.hour, (place.hourCounts.get(bucket.hour) ?? 0) + bucket.visits);
+  }
+
+  const topKey = (counts: Map<number, number>): number | null => {
+    let bestKey: number | null = null;
+    let bestCount = 0;
+    for (const [key, count] of counts) {
+      if (count > bestCount) {
+        bestKey = key;
+        bestCount = count;
+      }
+    }
+    return bestKey !== null && bestCount > 0 ? bestKey : null;
+  };
+
+  return [...places.values()]
+    .map(({ weekdayCounts, hourCounts, ...place }) => {
+      const weekday = topKey(weekdayCounts);
+      const hour = topKey(hourCounts);
+      return {
+        ...place,
+        weekday: weekday !== null && (weekdayCounts.get(weekday) ?? 0) / place.visits >= 0.3 ? weekday : null,
+        hour: hour !== null && (hourCounts.get(hour) ?? 0) / place.visits >= 0.35 ? hour : null,
+      };
+    })
+    .sort((a, b) => b.visits - a.visits)
+    .slice(0, options.limit ?? 5);
 }
 
 export async function getBalanceHistory(

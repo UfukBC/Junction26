@@ -139,6 +139,7 @@ export function HomeScreen({ customerId }: { customerId: string }) {
           {story && status === "ready" ? (
             <SpendingDetail
               key={analysis.segment ?? "none"}
+              customerId={customerId}
               story={story}
               monthTitle={monthLabel(story.month)}
               initialSegment={analysis.segment}

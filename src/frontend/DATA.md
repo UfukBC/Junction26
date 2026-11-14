@@ -30,6 +30,7 @@ The full dataset is **never** bundled: 3.6 M transactions (346 MB CSV, ~585 MB S
 | `src/frontend/src/data/mock.ts` | Static home-screen chrome (bonus card, messages, accounts). Not dataset-derived. |
 | `src/frontend/src/data/benchmarks.json` | Public spending benchmarks by income quintile (Statistics Finland, 2022). Generated, see below. |
 | `src/frontend/src/data/benchmarks.ts` | Typed accessors for the benchmarks (`QUINTILES`, `getCategoryBenchmark`, …). |
+| `src/frontend/src/data/categoryBenchmarks.ts` | Category → COICOP mapping, `incomeQuintile` (closest public band), `compareShare` for one category. |
 | `src/frontend/src/screens/DataScreen.tsx` | Bank tab: summary, categories, recent transactions, mortgage, customer switcher. |
 | `src/frontend/scripts/build-demo-db.mjs` | Node script that builds the slim DB from `data/raw/`. |
 | `src/frontend/public/data/s_pankki-demo.db` | Prebuilt demo database (9 customers). |
@@ -64,6 +65,14 @@ Defined in `src/frontend/scripts/build-demo-db.mjs` (`DEFAULT_CUSTOMERS`):
 | `CUST04506` | 24 | – | – | **Heavy restaurant spender:** 22.5% of their spending goes to restaurants; spends more than earned in 2025. |
 | `CUST03172` | 58 | – | – | **Late-evening big spender** (T-016): in Jul–Sep 2026, 6 of their 14 big purchases (6,741 €) were after 21:00 although only 9% of their purchases happen then. Picked by a one-off check of customers' *own* histories against the T-016 rule; it is the demo for the time-habit warning. None of the other 8 demo customers triggers the rule, which is the expected result. |
 
+`CUST04457` (the default demo customer) also gets **synthetic enrichment** in `build-demo-db.mjs`, clearly marked in code, so each month has its own story instead of the same advice everywhere:
+
+- `DEMO_HABITS`: in the opening month only (2026-09), their weekday restaurant purchases are relabelled to `MRC-RES-0022` ("Ravintola Kaarti") and moved to lunch, plus a Thursday lunch for every week without one. Result: five visits to one place in September, visible as a named habit.
+- `DEMO_MONTH_THEMES`: every other month gets a planned standout — five taxi rides, a 550–950 € shopping spree, a travel booking (flight + hotel), a health cost, a dining month, or a calm month. Sparse months (under `BASELINE_EUR`, 480 €) also get an ordinary everyday basket, so the screen is never nearly empty.
+- Amounts are seeded from the month, so the same build gives the same DB. The AI brief carries a `Standout` line when one payment is ≥200 € and at least 2× the next payment, so spree months lead with that purchase instead of a small repeated place.
+
+All steps add purchases, then the builder recomputes `balance_after_eur` per customer, so the running balance stays consistent (verified: 0 continuity gaps). The other demo customers are untouched.
+
 The last five were chosen once, while building the demo, to show different personal situations (young adult, high income, negative balances, restaurant-heavy spending, late-evening big purchases). The descriptions above use only each customer's own numbers. **Rule:** product features never use other S-Bank customers' data; for any comparison use only the public Statistics Finland benchmarks (see `BENCHMARKS.md`). Salary-sweep customers show only part of their real spending, because most of their money leaves to another account (see `docs/references/dataset.md`).
 
 
@@ -96,6 +105,8 @@ Every demo customer gets their customer row, all transactions, their mortgage li
 
 `customers`: `customer_id` (PK), `customer_postal_code` (keep as TEXT), `customer_age` (INTEGER).
 
+`merchants`: `(merchant_id, mcc_code)` composite PK, plus `name` and `category`. Synthetic display names for the merchant ids in the demo DB (`scripts/merchant-names.mjs`): the challenge data has no names, only `MRC-RES-0022` style codes. Pinned names cover the merchants the demo leans on (`MRC-RES-0022` → "Ravintola Kaarti", `MRC-GRO-0029` → "K-Market Töölö"); the rest are generated deterministically from a brand + area pool. The key includes MCC because some merchant ids appear with more than one MCC: transportation names come from the MCC (taxis "Bolt/Taksi Helsinki", transit "HSL/VR", fuel "Neste/ABC", parking "Q-Park/EuroPark"), so a fuel payment is never labelled like a taxi. All joins on `merchants` must match both columns.
+
 `mortgage_links`: `mortgage_customer_id` (PK), `customer_id`, `final_decision`, `rejection_reason`, `final_property_price_eur`, `final_requested_loan_eur`, `final_equity_amount_eur`, `final_collateral_value_eur`, `required_monthly_income_eur`, `final_loan_to_value`.
 The upstream column is misspelled `lfinal_loan_to_value`; it is normalized here to `final_loan_to_value`.
 
@@ -127,7 +138,9 @@ import {
 | `getTransactionSummary(id, range?)` | `CustomerSummary` — income, spending, net, count, first/last date, latest balance |
 | `getSpendingByCategory(id, range?)` | `CategorySpend[]` — total, count, share; sorted by total |
 | `getMonthlyFlow(id, range?)` | `MonthlyFlow[]` — `{ month, incomeEur, spendingEur, netEur }` |
-| `getTopMerchants(id, { limit?, ...range })` | `MerchantSpend[]` |
+| `getTopMerchants(id, { limit?, ...range })` | `MerchantSpend[]` — `{ merchantId, name, totalEur, count }`, `name` from `merchants` |
+| `getFrequentPlaces(id, { limit?, ...range })` | `PlaceHabit[]` — `{ merchantId, name, category, visits, totalEur, lastDate, weekday, hour }`, most visited first; `weekday`/`hour` only when one value covers ≥30 %/35 % of the visits |
+| `getLargestPurchases(id, { limit?, minEur?, ...range })` | `LargePurchase[]` — `{ date, name, category, amountEur }`, largest first |
 | `getBalanceHistory(id, range?)` | `BalancePoint[]`, chronological |
 | `getMortgageLink(customerId)` | `MortgageLink \| null` |
 | `getMortgageEvents(mortgageId)` | `MortgageEvent[]` |
@@ -165,6 +178,18 @@ Rule (defaults in `DEFAULT_HABIT_OPTIONS`): big = at least 3x the customer's own
 Tests: `npm test` (Vitest, `src/data/timeHabits.test.ts`).
 
 To view another demo customer on Home: add `?customer=CUST03172` to the URL (default `CUST04457`).
+
+### AI overview input (habits, history, income band)
+
+The extended view's AI card (`components/spending/SpendingDetail.tsx` → `data/useAdvice.ts`) sends month aggregates **plus** facts built only from the customer's own rows: the top places from `getFrequentPlaces` for the shown month, a `habitLine` when the top place has at least 3 visits (name, visits, euros, usual weekday/hour), and the largest payments from `getLargestPurchases` (top 4 over 40 €, with place and date). The `/api/segment-advice` prompt (`vite.config.ts`, and the same task in `src/backend/src/prompts.mjs`) tells the model to name a dangerous habit, a sudden high expense (spree/splurge), or a preventable cost with a cheaper alternative (taxi → bus/train, restaurant lunch → lunch from home), and to give one recommendation with a number. When the model is unavailable, the built-in text already includes the habit sentence, a one-off-payment note for any payment ≥ 100 €, and a "one visit less a week" saving.
+
+**Caching and loading.** Generated overviews are cached per customer + month + segment in `localStorage` (`s-pankki.ai-advice.v1.<customerId>|<YYYY-MM>|<segment>`) with a hash of the brief they were built from, so rebuilt data produces a cache miss instead of stale text. Reopening the view or switching back to a month/segment reuses the text instantly with no model call. While a request is in flight the card shows a loading bar ("Generating your overview…") instead of the built-in copy; the data-driven overview appears only when the model is unavailable (missing key or a failed call).
+
+**Selected category.** Tapping one category scopes the whole card to it: `getCategoryMonthlySpending` gives the category's own month history (for the trend), `getFrequentPlaces` and `getLargestPurchases` are filtered to that category, the benchmark is that category's share, and the brief tells the model to write only about it. `useAdvice` keys the cache on the category as the segment, so each category is generated and cached separately.
+
+**Against previous months.** `monthTrend` in `useAdvice.ts` compares the shown month's bills + everyday spending with the average of up to 12 earlier months from `getMonthlyFlow`. The card shows it under "Against your previous months" (`Advice.trend`), and the same sentence goes into the AI brief.
+
+**Against the income band.** `incomeBand` sums the customer's own deposits over the last 12 months and `incomeQuintile` (`data/categoryBenchmarks.ts`) picks the nearest public quintile mean per consumption unit (single-adult assumption). `benchmarkFor` then compares the selected category — or the largest everyday category — with that band via `compareShare`, using the **trailing 12 months** of `getSpendingByCategory` as the denominator. A single month is deliberately not used: a sparse month (for example a month with few purchases but a weekly lunch habit) makes one repeated place look like most of the customer's spending. The card shows it under "Against people with a similar income" (`Advice.benchmark`) and the AI brief gets the same note. The value comes from the nearest public quintile, but the UI never names the quintile or the reference year: it says "people with a similar income", never another customer. Caveats: quintiles are disposable income per consumption unit, the file has group means not cut-offs, and the basket is normalised to the app's purchase categories.
 
 ### Year view (dashboard)
 
