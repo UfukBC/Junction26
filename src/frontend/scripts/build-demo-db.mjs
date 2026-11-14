@@ -228,6 +228,7 @@ const DEMO_MONTH_THEMES = {
   "2026-05": "spree",
   "2026-06": "travel",
   "2026-07": "dining",
+  "2026-08": "taxi",
   "2026-09": "habit",
 };
 
