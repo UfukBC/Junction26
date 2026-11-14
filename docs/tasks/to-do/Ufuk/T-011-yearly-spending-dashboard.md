@@ -2,7 +2,7 @@
 id: T-011
 title: Build the yearly spending dashboard, month by month
 owner: Ufuk              # Ufuk | Michal | Chamb | unassigned
-status: todo             # todo | in-progress | blocked
+status: blocked          # todo | in-progress | blocked
 priority: high           # high | medium | low
 area: frontend           # backend | frontend | infra | design | pitch | other
 created: 2026-11-14
@@ -41,3 +41,4 @@ A dashboard screen where the user sees their spending over a year, month by mont
 
 ## Progress
 <!-- Whoever works on the task updates this, oldest first. It should be enough for a fresh session to pick up the work. -->
+- 2026-11-14: **on hold.** After seeing the app, Ufuk asked for no annual view: the home screen shows the current month with a category pie instead (built under T-012, inbox entry `I-20261114-home-current-month-pie`). Revisit or close this task.

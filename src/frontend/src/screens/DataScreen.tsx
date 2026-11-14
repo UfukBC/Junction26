@@ -9,9 +9,15 @@ import { formatEur, formatPercent } from "../format";
 
 type Status = "loading" | "ready" | "error";
 
-export function DataScreen() {
+/** `selectedId`/`onSelect` are optional: when given, the app shares the selected customer with other screens (e.g. the home spending card). */
+export function DataScreen({ selectedId: sharedId, onSelect }: { selectedId?: string; onSelect?: (id: string) => void } = {}) {
   const [customers, setCustomers] = useState<Customer[]>([]);
-  const [selectedId, setSelectedId] = useState<string>();
+  const [ownId, setOwnId] = useState<string>();
+  const selectedId = sharedId ?? ownId;
+  const setSelectedId = (id: string) => {
+    setOwnId(id);
+    onSelect?.(id);
+  };
   const [dashboard, setDashboard] = useState<CustomerDashboard | null>(null);
   const [status, setStatus] = useState<Status>("loading");
   const [error, setError] = useState("");
@@ -22,7 +28,7 @@ export function DataScreen() {
       .then((list) => {
         if (!active) return;
         setCustomers(list);
-        setSelectedId((current) => current ?? list[0]?.id);
+        setOwnId((current) => current ?? list[0]?.id);
       })
       .catch((cause: unknown) => {
         if (!active) return;

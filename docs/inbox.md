@@ -88,3 +88,34 @@ The same PxWeb table (`14ph.px`) also breaks figures down by household type, inc
 - **Evidence:** DuckDB over the full `tx_junction_transactions.csv` (per-customer monthly averages, spending excludes Salary Sweep and Invest Deposit): sweep customers n=264, median spending 474 €/month, median spending/income 0.11; others n=4,836, median 2,875 €/month, ratio 0.92. Demo DB: CUST00382 sweeps 60,276 € of 70,488 € income, CUST04415 121,763 € of 154,667 €.
 
 - **Salary-sweep customers look like almost-non-spenders.** The 264 customers with `salary_sweep` move most of each salary to another account within days, so only ~11% of their income shows up as spending (median 474 €/month vs 2,875 € for the other 4,836). Their low spending, restaurant shares and negative-balance rates are not comparable to other customers: exclude them when picking typical profiles or computing benchmarks, or label them as "partial view" in the UI.
+
+---
+
+### I-20261114-home-current-month-pie
+
+- [ ] Approved
+- **Type:** decision
+- **Target:** new decision; supersedes the "year, month by month" part of D-0006
+- **Task:** T-011, T-012
+- **Author:** AI (stated by Ufuk in chat)
+- **Evidence:** user feedback 2026-11-14 ("don't show the annual expenses, show the current month, use a pie chart with different colours"); `src/frontend/src/components/MonthSpendingCard.tsx`
+
+**Title:** Home shows one month's spending as a compact pie with month arrows; tapping opens a spending analysis screen; no annual view
+
+**Context:** D-0006 planned a yearly, month-by-month dashboard. After seeing the app, Ufuk asked not to show annual expenses, but the current month, with a pie chart in distinct colours so categories are easy to understand. He then asked for arrows to switch months, a smaller chart on the home screen, and a bigger, detailed analysis view (opened by tapping the chart) that will hold the AI overviews.
+
+**Decision:**
+- The top of the home screen (where S-mobiili shows the bonus card) is a compact spending card for one month, from the 1st to the last day: a small pie, total spent, money in, left / over by, and the top 3 categories. ‹ › arrows step through the months that have data; it opens on the current month.
+- "Current month" is the month of the last transaction in the demo DB (`getDataAsOf()`, today September 2026), because the data ends 2026-09-30.
+- Tapping the card opens the **spending analysis** screen for the same month (with the same arrows): a big pie, money in / spent / left tiles, every category with its amount, share and change vs the previous month ("Other" is broken down into its categories), tap to highlight, and an **AI overview** section where the personalized insights (T-014) go.
+- Pie colours: the 5 largest categories in fixed colour slots (blue, orange, aqua, yellow, violet), the rest folded into a grey "Other"; names and amounts are always printed next to the pie.
+- The selected demo customer and month are shared by the home card, the analysis screen and the Bank tab (default customer CUST03953, the young-adult profile).
+
+**Alternatives considered:**
+- **Yearly month-by-month chart (D-0006, T-011):** rejected by Ufuk after seeing the app.
+- **Ranked bars instead of a pie** (the dataviz guidance prefers bars for comparing parts): the team wants the pie for at-a-glance understanding; the legend with amounts covers exact comparison.
+
+**Consequences:**
+- T-011 (yearly dashboard) is on hold; the year helpers from T-010 (`getYearSpending`, `listAvailableYears`) stay available but unused by the UI.
+- The S-mobiili bonus card is gone from the home screen.
+- Colours follow rank, not category (the largest category is always blue), because 10 categories don't fit 5 validated colours.
