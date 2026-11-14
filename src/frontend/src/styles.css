@@ -12,6 +12,14 @@
   --card: #ffffff;
   --bg: #ffffff;
   --frame: #dfe6e1;
+  /* premium polish: depth and finish on top of the S-Bank palette */
+  --green-deep: #015c33;
+  --grad-green: linear-gradient(140deg, #04904f 0%, #017842 48%, #015c33 100%);
+  --hair: rgba(16, 48, 30, 0.08);
+  --shadow-1: 0 1px 2px rgba(16, 48, 30, 0.05), 0 2px 8px -2px rgba(16, 48, 30, 0.06);
+  --shadow-2: 0 1px 2px rgba(16, 48, 30, 0.04), 0 10px 28px -10px rgba(16, 48, 30, 0.16);
+  --shadow-green: 0 10px 22px -10px rgba(1, 110, 60, 0.6);
+  --ease-out: cubic-bezier(0.22, 0.8, 0.24, 1);
   font-family: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
   -webkit-font-smoothing: antialiased;
@@ -669,3 +677,165 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* projection line inside the AI tips card */
 .ai-card__projection { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(1, 120, 66, 0.15); }
 .ai-card__projection strong { color: var(--green-text); }
+
+/* =====================================================================================================
+   Premium polish layer. Same S-Bank palette, font and layout; adds depth (soft layered shadows instead
+   of borders), subtle green gradients on brand surfaces, refined numerals and press feedback.
+   Only colour, shadow, radius, type and motion here: the height-scaling rules above keep the sizes.
+   ===================================================================================================== */
+
+/* frame (desktop preview) */
+body { background: radial-gradient(120% 80% at 50% 0%, #eef3ef 0%, var(--frame) 70%); }
+@media (min-width: 600px) {
+  .phone { box-shadow: 0 0 0 1px rgba(0, 40, 20, 0.06), 0 40px 90px -30px rgba(0, 40, 20, 0.38), 0 12px 30px -12px rgba(0, 40, 20, 0.18); }
+}
+
+/* numbers: tabular, slightly tighter */
+.donut__value, .row__amount, .account-row__balance, .month-switcher__month, .data-kpi__value {
+  font-variant-numeric: tabular-nums; letter-spacing: -0.02em;
+}
+
+/* press feedback on tappable surfaces */
+.action, .goal-card__cta, .account-row, .row, .quiz__option, .quiz__cta, .save-prompt__yes, .save-prompt__no,
+.habit-banner, .month-switcher__arrow, .seg button, .tab {
+  transition: transform 140ms var(--ease-out), background 200ms ease, box-shadow 200ms ease, opacity 200ms ease, color 200ms ease;
+}
+.action:active .action__circle, .goal-card__cta:active, .quiz__cta:active:not(:disabled),
+.save-prompt__yes:active:not(:disabled), .save-prompt__no:active, .habit-banner:active { transform: scale(0.97); }
+.action__circle { transition: transform 140ms var(--ease-out); }
+
+/* top bar */
+.icon-button--dot::after { background: var(--green-bright); }
+.month-switcher__arrow { background: #eef6f0; box-shadow: inset 0 0 0 1px rgba(1, 120, 66, 0.06); }
+.month-switcher__arrow:disabled { background: transparent; box-shadow: none; }
+.month-switcher__range { letter-spacing: 0.01em; }
+
+/* spending card */
+.spend__card {
+  border: 1px solid var(--hair);
+  border-radius: 22px;
+  background: radial-gradient(130% 65% at 50% 0%, #f2f9f4 0%, #ffffff 62%);
+  box-shadow: var(--shadow-2);
+}
+.donut__inner { stroke: rgba(1, 120, 66, 0.08); stroke-width: 1; }
+.donut__label { font-weight: 600; letter-spacing: 0.01em; }
+.rows--compact li + li { border-top: 1px solid var(--line); }
+.rows--compact .row { border-radius: 10px; }
+.row__name { font-weight: 600; }
+.row--compact .row__name { font-weight: 600; color: #2a2a2d; }
+.row__amount { font-weight: 700; }
+.row__dot { width: 10px; height: 10px; box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9); }
+.row__dot--ring { box-shadow: inset 0 0 0 2px var(--green); }
+
+/* tinted lower area: a sheet lip under the card */
+.tinted {
+  background: linear-gradient(180deg, #f0f8f2 0%, var(--tint) 140px);
+  border-radius: 26px 26px 0 0;
+  box-shadow: 0 -1px 0 rgba(1, 120, 66, 0.05);
+}
+
+/* goal card */
+.goal-card {
+  position: relative; overflow: hidden;
+  background: var(--grad-green);
+  border-radius: 18px;
+  box-shadow: var(--shadow-green);
+}
+.goal-card::after {
+  content: ""; position: absolute; right: -40px; top: -60px; width: 170px; height: 170px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0) 70%);
+  pointer-events: none;
+}
+.goal-card > * { position: relative; z-index: 1; }
+.goal-card__icon { background: rgba(255, 255, 255, 0.16); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18); }
+.goal-card__cta { border-radius: 999px; padding: 0 17px; box-shadow: 0 4px 10px -4px rgba(0, 30, 15, 0.45); }
+.goal-card--set { background: #fff; border: 1px solid var(--hair); box-shadow: var(--shadow-1); }
+.goal-card--set::after { display: none; }
+.goal-card--set .goal-card__icon { background: var(--tint); box-shadow: none; }
+
+/* quick actions */
+.action__circle {
+  background: var(--grad-green);
+  box-shadow: 0 8px 16px -8px rgba(1, 110, 60, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+.action__label { font-size: 12px; font-weight: 600; color: #2a2a2d; }
+
+/* accounts */
+.section-title { font-size: 16px; letter-spacing: -0.2px; }
+.accounts { border-radius: 18px; border: 1px solid var(--hair); box-shadow: var(--shadow-1); }
+.account-row:active { background: #f6faf7; }
+.account-row__name { font-weight: 600; }
+.account-row__balance { font-weight: 700; }
+
+/* tab bar: frosted, with an indicator over the active tab */
+.tabbar {
+  background: rgba(255, 255, 255, 0.92);
+  -webkit-backdrop-filter: saturate(1.6) blur(14px);
+  backdrop-filter: saturate(1.6) blur(14px);
+  border-top: 1px solid var(--hair);
+}
+.tab { position: relative; font-weight: 500; }
+.tab--active { color: var(--green-text); font-weight: 700; }
+.tab--active::before {
+  content: ""; position: absolute; top: -10px; left: 50%; width: 28px; height: 3px; margin-left: -14px;
+  border-radius: 0 0 3px 3px; background: var(--green-bright);
+}
+
+/* time-habit banner */
+.habit-banner {
+  background: #fffaf0; border: 1px solid #f0d49c; border-radius: 14px; box-shadow: var(--shadow-1);
+}
+.habit-banner > svg:first-child {
+  box-sizing: content-box; padding: 6px; border-radius: 50%; background: #fcebc5; flex: none;
+}
+.habit-banner__text span { color: #8a7a5c; }
+
+/* extended view */
+.seg { background: #eef6f0; box-shadow: inset 0 0 0 1px rgba(1, 120, 66, 0.06); }
+.seg button[aria-pressed="true"] { background: var(--grad-green); box-shadow: 0 6px 14px -8px rgba(1, 110, 60, 0.75); }
+.ai-card {
+  background: linear-gradient(180deg, #f4fbf6 0%, #eaf6ed 100%);
+  border: 1px solid rgba(1, 120, 66, 0.1);
+  border-radius: 20px;
+  box-shadow: var(--shadow-1);
+}
+.ai-card__kicker { display: inline-flex; align-items: center; gap: 7px; }
+.ai-card__kicker::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--green-bright);
+  box-shadow: 0 0 0 3px rgba(0, 172, 73, 0.18);
+}
+.ai-card__text { color: #2a2a2d; }
+.row--chip { background: #fff; border: 1px solid var(--hair); box-shadow: var(--shadow-1); border-radius: 14px; }
+.row--chip.row--on { background: #f4fbf6; border-color: transparent; box-shadow: inset 0 0 0 1.5px var(--green), var(--shadow-1); }
+.row--chip .row__name { font-weight: 600; }
+
+/* questionnaire */
+.quiz__progress { background: #e8eee9; }
+.quiz__option { background: #fff; border: 1.5px solid var(--hair); box-shadow: var(--shadow-1); }
+.quiz__option:active { transform: scale(0.99); }
+.quiz__option--active { background: #f6fbf7; border-color: var(--green-bright); box-shadow: 0 6px 18px -10px rgba(1, 120, 66, 0.45); }
+.quiz__option-label { font-weight: 600; }
+.quiz__reference { background: #f6fbf7; border: 1px solid rgba(1, 120, 66, 0.1); }
+.quiz__amount, .quiz__month, .quiz__summary { border-color: var(--hair); box-shadow: var(--shadow-1); }
+.quiz__amount:focus-within, .quiz__month:focus { box-shadow: 0 0 0 4px rgba(0, 172, 73, 0.12); }
+.quiz__cta { background: var(--grad-green); box-shadow: var(--shadow-green); }
+.quiz__cta:disabled { opacity: 1; background: #e3ebe5; color: #98a69e; box-shadow: none; cursor: default; }
+
+/* sheets and the monthly save prompt */
+.sheet__backdrop, .save-prompt { -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+.sheet__panel { border-radius: 26px 26px 0 0; box-shadow: 0 -12px 40px -12px rgba(0, 40, 20, 0.25); }
+.sheet__panel::before {
+  content: ""; display: block; width: 38px; height: 4px; margin: -6px auto 10px; border-radius: 999px; background: #d9dfdb;
+}
+.save-prompt__card { border-radius: 24px; }
+.save-prompt__yes { background: var(--grad-green); box-shadow: var(--shadow-green); }
+.save-prompt__no { background: #eef6f0; }
+
+/* Bank tab (data screen) */
+.data-user, .data-kpi { background: #fff; border: 1px solid var(--hair); box-shadow: var(--shadow-1); }
+.data-user--active { border-color: var(--green-bright); }
+.data-txs { border: 1px solid var(--hair); box-shadow: var(--shadow-1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .action, .goal-card__cta, .account-row, .row, .quiz__option, .quiz__cta, .habit-banner, .action__circle { transition: none; }
+}

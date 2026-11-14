@@ -42,6 +42,7 @@ export function Donut({
       style={{ ["--c" as string]: CIRC }}
     >
       <circle cx={C} cy={C} r={R} fill="none" stroke="#eef3ef" strokeWidth={STROKE} />
+      <circle className="donut__inner" cx={C} cy={C} r={R - STROKE / 2 - 7} fill="none" />
       {total > 0 && (
         <g transform={`rotate(-90 ${C} ${C})`}>
           {parts.map((part, index) => {

@@ -22,6 +22,6 @@
 
 ## Segment advice
 
-**Segment advice key:** `XAI_API_KEY` in the environment or in `src/frontend/.env` (gitignored). The Vite dev server reads it with `loadEnv` and calls `POST https://api.x.ai/v1/responses` with model `grok-4.7` and `store: false`. The key is not sent to the browser.
+**Segment advice key:** `VERDA_INFERENCE_KEY` in the environment or in `src/frontend/.env` (gitignored; copy `.env.example`). The Vite dev/preview server reads it with `loadEnv` and calls the Verda-hosted Nemotron 3.5 Super VL (OpenAI-compatible) at `https://containers.datacrunch.io/nemotron-3-5-super-vl-b300/v1/chat/completions`, model `nemotron-3.5-super-vl`, `max_tokens` 1500. The key is not sent to the browser.
 
 `motion-graphic.html` posts `{ month, segment, brief }` to `/api/segment-advice` only when the page is served by that dev server. With no key the route returns 503 and the graphic keeps the trainer lines written in the file. Opening the HTML with `file://` does not call the API.
