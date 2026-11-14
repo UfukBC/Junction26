@@ -1,44 +1,14 @@
 import { useEffect, useState } from "react";
-import {
-  getCustomerDashboard,
-  listCustomers,
-  type Customer,
-  type CustomerDashboard,
-} from "../data/database";
+import { getCustomerDashboard, type CustomerDashboard } from "../data/database";
 import { formatEur, formatPercent } from "../format";
 
 type Status = "loading" | "ready" | "error";
 
-/** `selectedId`/`onSelect` are optional: when given, the app shares the selected customer with other screens (e.g. the home spending card). */
-export function DataScreen({ selectedId: sharedId, onSelect }: { selectedId?: string; onSelect?: (id: string) => void } = {}) {
-  const [customers, setCustomers] = useState<Customer[]>([]);
-  const [ownId, setOwnId] = useState<string>();
-  const selectedId = sharedId ?? ownId;
-  const setSelectedId = (id: string) => {
-    setOwnId(id);
-    onSelect?.(id);
-  };
+/** Bank tab. The customer is chosen on the Me tab, so `selectedId` comes from the app. */
+export function DataScreen({ selectedId }: { selectedId?: string }) {
   const [dashboard, setDashboard] = useState<CustomerDashboard | null>(null);
   const [status, setStatus] = useState<Status>("loading");
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    let active = true;
-    listCustomers()
-      .then((list) => {
-        if (!active) return;
-        setCustomers(list);
-        setOwnId((current) => current ?? list[0]?.id);
-      })
-      .catch((cause: unknown) => {
-        if (!active) return;
-        setError(cause instanceof Error ? cause.message : String(cause));
-        setStatus("error");
-      });
-    return () => {
-      active = false;
-    };
-  }, []);
 
   useEffect(() => {
     if (!selectedId) return;
@@ -77,26 +47,9 @@ export function DataScreen({ selectedId: sharedId, onSelect }: { selectedId?: st
         <p className="data-eyebrow">Demo data</p>
         <h1 className="data-title">Your money, decoded</h1>
         <p className="data-sub">
-          A few synthetic S-Pankki customers, queried in the browser from a slim SQLite file.
+          Synthetic S-Pankki data, queried in the browser from a slim SQLite file.
         </p>
       </header>
-
-      <section className="data-users" aria-label="Choose a customer">
-        {customers.map((customer) => (
-          <button
-            key={customer.id}
-            type="button"
-            className={`data-user ${customer.id === selectedId ? "data-user--active" : ""}`}
-            aria-pressed={customer.id === selectedId}
-            onClick={() => setSelectedId(customer.id)}
-          >
-            <span className="data-user__id">{customer.id}</span>
-            <span className="data-user__meta">
-              {customer.age} yrs · {customer.postalCode}
-            </span>
-          </button>
-        ))}
-      </section>
 
       {status === "loading" || !dashboard ? (
         <p className="data-loading">Loading your data…</p>

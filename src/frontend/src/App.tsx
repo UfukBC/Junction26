@@ -4,10 +4,12 @@ import { MonthSpendingCard } from "./components/MonthSpendingCard";
 import { AccountsList, QuickActions } from "./components/HomeSections";
 import { GoalCard } from "./components/GoalCard";
 import { TabBar, type Tab } from "./components/TabBar";
+import { listCustomers, type Customer } from "./data/database";
 import { homeData } from "./data/mock";
 import { clearAnswers, loadAnswers, type QuestionnaireAnswers } from "./data/questionnaire";
 import { useSpendingMonths } from "./data/useSpending";
 import { DataScreen } from "./screens/DataScreen";
+import { MeScreen } from "./screens/MeScreen";
 import { QuestionnaireScreen } from "./screens/QuestionnaireScreen";
 import { SpendingAnalysis } from "./screens/SpendingAnalysis";
 
@@ -28,9 +30,23 @@ export default function App() {
   // Default: the young-adult profile (see DATA.md).
   const [customerId, setCustomerId] = useState("CUST03953");
   const [answers, setAnswers] = useState<QuestionnaireAnswers | null>(null);
+  // Demo customers for the picker, loaded once and shared with the Me tab.
+  const [customers, setCustomers] = useState<Customer[]>([]);
+  const [customersError, setCustomersError] = useState("");
   // Selected month (YYYY-MM). null = the latest month with data, i.e. the "current month".
   const [pickedMonth, setPickedMonth] = useState<string | null>(null);
   const { months } = useSpendingMonths(customerId);
+
+  useEffect(() => {
+    let active = true;
+    listCustomers()
+      .then((list) => active && setCustomers(list))
+      .catch((cause: unknown) => active && setCustomersError(cause instanceof Error ? cause.message : String(cause)));
+    return () => {
+      active = false;
+    };
+  }, []);
+
   const month = months?.length
     ? pickedMonth && months.includes(pickedMonth)
       ? pickedMonth
@@ -101,8 +117,15 @@ export default function App() {
               </>
             )}
             {tab === "etukortti" && <Placeholder title="S-Etukortti" />}
-            {tab === "bank" && <DataScreen selectedId={customerId} onSelect={setCustomerId} />}
-            {tab === "me" && <Placeholder title="Me" />}
+            {tab === "bank" && <DataScreen selectedId={customerId} />}
+            {tab === "me" && (
+              <MeScreen
+                customers={customers}
+                customersError={customersError}
+                selectedId={customerId}
+                onSelect={setCustomerId}
+              />
+            )}
           </>
         )}
       </main>
